@@ -1,0 +1,30 @@
+.card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.mencaoHonrosa {
+    border: 1px solid #e0e0e0;
+}
+
+.grandePremio {
+    border: 2px solid #fcb900; /* Borda dourada para o grande prêmio */
+    box-shadow: 0 8px 30px rgba(252, 185, 0, 0.3); /* Sombra correspondente */
+}
+
+.badge {
+    background-color: #fcb900;
+    color: #2c3e50;
+    padding: 4px 8px;
+    border-radius: 12px;
+    display: inline-block;
+    margin-bottom: 12px;
+    font-weight: bold;
+}

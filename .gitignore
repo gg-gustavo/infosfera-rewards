@@ -19,3 +19,5 @@ Thumbs.db
 # Arquivos de configuração de editores de código
 .vscode/
 .idea/
+
+/node_modules
