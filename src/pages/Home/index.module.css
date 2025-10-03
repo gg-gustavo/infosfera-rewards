@@ -1,44 +1,32 @@
 .homePage {
     background-color: #f5f5f5;
-    min-height: 100vh;
     padding-top: 2rem;
 }
-
 .contentContainer {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
     width: 100%;
 }
-
 @media (max-width: 768px) {
     .contentContainer {
         padding: 0 1rem;
     }
 }
-
-/* ========================================
-   SEÇÕES DE CONTEÚDO
-   ======================================== */
-
 .section {
     padding: 4rem 0;
     background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
 }
-
 .section:first-of-type {
     padding-top: 2rem;
 }
-
 .sectionLight {
     background-color: #f0f4f8;
 }
-
 .sectionHeader {
     text-align: center;
     margin-bottom: 4rem;
 }
-
 .sectionTitle {
     color: #2d2e82;
     font-weight: 700 !important;
@@ -47,7 +35,6 @@
     position: relative;
     display: inline-block;
 }
-
 .titleUnderline {
     position: absolute;
     bottom: -10px;
@@ -58,23 +45,14 @@
     background: linear-gradient(90deg, #2d2e82 0%, #1abc9c 100%);
     border-radius: 2px;
 }
-
 .sectionSubtitle {
     color: #666;
     margin-top: 2rem !important;
-/*  max-width: 800px;
-*/
     margin-left: auto;
     margin-right: auto;
     font-size: 1.1rem !important;
     line-height: 1.8;
 }
-
-/* ========================================
-   ESTILOS DE CARDS
-   ======================================== */
-
-/* Base para todos os cards com animação */
 .infoCard, .categoryCard, .highlightCard {
     height: 100%;
     border-radius: 16px !important;
@@ -84,41 +62,32 @@
     position: relative;
     overflow: hidden;
     cursor: pointer;
-
-    /* Animação de entrada */
     opacity: 0;
     transform: translateY(30px);
     transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
-
 .infoCard.visible, .categoryCard.visible, .highlightCard.visible {
     opacity: 1;
     transform: translateY(0);
 }
-
 .infoCard:hover, .categoryCard:hover {
     transform: translateY(-8px) scale(1.02);
     box-shadow: 0 12px 40px rgba(45, 46, 130, 0.15) !important;
 }
-
 .highlightCard:hover {
     transform: translateY(-8px) scale(1.02);
     box-shadow: 0 12px 40px rgba(45, 46, 130, 0.15) !important;
 }
-
 .fullHeightCard {
     display: flex;
     flex-direction: column;
     min-width: 100%;
 }
-
 .fullHeightCard > div {
     flex: 1;
     display: flex;
     flex-direction: column;
 }
-
-/* Card de Informação Padrão */
 .cardAccentBar {
     position: absolute;
     top: 0;
@@ -130,13 +99,11 @@
 .accentSecondary {
     background: linear-gradient(90deg, #1abc9c 0%, #16a085 100%);
 }
-
 .cardHeader {
     display: flex;
     align-items: center;
     margin-bottom: 1.5rem;
 }
-
 .cardIconWrapper {
     width: 50px;
     height: 50px;
@@ -149,35 +116,28 @@
 }
 .iconPrimary { background: linear-gradient(135deg, #2d2e82 0%, #3d3e92 100%); }
 .iconSecondary { background: linear-gradient(135deg, #1abc9c 0%, #16a085 100%); }
-
-
 .cardTitle {
     color: #2d2e82;
     font-weight: 700 !important;
     font-size: 1.75rem !important;
     margin: 0;
 }
-
-/* Card de Categoria (Quem pode participar) */
 .categoryCard {
     background: white !important;
     text-align: center;
     display: flex;
     flex-direction: column;
 }
-
 .categoryCard > div {
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
 }
-
 .categoryCard:hover {
     transform: translateY(-12px);
     box-shadow: 0 16px 48px rgba(45, 46, 130, 0.2) !important;
 }
-
 .categoryIconWrapper {
     width: 70px;
     height: 70px;
@@ -189,15 +149,12 @@
     justify-content: center;
     color: white;
 }
-
 .categoryTitle {
     color: #2d2e82;
     font-weight: 700 !important;
     font-size: 1.5rem !important;
     margin-bottom: 1rem !important;
 }
-
-/* Card de Destaque (Premiação) */
 .highlightCard {
     background: linear-gradient(135deg, #2d2e82 0%, #1abc9c 100%) !important;
     color: white !important;
@@ -208,7 +165,6 @@
     text-align: center;
     height: 100%;
 }
-
 .highlightCard > div {
     flex: 1;
     display: flex;
@@ -217,16 +173,10 @@
     align-items: center;
     width: 100%;
 }
-
-/* ========================================
-   OUTROS ELEMENTOS
-   ======================================== */
-
 .buttonContainer {
     text-align: center;
     margin-top: 3rem;
 }
-
 .actionButton {
     padding: 0.75rem 2rem;
     background-color: transparent;
@@ -237,23 +187,20 @@
     font-size: 1rem;
     cursor: pointer;
     transition: all 0.3s ease;
-    text-transform: none; /* Previne que o botão MUI fique em maiúsculas */
+    text-transform: none;
 }
-
 .actionButton:hover {
     background-color: #f39c12 !important;
     color: white !important;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(243, 156, 18, 0.3);
 }
-
 .themesContainer {
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
     margin-top: 1.5rem;
 }
-
 .themeChip {
     transition: all 0.3s ease !important;
     border-radius: 20px !important;
@@ -264,10 +211,54 @@
     background-color: transparent !important;
     cursor: pointer;
 }
-
 .themeChip:hover {
     transform: translateY(-3px);
     background-color: #2d2e82 !important;
     color: white !important;
     box-shadow: 0 4px 12px rgba(45, 46, 130, 0.25);
+}
+
+.heroBanner {
+    height: 500px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    margin-top: -2rem;
+}
+@media (max-width: 900px) {
+    .heroBanner {
+        height: 300px;
+    }
+}
+
+.logoGridContainer {
+    justify-content: center;
+    align-items: center;
+}
+
+.logoWrapper {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(45, 46, 130, 0.08);
+    height: 100%;
+    margin:5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.logoWrapper:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(45, 46, 130, 0.15);
+}
+
+.logoImage {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 20px;
+    filter: grayscale(0%);
+    opacity: 1;
 }
