@@ -8,9 +8,9 @@ import logo from '../../assets/logo.png';
 const Header = () => {
   const navItems = [
     { label: 'Home', path: '/' },
-    { label: 'Categorias e Regulamentos', path: '/categorias' },
+    /*{ label: 'Categorias e Regulamentos', path: '/categorias' },*/
     { label: 'Vencedores', path: '/vencedores' },
-    { label: 'Galeria', path: '/galeria' },
+    /*{ label: 'Galeria', path: '/galeria' },*/
     { label: 'Contato', path: '/contato' },
   ];
 

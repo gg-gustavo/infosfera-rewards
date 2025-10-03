@@ -1,30 +1,304 @@
-.card {
+.vencedoresPage {
+    background-color: #f5f5f5;
+    padding-top: 2rem;
+}
+
+.contentContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .contentContainer {
+        padding: 0 1rem;
+    }
+}
+
+.section {
+    padding: 4rem 0;
+    background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+}
+
+.sectionHeader {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.sectionTitle {
+    color: #2d2e82;
+    font-weight: 700 !important;
+    font-size: 2.5rem !important;
+    margin-bottom: 1rem !important;
+    width: 100%;
+}
+
+.titleUnderline {
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(90deg, #2d2e82 0%, #1abc9c 100%);
+    border-radius: 2px;
+}
+
+.sectionSubtitle {
+    color: #666;
+    margin-top: 2rem !important;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.1rem !important;
+    line-height: 1.8;
+    max-width: 100%;
+}
+
+.heroBanner {
+    height: 500px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    margin-top: -2rem;
+}
+
+@media (max-width: 900px) {
+    .heroBanner {
+        height: 300px;
+    }
+}
+
+/* Grande Prêmio - Destaque */
+.grandePremioCard {
+    border-radius: 24px !important;
+    background: linear-gradient(135deg, #2d2e82 0%, #1abc9c 100%) !important;
+    box-shadow: 0 8px 40px rgba(45, 46, 130, 0.3) !important;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    margin-bottom: 3rem;
+}
+
+.grandePremioCard.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.grandePremioCard:hover {
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: 0 16px 60px rgba(45, 46, 130, 0.4) !important;
+}
+
+.grandePremioAccent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #f39c12 0%, #e67e22 100%);
+}
+
+.grandePremioContent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 3rem;
+    padding: 3rem !important;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .grandePremioContent {
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem !important;
+    }
+}
+
+.grandePremioImageWrapper {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.grandePremioImage {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 6px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+    .grandePremioImage {
+        width: 200px;
+        height: 200px;
+    }
+}
+
+.trophyBadge {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 4px 20px rgba(243, 156, 18, 0.5);
+    border: 4px solid white;
+}
+
+.grandePremioInfo {
+    flex: 1;
+}
+
+.premioLabel {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.75rem 1.5rem;
+    border-radius: 30px;
+    width: fit-content;
+}
+
+@media (max-width: 768px) {
+    .premioLabel {
+        margin: 0 auto 1rem;
+    }
+}
+
+.premioText {
+    color: white !important;
+    font-weight: 700 !important;
+    font-size: 1.3rem !important;
+    margin: 0 !important;
+}
+
+.vencedorNome {
+    color: white !important;
+    font-weight: 700 !important;
+    font-size: 2.5rem !important;
+    margin-bottom: 0.5rem !important;
+}
+
+@media (max-width: 768px) {
+    .vencedorNome {
+        font-size: 2rem !important;
+    }
+}
+
+.vencedorCargo {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-size: 1.2rem !important;
+    line-height: 1.6;
+}
+
+/* Cards dos Vencedores */
+.vencedorCard {
     height: 100%;
+    border-radius: 20px !important;
+    background: white !important;
+    box-shadow: 0 4px 20px rgba(45, 46, 130, 0.08) !important;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.vencedorCard.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.vencedorCard:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 16px 48px rgba(45, 46, 130, 0.2) !important;
+}
+
+.vencedorCard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #2d2e82 0%, #1abc9c 100%);
+}
+
+.vencedorCardContent {
+    padding: 2rem !important;
+    text-align: center;
     display: flex;
     flex-direction: column;
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    align-items: center;
 }
 
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+.imageWrapper {
+    margin-bottom: 1.5rem;
+    position: relative;
 }
 
-.mencaoHonrosa {
-    border: 1px solid #e0e0e0;
+.vencedorImage {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #f0f4f8;
+    box-shadow: 0 4px 20px rgba(45, 46, 130, 0.15);
+    transition: all 0.3s ease;
 }
 
-.grandePremio {
-    border: 2px solid #fcb900; /* Borda dourada para o grande prêmio */
-    box-shadow: 0 8px 30px rgba(252, 185, 0, 0.3); /* Sombra correspondente */
+.vencedorCard:hover .vencedorImage {
+    transform: scale(1.05);
+    border-color: #2d2e82;
 }
 
-.badge {
-    background-color: #fcb900;
-    color: #2c3e50;
-    padding: 4px 8px;
-    border-radius: 12px;
+.vencedorDetails {
+    width: 100%;
+}
+
+.premioTag {
     display: inline-block;
-    margin-bottom: 12px;
-    font-weight: bold;
+    background: linear-gradient(135deg, #2d2e82 0%, #1abc9c 100%);
+    color: white !important;
+    padding: 0.5rem 1.25rem;
+    border-radius: 20px;
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 1rem !important;
+    box-shadow: 0 2px 10px rgba(45, 46, 130, 0.2);
 }
+
+.nome {
+    color: #2d2e82 !important;
+    font-weight: 700 !important;
+    font-size: 1.25rem !important;
+    margin-bottom: 0.5rem !important;
+    line-height: 1.4;
+}
+
+.cargo {
+    color: #666 !important;
+    font-size: 0.95rem !important;
+    line-height: 1.5;
+}
+
+/* Animações de entrada escalonadas */
+.vencedorCard:nth-child(1) { transition-delay: 0.1s; }
+.vencedorCard:nth-child(2) { transition-delay: 0.2s; }
+.vencedorCard:nth-child(3) { transition-delay: 0.3s; }
+.vencedorCard:nth-child(4) { transition-delay: 0.4s; }
+.vencedorCard:nth-child(5) { transition-delay: 0.5s; }
+.vencedorCard:nth-child(6) { transition-delay: 0.6s; }
+.vencedorCard:nth-child(7) { transition-delay: 0.7s; }
+.vencedorCard:nth-child(8) { transition-delay: 0.8s; }

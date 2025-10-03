@@ -7,8 +7,8 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import Categorias from './pages/Categorias';
 import Vencedores from './pages/Vencedores';
+import Contato from './pages/Contato';
 //import Galeria from './pages/Galeria';
-//import Contato from './pages/Contato';
 
 
 
@@ -25,7 +25,7 @@ function App() {
           <Route path="/categorias" element={<Categorias />}/>
           <Route path="/vencedores" element={<Vencedores />} />
           {/* <Route path="/galeria" element={<Galeria />} /> */}
-          {/* <Route path="/contato" element={<Contato />} /> */}
+          <Route path="/contato" element={<Contato />} />
         </Routes>
       </Box>
       <Footer />

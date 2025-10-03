@@ -1,104 +1,213 @@
-import React from 'react';
-import { Container, Typography, Grid, Card, CardContent, CardMedia, Box } from '@mui/material';
-import styles from './index.module.css';
+import { useState, useEffect, useRef } from 'react';
+import { Typography, Box, Grid, Card, CardContent } from '@mui/material';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 
-// 1. Nossos dados fictícios (mock data)
-const vencedoresData = [
-  {
-    id: 1,
-    nome: 'Projeto Alpha',
-    categoria: 'Inovação em Tecnologia',
-    tipo: 'grande-premio',
-    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.',
-    imagem: 'https://via.placeholder.com/400x200?text=Grande+Prêmio',
-  },
-  {
-    id: 2,
-    nome: 'Iniciativa Beta',
-    categoria: 'Sustentabilidade',
-    tipo: 'mencao-honrosa',
-    descricao: 'Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris.',
-    imagem: 'https://via.placeholder.com/400x200?text=Menção+Honrosa',
-  },
-  {
-    id: 3,
-    nome: 'Solução Gamma',
-    categoria: 'Impacto Social',
-    tipo: 'mencao-honrosa',
-    descricao: 'Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla.',
-    imagem: 'https://via.placeholder.com/400x200?text=Menção+Honrosa',
-  },
-  {
-    id: 4,
-    nome: 'Plataforma Delta',
-    categoria: 'Educação Digital',
-    tipo: 'mencao-honrosa',
-    descricao: 'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.',
-    imagem: 'https://via.placeholder.com/400x200?text=Menção+Honrosa',
-  },
-    {
-    id: 5,
-    nome: 'Produto Epsilon',
-    categoria: 'Saúde e Bem-estar',
-    tipo: 'mencao-honrosa',
-    descricao: 'Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh.',
-    imagem: 'https://via.placeholder.com/400x200?text=Menção+Honrosa',
-  },
-  {
-    id: 6,
-    nome: 'Serviço Zeta',
-    categoria: 'Inovação em Serviços',
-    tipo: 'mencao-honrosa',
-    descricao: 'Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem.',
-    imagem: 'https://via.placeholder.com/400x200?text=Menção+Honrosa',
-  }
-];
+import styles from './index.module.css';
+import bannerImage from '../../assets/banner2.png';
+
+// Importando as fotos dos vencedores
+const vencedoresImages = Object.values(
+  import.meta.glob('../../assets/vencedores/*.png', { 
+    eager: true, 
+    query: '?url', 
+    import: 'default' 
+  })
+);
 
 const Vencedores = () => {
+  const [visibleCards, setVisibleCards] = useState(new Set());
+  const cardRefs = useRef([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const cardId = entry.target.dataset.id;
+            setVisibleCards((prev) => new Set(prev).add(cardId));
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    cardRefs.current.forEach((card) => {
+      if (card) observer.observe(card);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Dados dos vencedores
+  const vencedores = [
+    {
+      nome: 'Nome do Vencedor A',
+      cargo: 'Cargo/Instituição A',
+      premio: 'Grande Prêmio',
+      isGrandePremio: true,
+      foto: vencedoresImages[0]
+    },
+    {
+      nome: 'Nome do Vencedor B',
+      cargo: 'Cargo/Instituição B',
+      premio: 'Prêmio B',
+      isGrandePremio: false,
+      foto: vencedoresImages[1]
+    },
+    {
+      nome: 'Nome do Vencedor C',
+      cargo: 'Cargo/Instituição C',
+      premio: 'Prêmio C',
+      isGrandePremio: false,
+      foto: vencedoresImages[2]
+    },
+    {
+      nome: 'Nome do Vencedor D',
+      cargo: 'Cargo/Instituição D',
+      premio: 'Prêmio D',
+      isGrandePremio: false,
+      foto: vencedoresImages[3]
+    },
+    {
+      nome: 'Nome do Vencedor E',
+      cargo: 'Cargo/Instituição E',
+      premio: 'Prêmio E',
+      isGrandePremio: false,
+      foto: vencedoresImages[4]
+    },
+    {
+      nome: 'Nome do Vencedor F',
+      cargo: 'Cargo/Instituição F',
+      premio: 'Prêmio F',
+      isGrandePremio: false,
+      foto: vencedoresImages[5]
+    },
+    {
+      nome: 'Nome do Vencedor G',
+      cargo: 'Cargo/Instituição G',
+      premio: 'Prêmio G',
+      isGrandePremio: false,
+      foto: vencedoresImages[6]
+    },
+    {
+      nome: 'Nome do Vencedor H',
+      cargo: 'Cargo/Instituição H',
+      premio: 'Prêmio H',
+      isGrandePremio: false,
+      foto: vencedoresImages[7]
+    }
+  ];
+
   return (
-    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-      <Typography variant="h3" component="h1" gutterBottom align="center">
-        Vencedores
-      </Typography>
-      <Typography variant="h6" align="center" color="text.secondary" paragraph>
-        Conheça os projetos e as mentes brilhantes que foram reconhecidos nesta edição do Prêmio Infosfera.
-      </Typography>
-      
-      {/* 2. Usando o Grid para organizar os cards */}
-      <Grid container spacing={4} sx={{ mt: 4 }}>
-        {vencedoresData.map((vencedor) => (
-          // Cada card ocupará 4 de 12 colunas em telas médias, ou 12/12 em telas pequenas
-          <Grid item key={vencedor.id} xs={12} sm={6} md={4}>
-            {/* 3. Lógica para aplicar estilo condicional */}
-            <Card className={`${styles.card} ${vencedor.tipo === 'grande-premio' ? styles.grandePremio : styles.mencaoHonrosa}`}>
-              <CardMedia
-                component="img"
-                height="140"
-                image={vencedor.imagem}
-                alt={`Imagem do ${vencedor.nome}`}
-              />
-              <CardContent>
-                {/* 4. Badge para destacar o Grande Prêmio */}
-                {vencedor.tipo === 'grande-premio' && (
-                  <Box className={styles.badge}>
-                    <Typography variant="caption">🏆 Grande Prêmio</Typography>
+    <Box className={styles.vencedoresPage}>
+      {/* Banner */}
+      <Box 
+        className={styles.heroBanner} 
+        style={{ backgroundImage: `url(${bannerImage})` }} 
+      />
+
+      {/* Seção de Vencedores */}
+      <Box className={styles.section}>
+        <Box className={styles.contentContainer}>
+          <Box className={styles.sectionHeader}>
+            <Typography variant="h2" className={styles.sectionTitle}>
+              Vencedores do Prêmio Infosfera 2025
+            </Typography>
+            <Box className={styles.titleUnderline} />
+            <Typography className={styles.sectionSubtitle}>
+              Celebramos os profissionais e instituições que estão transformando 
+              a gestão da informação pública através da inovação e excelência.
+            </Typography>
+          </Box>
+
+          {/* Grande Prêmio - Destaque */}
+          {vencedores
+            .filter((v) => v.isGrandePremio)
+            .map((vencedor, index) => (
+              <Card
+                key={index}
+                ref={(el) => (cardRefs.current[index] = el)}
+                data-id={`vencedor-${index}`}
+                className={`${styles.grandePremioCard} ${
+                  visibleCards.has(`vencedor-${index}`) ? styles.visible : ''
+                }`}
+              >
+                <Box className={styles.grandePremioAccent} />
+                <CardContent className={styles.grandePremioContent}>
+                  <Box className={styles.grandePremioImageWrapper}>
+                    <img
+                      src={vencedor.foto}
+                      alt={vencedor.nome}
+                      className={styles.grandePremioImage}
+                    />
+                    <Box className={styles.trophyBadge}>
+                      <EmojiEventsIcon sx={{ fontSize: 40 }} />
+                    </Box>
                   </Box>
-                )}
-                <Typography gutterBottom variant="h5" component="div">
-                  {vencedor.nome}
-                </Typography>
-                <Typography variant="body1" color="text.primary" sx={{ mb: 1.5 }}>
-                  {vencedor.categoria}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {vencedor.descricao}
-                </Typography>
-              </CardContent>
-            </Card>
+                  <Box className={styles.grandePremioInfo}>
+                    <Box className={styles.premioLabel}>
+                      <EmojiEventsIcon sx={{ mr: 1 }} />
+                      <Typography variant="h5" className={styles.premioText}>
+                        {vencedor.premio}
+                      </Typography>
+                    </Box>
+                    <Typography variant="h3" className={styles.vencedorNome}>
+                      {vencedor.nome}
+                    </Typography>
+                    <Typography className={styles.vencedorCargo}>
+                      {vencedor.cargo}
+                    </Typography>
+                  </Box>
+                </CardContent>
+              </Card>
+            ))}
+
+          {/* Demais Vencedores */}
+          <Grid container spacing={3} columns={{xs : 1, sm: 2,  md : 3}}>
+            {vencedores
+              .filter((v) => !v.isGrandePremio)
+              .map((vencedor, index) => {
+                const cardIndex = index + 1; // +1 porque o grande prêmio é o 0
+                return (
+                  <Grid size={{xs : 1, sm: 1, md : 1}} key={cardIndex}>
+                    <Card
+                      ref={(el) => (cardRefs.current[cardIndex] = el)}
+                      data-id={`vencedor-${cardIndex}`}
+                      className={`${styles.vencedorCard} ${
+                        visibleCards.has(`vencedor-${cardIndex}`)
+                          ? styles.visible
+                          : ''
+                      }`}
+                    >
+                      <CardContent className={styles.vencedorCardContent}>
+                        <Box className={styles.imageWrapper}>
+                          <img
+                            src={vencedor.foto}
+                            alt={vencedor.nome}
+                            className={styles.vencedorImage}
+                          />
+                        </Box>
+                        <Box className={styles.vencedorDetails}>
+                          <Typography className={styles.premioTag}>
+                            {vencedor.premio}
+                          </Typography>
+                          <Typography variant="h6" className={styles.nome}>
+                            {vencedor.nome}
+                          </Typography>
+                          <Typography className={styles.cargo}>
+                            {vencedor.cargo}
+                          </Typography>
+                        </Box>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                );
+              })}
           </Grid>
-        ))}
-      </Grid>
-    </Container>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 
