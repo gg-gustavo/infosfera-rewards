@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
-import { Typography, Box, Grid, Card, CardContent, Chip, Button, Stack } from '@mui/material';
+import { Typography, Box, Grid, Card, CardContent, Chip, Stack } from '@mui/material';
 
-// Ícones do Material UI (mantidos do seu código)
+// Ícones
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
@@ -12,17 +12,15 @@ import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 
 import styles from './index.module.css';
 
-// ADIÇÃO: Importando o banner e as logos
-import bannerImage from '../../assets/banner.png';
-// CÓDIGO NOVO E CORRIGIDO
+import bannerImage from '../../assets/banner.jpeg';
+
+// Logos (código original mantido)
 const realizacaoLogos = Object.values(import.meta.glob('../../assets/realizacao/*.jpg', { eager: true, query: '?url', import: 'default' }));
 const apoioLogos = Object.values(import.meta.glob('../../assets/apoio/*.jpg', { eager: true, query: '?url', import: 'default' }));
 
 const Home = () => {
-  // SEU CÓDIGO ORIGINAL - MANTIDO INTOCADO
   const [visibleCards, setVisibleCards] = useState(new Set());
   const cardRefs = useRef([]);
-
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -37,6 +35,8 @@ const Home = () => {
     cardRefs.current.forEach((card) => { if (card) observer.observe(card); });
     return () => observer.disconnect();
   }, []);
+
+  // Dados originais mantidos
   const cardCategories = [
     { icon: CorporateFareIcon, title: 'Instituições Públicas', desc: 'Órgãos e entidades da administração pública que implementaram práticas inovadoras.' },
     { icon: SchoolIcon, title: 'Academia e Pesquisa', desc: 'Pesquisadores e grupos acadêmicos com estudos de impacto na gestão da informação.' },
@@ -53,33 +53,62 @@ const Home = () => {
 
   return (
     <Box className={styles.homePage}>
-      {/* ADIÇÃO: Banner de imagem no topo */}
-      <Box className={styles.heroBanner} style={{ backgroundImage: `url(${bannerImage})` }} />
+      <Box className={styles.heroBanner} style={{ backgroundImage: `url(${bannerImage})` }}>
+        <Box className={styles.heroOverlay} />
+        <Box className={`${styles.contentContainer} ${styles.heroContentWrapper}`}>
+          <Box className={styles.heroContent}>
+            <Box className={styles.heroTextBlock}>
+              <Typography className={styles.heroTitlePart1}>
+                Prêmio
+              </Typography>
+              <Typography className={styles.heroTitlePart2}>
+                Boas Práticas em Gestão da Informação na Esfera Pública
+              </Typography>
+              <Typography className={styles.heroDescription}>
+                Uma iniciativa que busca identificar, valorizar e dar visibilidade a projetos que se destacam pela originalidade, impacto e capacidade de transformação.
+              </Typography>
+            </Box>
+            <Box className={styles.heroDivider} />
+          </Box>
+        </Box>
+      </Box>
 
-      {/* SEU CÓDIGO ORIGINAL - MANTIDO INTOCADO */}
+
       <Box className={styles.section}>
         <Box className={styles.contentContainer}>
           <Box className={styles.sectionHeader}>
             <Typography variant="h2" className={styles.sectionTitle}>Sobre o Prêmio</Typography>
             <Box className={styles.titleUnderline} />
-            <Typography className={styles.sectionSubtitle}>Uma iniciativa que busca identificar, valorizar e dar visibilidade a projetos que se destacam pela originalidade, impacto e capacidade de transformação.</Typography>
           </Box>
-          <Grid container spacing={4}>
-            <Grid xs={12} md={6}>
+          <Grid container spacing={2} columns={{xs : 1 , md :4}}>
+            {/* Coluna 1 */}
+            <Grid size={{xs: 1, md: 2}}>
               <Card ref={(el) => (cardRefs.current[0] = el)} data-id="card-1" className={`${styles.infoCard} ${visibleCards.has('card-1') ? styles.visible : ''}`}>
                 <Box className={styles.cardAccentBar} />
                 <CardContent>
-                  <Box className={styles.cardHeader}><Box className={`${styles.cardIconWrapper} ${styles.iconPrimary}`}><StarBorderIcon fontSize="large" /></Box><Typography variant="h3" className={styles.cardTitle}>O Reconhecimento</Typography></Box>
-                  <Typography variant='p'><strong>O Prêmio Infosfera é uma homenagem ao esforço e à inovação.</strong></Typography>
+                  <Box className={styles.cardHeader}>
+                    <Box className={`${styles.cardIconWrapper} ${styles.iconPrimary}`}>
+                      <StarBorderIcon fontSize="large" />
+                    </Box>
+                    <Typography variant="h3" className={styles.cardTitle}>O Reconhecimento</Typography>
+                  </Box>
+                  <Typography><strong>O Prêmio Infosfera é uma homenagem ao esforço e à inovação.</strong></Typography>
                   <Typography>Em sua primeira edição, celebramos profissionais, equipes e instituições que estão redefinindo a gestão da informação na esfera pública através de soluções criativas e eficazes.</Typography>
                 </CardContent>
               </Card>
             </Grid>
-            <Grid xs={12} md={6}>
+
+            {/* Coluna 2 */}
+            <Grid size={{xs: 1, md: 2}}>
               <Card ref={(el) => (cardRefs.current[1] = el)} data-id="card-2" className={`${styles.infoCard} ${visibleCards.has('card-2') ? styles.visible : ''}`}>
                 <Box className={`${styles.cardAccentBar} ${styles.accentSecondary}`} />
                 <CardContent>
-                  <Box className={styles.cardHeader}><Box className={`${styles.cardIconWrapper} ${styles.iconSecondary}`}><LightbulbOutlinedIcon fontSize="large" /></Box><Typography variant="h3" className={styles.cardTitle}>A Missão</Typography></Box>
+                  <Box className={styles.cardHeader}>
+                    <Box className={`${styles.cardIconWrapper} ${styles.iconSecondary}`}>
+                      <LightbulbOutlinedIcon fontSize="large" />
+                    </Box>
+                    <Typography variant="h3" className={styles.cardTitle}>A Missão</Typography>
+                  </Box>
                   <Typography><strong>Nossa missão é ser uma vitrine de inovação para todo o setor.</strong></Typography>
                   <Typography>Através de um rigoroso processo de avaliação, queremos destacar práticas que não só alcançam resultados concretos, mas que também inspiram e podem ser replicadas.</Typography>
                 </CardContent>
@@ -117,7 +146,6 @@ const Home = () => {
         </Box>
       </Box>
 
-      {/* SEU CÓDIGO ORIGINAL - MANTIDO INTOCADO AQUI*/}
       <Box className={styles.section}>
         <Box className={styles.contentContainer}>
           <Grid container spacing={4} sx={{ justifyContent: "center" }}>
@@ -167,9 +195,9 @@ const Home = () => {
           <Box className={styles.sectionHeader}>
             <Typography variant="h2" className={styles.sectionTitle}>Realização</Typography>
           </Box>
-          <Grid container spacing={4} columns={{xs : 1,md : 4}} className={styles.logoGridContainer}>
+          <Grid container spacing={4} columns={{ xs: 1, md: 4 }} className={styles.logoGridContainer}>
             {realizacaoLogos.map((logo, index) => (
-              <Grid size={{xs : 1, md : 1}} key={index}>
+              <Grid size={{ xs: 1, md: 1 }} key={index}>
                 <Box className={styles.logoWrapper}>
                   <img src={logo} alt={`Logo Realização ${index + 1}`} className={styles.logoImage} />
                 </Box>

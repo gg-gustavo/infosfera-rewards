@@ -35,16 +35,6 @@
     position: relative;
     display: inline-block;
 }
-.titleUnderline {
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 4px;
-    background: linear-gradient(90deg, #2d2e82 0%, #1abc9c 100%);
-    border-radius: 2px;
-}
 .sectionSubtitle {
     color: #666;
     margin-top: 2rem !important;
@@ -221,14 +211,104 @@
 .heroBanner {
     height: 500px;
     background-size: cover;
-    background-position: center;
+    /* Posiciona a imagem (troféu) à direita */
+    background-position: right center;
     background-repeat: no-repeat;
     width: 100%;
     margin-top: -2rem;
+    position: relative;
+    color: white;
 }
+
+.heroOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Gradiente que escurece mais na esquerda (onde o texto fica) */
+    background: linear-gradient(90deg, rgba(29, 43, 83, 0.95) 0%, rgba(45, 46, 130, 0.8) 55%, rgba(26, 188, 156, 0.1) 100%);
+    z-index: 1;
+}
+
+/* Wrapper para o conteúdo do banner usar o .contentContainer */
+.heroContentWrapper {
+    height: 100%;
+    position: relative;
+    z-index: 2;
+}
+
+/* Container flex para alinhar o bloco de texto e a linha divisória */
+.heroContent {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Alinha tudo à esquerda */
+}
+
+/* Bloco que contém todos os textos */
+.heroTextBlock {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 550px; /* Largura máxima para o texto não ficar muito longo */
+    text-align: left;
+}
+
+.heroTitlePart1 {
+    font-size: 4rem !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.heroTitlePart2 {
+    font-size: 3rem !important;
+    font-weight: 600 !important;
+    line-height: 1.2 !important;
+    margin-bottom: 1.5rem !important;
+}
+
+.heroDescription {
+    font-size: 1.1rem !important;
+    font-weight: 300 !important;
+    line-height: 1.6 !important;
+    max-width: 500px; /* Limita a largura do parágrafo */
+}
+
+/* A linha vertical que separa o texto da imagem */
+.heroDivider {
+    width: 1px;
+    height: 250px;
+    background: rgba(255, 255, 255, 0.3);
+    margin-left: 3rem;
+}
+
+
 @media (max-width: 900px) {
     .heroBanner {
-        height: 300px;
+        height: auto; /* Altura automática para o conteúdo caber */
+        padding: 4rem 0; /* Espaçamento para não ficar colado */
+        background-position: center center;
+    }
+    .heroContent {
+        /* Centraliza o texto no mobile */
+        justify-content: center;
+        text-align: center;
+    }
+    .heroTextBlock {
+        max-width: 100%;
+        text-align: center;
+        align-items: center;
+    }
+    .heroDivider {
+        display: none; /* Esconde a linha em telas menores */
+    }
+    .heroTitlePart1 {
+        font-size: 3rem !important;
+    }
+    .heroTitlePart2 {
+        font-size: 1.8rem !important;
     }
 }
 
@@ -261,4 +341,103 @@
     border-radius: 20px;
     filter: grayscale(0%);
     opacity: 1;
+}
+
+.aboutSectionWrapper {
+    width: 100%;
+    background-color: white;
+    padding: 0;
+    margin: 0;
+}
+
+.aboutTitleBlock {
+    background: linear-gradient(135deg, #2d2e82 0%, #1e3a5f 100%);
+    padding: 4rem 3rem !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+}
+
+.aboutTitleText {
+    color: white !important;
+    font-size: 3.5rem !important;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
+    text-align: left;
+}
+
+.aboutContentBlock {
+    padding: 4rem 3rem !important;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.aboutSubtitle {
+    color: #2d2e82 !important;
+    font-size: 1.8rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 1rem !important;
+}
+
+.aboutText {
+    color: #333 !important;
+    font-size: 1.1rem !important;
+    line-height: 1.8 !important;
+    margin-bottom: 2rem !important;
+}
+
+.aboutText strong {
+    color: #2d2e82;
+    font-weight: 600;
+}
+
+.aboutDivider {
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, #2d2e82 0%, #1abc9c 100%);
+    margin: 2.5rem 0;
+    border-radius: 2px;
+}
+
+@media (max-width: 960px) {
+    .aboutTitleBlock {
+        min-height: 200px;
+        padding: 3rem 2rem !important;
+        text-align: center;
+        justify-content: center;
+    }
+    
+    .aboutTitleText {
+        font-size: 2.5rem !important;
+        text-align: center;
+    }
+    
+    .aboutContentBlock {
+        padding: 3rem 2rem !important;
+    }
+    
+    .aboutSubtitle {
+        font-size: 1.5rem !important;
+    }
+    
+    .aboutText {
+        font-size: 1rem !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .aboutTitleBlock {
+        padding: 2rem 1.5rem !important;
+    }
+    
+    .aboutTitleText {
+        font-size: 2rem !important;
+    }
+    
+    .aboutContentBlock {
+        padding: 2rem 1.5rem !important;
+    }
 }

@@ -7,7 +7,7 @@
 .logo {
     height: 60px; /* Altura padrão para Mobile */
     width: auto;
-    margin: 2rem 1rem;
+    margin: 1rem 1rem;
     transition: all 0.3s ease-in-out; /* Mudei para 'all' para transicionar a altura também */
 }
 
@@ -17,6 +17,6 @@
         height: 100px !important; /* Mudei para 60px, 20px era muito pequeno. Ajuste como quiser! */
         width: auto !important;
         
-        margin: 1rem 24rem;
+        margin: 1rem 10rem;
     }
 }
