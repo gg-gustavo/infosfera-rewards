@@ -118,12 +118,12 @@
     display: flex;
     flex-direction: column;
 }
-.categoryCard > div {
+/* .categoryCard > div {
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-}
+} */
 .categoryCard:hover {
     transform: translateY(-12px);
     box-shadow: 0 16px 48px rgba(45, 46, 130, 0.2) !important;
@@ -136,6 +136,7 @@
     background: linear-gradient(135deg, #2d2e82 0%, #3d3e92 100%);
     display: flex;
     align-items: center;
+
     justify-content: center;
     color: white;
 }
@@ -440,4 +441,31 @@
     .aboutContentBlock {
         padding: 2rem 1.5rem !important;
     }
+}
+
+/* ===== ESTILOS ADICIONAIS PARA A SEÇÃO DE TEMÁTICAS ===== */
+
+/* Classe para garantir a uniformidade dos cards de temáticas */
+.themeCard {
+    /* Força uma altura mínima padrão para todos os cards */
+    min-height: 200px;
+    padding: 2.5rem 1rem; /* Ajusta o espaçamento interno */
+    
+    /* Garante que o conteúdo (ícone e texto) fique alinhado ao centro */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Alinha o conteúdo no topo */
+    align-items: center;
+}
+
+/* Classe específica para o título dos cards de temáticas */
+.themeCardTitle {
+    /* Define a cor do texto como escura, não azul */
+    color: #333 !important;
+    
+    /* Ajusta o peso e tamanho da fonte para corresponder à imagem */
+    font-weight: 600 !important;
+    font-size: 1.1rem !important;
+    line-height: 1.4;
+    margin-top: 1rem; /* Espaçamento entre ícone e texto */
 }

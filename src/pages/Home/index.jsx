@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
-import { Typography, Box, Grid, Card, CardContent, Chip, Stack } from '@mui/material';
+import { Typography, Box, Grid, Card, CardContent, Stack } from '@mui/material';
 
-// Ícones
+// Ícones para as seções existentes (intocados)
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
@@ -10,8 +10,22 @@ import CorporateFareIcon from '@mui/icons-material/CorporateFare';
 import SchoolIcon from '@mui/icons-material/School';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 
-import styles from './index.module.css';
+// Ícones para a seção de Temáticas
+import PolicyIcon from '@mui/icons-material/Policy';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import VpnlockIcon from '@mui/icons-material/VpnLock';
+import MemoryIcon from '@mui/icons-material/Memory';
+import StackedBarChartIcon from '@mui/icons-material/StackedBarChart';
+import WheelchairPickupIcon from '@mui/icons-material/WheelchairPickup';
+import ScreenRotationAltIcon from '@mui/icons-material/ScreenRotationAlt';
+import PsychologyAltIcon from '@mui/icons-material/PsychologyAlt';
+import AssuredWorkloadIcon from '@mui/icons-material/AssuredWorkload';
+import SwitchAccessShortcutIcon from '@mui/icons-material/SwitchAccessShortcut';
+import AdUnitsIcon from '@mui/icons-material/AdUnits';
+import AppShortcutIcon from '@mui/icons-material/AppShortcut';
 
+
+import styles from './index.module.css';
 import bannerImage from '../../assets/banner.jpeg';
 
 // Logos (código original mantido)
@@ -47,8 +61,20 @@ const Home = () => {
     { title: 'Impacto e Resultados:', text: 'A comprovação dos resultados obtidos por meio de indicadores claros.' },
     { title: 'Replicabilidade e Sustentabilidade:', text: 'A capacidade da prática ser adotada em outros contextos.' }
   ];
+  
   const tematicas = [
-    'Transparência Digital', 'Governança Eletrônica', 'Segurança Cibernética', 'Preservação da Memória', 'Inteligência de Dados', 'Inclusão Digital', 'Interoperabilidade', 'Gestão do Conhecimento', 'Compliance Digital', 'Inovação em Serviços', 'Curadoria Digital', 'Transformação Digital'
+    { title: 'Transparência Digital', icon: <PolicyIcon fontSize="large" /> },
+    { title: 'Governança Eletrônica', icon: <AccountBalanceIcon fontSize="large" /> },
+    { title: 'Segurança Cibernética', icon: <VpnlockIcon fontSize="large" /> },
+    { title: 'Preservação da Memória', icon: <MemoryIcon fontSize="large" /> },
+    { title: 'Inteligência de Dados', icon: <StackedBarChartIcon fontSize="large" /> },
+    { title: 'Inclusão Digital', icon: <WheelchairPickupIcon fontSize="large" /> },
+    { title: 'Interoperabilidade', icon: <ScreenRotationAltIcon fontSize="large" /> },
+    { title: 'Gestão do Conhecimento', icon: <PsychologyAltIcon fontSize="large" /> },
+    { title: 'Compliance Digital', icon: <AssuredWorkloadIcon fontSize="large" /> },
+    { title: 'Inovação em Serviços', icon: <SwitchAccessShortcutIcon fontSize="large" /> },
+    { title: 'Curadoria Digital', icon: <AdUnitsIcon fontSize="large" /> },
+    { title: 'Transformação Digital', icon: <AppShortcutIcon fontSize="large" /> },
   ];
 
   return (
@@ -81,15 +107,12 @@ const Home = () => {
             <Box className={styles.titleUnderline} />
           </Box>
           <Grid container spacing={2} columns={{xs : 1 , md :4}}>
-            {/* Coluna 1 */}
             <Grid size={{xs: 1, md: 2}}>
               <Card ref={(el) => (cardRefs.current[0] = el)} data-id="card-1" className={`${styles.infoCard} ${visibleCards.has('card-1') ? styles.visible : ''}`}>
                 <Box className={styles.cardAccentBar} />
                 <CardContent>
                   <Box className={styles.cardHeader}>
-                    <Box className={`${styles.cardIconWrapper} ${styles.iconPrimary}`}>
-                      <StarBorderIcon fontSize="large" />
-                    </Box>
+                    <Box className={`${styles.cardIconWrapper} ${styles.iconPrimary}`}><StarBorderIcon fontSize="large" /></Box>
                     <Typography variant="h3" className={styles.cardTitle}>O Reconhecimento</Typography>
                   </Box>
                   <Typography><strong>O Prêmio Infosfera é uma homenagem ao esforço e à inovação.</strong></Typography>
@@ -97,16 +120,12 @@ const Home = () => {
                 </CardContent>
               </Card>
             </Grid>
-
-            {/* Coluna 2 */}
             <Grid size={{xs: 1, md: 2}}>
               <Card ref={(el) => (cardRefs.current[1] = el)} data-id="card-2" className={`${styles.infoCard} ${visibleCards.has('card-2') ? styles.visible : ''}`}>
                 <Box className={`${styles.cardAccentBar} ${styles.accentSecondary}`} />
                 <CardContent>
                   <Box className={styles.cardHeader}>
-                    <Box className={`${styles.cardIconWrapper} ${styles.iconSecondary}`}>
-                      <LightbulbOutlinedIcon fontSize="large" />
-                    </Box>
+                    <Box className={`${styles.cardIconWrapper} ${styles.iconSecondary}`}><LightbulbOutlinedIcon fontSize="large" /></Box>
                     <Typography variant="h3" className={styles.cardTitle}>A Missão</Typography>
                   </Box>
                   <Typography><strong>Nossa missão é ser uma vitrine de inovação para todo o setor.</strong></Typography>
@@ -118,7 +137,6 @@ const Home = () => {
         </Box>
       </Box>
 
-      {/* SEU CÓDIGO ORIGINAL - MANTIDO INTOCADO */}
       <Box className={`${styles.section} ${styles.sectionLight}`}>
         <Box className={styles.contentContainer}>
           <Box className={styles.sectionHeader}>
@@ -142,7 +160,6 @@ const Home = () => {
               );
             })}
           </Stack>
-          {/* <Box className={styles.buttonContainer}><Button className={styles.actionButton}>Saiba Mais sobre as Categorias</Button></Box> */}
         </Box>
       </Box>
 
@@ -177,19 +194,37 @@ const Home = () => {
               </Card>
             </Grid>
           </Grid>
-          <Card ref={(el) => (cardRefs.current[7] = el)} data-id="tags-card" className={`${styles.infoCard} ${visibleCards.has('tags-card') ? styles.visible : ''}`} sx={{ mt: 4 }}>
-            <CardContent>
-              <Typography variant="h3" className={styles.cardTitle}>Temáticas Elegíveis</Typography>
-              <Typography variant="p" sx={{ mt: 2 }}>Iniciativas relacionadas aos seguintes temas podem ser submetidas para avaliação:</Typography>
-              <Box className={styles.themesContainer}>
-                {tematicas.map((tag) => (<Chip key={tag} label={tag} className={styles.themeChip} />))}
-              </Box>
-            </CardContent>
-          </Card>
         </Box>
       </Box>
 
-      {/* ===== SEÇÃO: REALIZAÇÃO (LAYOUT CORRIGIDO PARA 4 COLUNAS) ===== */}
+      {/* ===== SEÇÃO "TEMÁTICAS ELEGÍVEIS" COM AS NOVAS CLASSES APLICADAS ===== */}
+      <Box className={`${styles.section} ${styles.sectionLight}`}>
+        <Box className={styles.contentContainer}>
+          <Box className={styles.sectionHeader}>
+            <Typography variant="h2" className={styles.sectionTitle}>Temáticas Elegíveis</Typography>
+            <Typography variant="body1" className={styles.sectionSubtitle}>Iniciativas relacionadas aos seguintes temas podem ser submetidas para avaliação:</Typography>
+          </Box>
+          <Grid container spacing={4} columns={{xs : 2 ,md:12}}>
+            {tematicas.map((item, index) => (
+              <Grid size={{xs:1 , md : 3}} key={item.title}> 
+                <Card 
+                  ref={(el) => (cardRefs.current[7 + index] = el)} 
+                  data-id={`tematica-${item.title.replace(/\s+/g, '-')}`}
+                  // APLICANDO AS NOVAS CLASSES AQUI
+                  className={`${styles.categoryCard} ${styles.themeCard} ${visibleCards.has(`tematica-${item.title.replace(/\s+/g, '-')}`) ? styles.visible : ''}`}
+                >
+                    <Box className={styles.categoryIconWrapper} sx={{display:"flex",justifyContent:"center"}}>{item.icon}</Box>
+                    {/* APLICANDO A NOVA CLASSE DE TÍTULO AQUI */}
+                    <Typography variant="h6" className={styles.themeCardTitle}>
+                      {item.title}
+                    </Typography>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+      </Box>
+
       <Box className={styles.section}>
         <Box className={styles.contentContainer}>
           <Box className={styles.sectionHeader}>
@@ -206,8 +241,7 @@ const Home = () => {
           </Grid>
         </Box>
       </Box>
-
-      {/* ===== SEÇÃO: PARCEIROS (LAYOUT CORRIGIDO PARA 4 COLUNAS) ===== */}
+      
       <Box className={`${styles.section} ${styles.sectionLight}`}>
         <Box className={styles.contentContainer}>
           <Box className={styles.sectionHeader}>
