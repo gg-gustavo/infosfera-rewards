@@ -3,7 +3,7 @@ import { Typography, Box, Grid, Card, CardContent } from '@mui/material';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 
 import styles from './index.module.css';
-import bannerImage from '../../assets/banner2.png';
+import bannerImage from '../../assets/banner.jpeg';
 
 // Importando as fotos dos vencedores
 const vencedoresImages = Object.values(
@@ -101,11 +101,22 @@ const Vencedores = () => {
 
   return (
     <Box className={styles.vencedoresPage}>
-      {/* Banner */}
-      <Box 
-        className={styles.heroBanner} 
-        style={{ backgroundImage: `url(${bannerImage})` }} 
-      />
+      <Box className={styles.heroBanner} style={{ backgroundImage: `url(${bannerImage})` }}>
+        <Box className={styles.heroOverlay} />
+        <Box className={`${styles.contentContainer} ${styles.heroContentWrapper}`}>
+          <Box className={styles.heroContent}>
+            <Box className={styles.heroTextBlock}>
+              <Typography className={styles.heroTitlePart1}>
+                Vencedores
+              </Typography>
+              <Typography className={styles.heroDescription}>
+                Projetos que se destacaram por sua originalidade, impacto ecapacidade de transformação.
+              </Typography>
+            </Box>
+            <Box className={styles.heroDivider} />
+          </Box>
+        </Box>
+      </Box>
 
       {/* Seção de Vencedores */}
       <Box className={styles.section}>

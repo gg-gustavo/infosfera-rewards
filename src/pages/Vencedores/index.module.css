@@ -56,21 +56,119 @@
 }
 
 .heroBanner {
-    height: 500px;
+    height: 500px; 
     background-size: cover;
-    background-position: center;
+    background-position: right center; 
     background-repeat: no-repeat;
     width: 100%;
     margin-top: -2rem;
+    position: relative;
+    color: white; 
+}
+
+.heroOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(26, 188, 183, 0.5) 2%, rgba(26, 188, 156, 0.1) 100%);
+    z-index: 1;
+}
+
+.heroContentWrapper {
+    height: 100%;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.heroContent {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; 
+}
+
+.heroTextBlock {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 550px;
+    text-align: left;
+}
+
+.heroTitlePart1 {
+    font-size: 4rem !important; 
+    font-weight: 700 !important;
+    line-height: 1 !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.heroDescription {
+    font-size: 1.1rem !important;
+    font-weight: 300 !important;
+    line-height: 1.6 !important;
+    max-width: 500px; 
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.heroDivider {
+    width: 1px;
+    height: 250px;
+    background: rgba(255, 255, 255, 0.3);
+    margin-left: 3rem;
 }
 
 @media (max-width: 900px) {
     .heroBanner {
-        height: 300px;
+        height: auto; 
+        padding: 4rem 0;
+        background-position: center center;
+    }
+    .heroContentWrapper {
+        padding: 0 1rem;
+    }
+    .heroContent {
+        justify-content: center;
+        text-align: center;
+    }
+    .heroTextBlock {
+        max-width: 100%;
+        text-align: center;
+        align-items: center;
+    }
+    .heroDivider {
+        display: none; 
+    }
+    .heroTitlePart1 {
+        font-size: 3rem !important;
+    }
+    .heroTitlePart2 {
+        font-size: 1.8rem !important;
+    }
+    .heroDescription {
+        font-size: 1rem !important;
     }
 }
 
-/* Grande Prêmio - Destaque */
+@media (max-width: 600px) {
+    .heroBanner {
+        padding: 3rem 0;
+    }
+    .heroTitlePart1 {
+        font-size: 2.5rem !important;
+    }
+    .heroTitlePart2 {
+        font-size: 1.5rem !important;
+    }
+    .heroDescription {
+        font-size: 0.9rem !important;
+    }
+}
+
 .grandePremioCard {
     border-radius: 24px !important;
     background: linear-gradient(135deg, #2d2e82 0%, #1abc9c 100%) !important;
