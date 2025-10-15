@@ -85,7 +85,7 @@ const Home = () => {
           <Box className={styles.heroContent}>
             <Box className={styles.heroTextBlock}>
               <Typography className={styles.heroTitlePart1}>
-                Prêmio
+                Prêmio Infosfera
               </Typography>
               <Typography className={styles.heroTitlePart2}>
                 Boas Práticas em Gestão da Informação na Esfera Pública
