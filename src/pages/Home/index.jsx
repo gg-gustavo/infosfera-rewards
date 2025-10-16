@@ -164,18 +164,18 @@ const Home = () => {
       <Box className={styles.section}>
         <Box className={styles.contentContainer}>
           <Grid container spacing={4} sx={{ justifyContent: "center" }}> 
-            <Grid item xs={12} md={7}>
+            <Grid>
               <Card ref={(el) => (cardRefs.current[5] = el)} data-id="info-card" className={`${styles.infoCard} ${styles.fullHeightCard} ${visibleCards.has('info-card') ? styles.visible : ''}`}>
                 <Box className={styles.cardAccentBar}  />
                 <CardContent >
-                  <Typography variant="h3" className={styles.cardTitle}>Critérios de Avaliação</Typography>
-                  <Typography variant='body1' sx={{ mt: 1, mb: 4 }}>
+                  <Typography variant="h3" sx={{width:"100%", textAlign:"center"}} className={styles.cardTitle}>Critérios de Avaliação</Typography>
+                  <Typography variant='body1' sx={{ width:"100%",textAlign:"center", mt: 1, mb: 4 }}>
                     Para garantir uma seleção justa e criteriosa, nossos avaliadores se basearão nos seguintes pilares:
                   </Typography>
 
                   <Grid container spacing={3} sx={{ my: 'auto', justifyContent: 'center' }}>
                     {checkItems.map((item, index) => (
-                      <Grid item xs={12} sm={12} md={4} key={index} sx={{ display: 'flex', justifyContent: 'center' }}>
+                      <Grid key={index} sx={{ display: 'flex', justifyContent: 'center' }}>
                         <Box className={styles.criterionItem}>
                           <Typography className={styles.criterionNumber}>{index + 1}</Typography>
                           <Box className={styles.criterionCircleWrapper}>
