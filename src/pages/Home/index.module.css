@@ -443,9 +443,6 @@
     }
 }
 
-/* ===== ESTILOS ADICIONAIS PARA A SEÇÃO DE TEMÁTICAS ===== */
-
-/* Classe para garantir a uniformidade dos cards de temáticas */
 .themeCard {
     /* Força uma altura mínima padrão para todos os cards */
     min-height: 200px;
@@ -468,4 +465,115 @@
     font-size: 1.1rem !important;
     line-height: 1.4;
     margin-top: 1rem; /* Espaçamento entre ícone e texto */
+}
+
+/* Critérios de Avaliação */
+.criterionItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  width: 100%;
+}
+
+.criterionNumber {
+  font-size: 90px !important;
+  font-weight: 700 !important;
+  color: #2d2e82 !important;
+  line-height: 1 !important;
+  font-family: Georgia, serif !important;
+  flex-shrink: 0;
+}
+
+.criterionCircleWrapper {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.criterionCircleSvg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.criterionContent {
+  position: relative;
+  z-index: 1;
+  text-align: left;
+  padding: 25px;
+  width: 100%;
+}
+
+.criterionTextContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.criterionTitle {
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  color: #333 !important;
+  line-height: 1 !important;
+}
+
+.criterionDesc {
+  font-size: 12px !important;
+  color: #666 !important;
+  line-height: 1.5 !important;
+  font-weight: 400 !important;
+}
+
+/* Responsividade */
+@media (max-width: 899px) {
+  .criterionNumber {
+    font-size: 70px !important;
+  }
+  
+  .criterionCircleWrapper {
+    width: 180px;
+    height: 180px;
+  }
+
+    .criterionTitle {
+    font-size: 12px !important;
+  }
+  
+  .criterionDesc {
+    font-size: 10px !important;
+  }
+}
+
+@media (max-width: 599px) {
+  .criterionItem {
+    gap: 5px;
+  }
+  
+  .criterionNumber {
+    font-size: 60px !important;
+  }
+  
+  .criterionCircleWrapper {
+    width: 160px;
+    height: 160px;
+  }
+  
+  .criterionContent {
+    padding: 20px;
+  }
+  
+  .criterionTitle {
+    font-size: 12px !important;
+  }
+  
+  .criterionDesc {
+    font-size: 10px !important;
+  }
 }

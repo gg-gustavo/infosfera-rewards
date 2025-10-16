@@ -5,7 +5,6 @@ import { Typography, Box, Grid, Card, CardContent, Stack } from '@mui/material';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import CorporateFareIcon from '@mui/icons-material/CorporateFare';
 import SchoolIcon from '@mui/icons-material/School';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
@@ -50,7 +49,6 @@ const Home = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Dados originais mantidos
   const cardCategories = [
     { icon: CorporateFareIcon, title: 'Instituições Públicas', desc: 'Órgãos e entidades da administração pública que implementaram práticas inovadoras.' },
     { icon: SchoolIcon, title: 'Academia e Pesquisa', desc: 'Pesquisadores e grupos acadêmicos com estudos de impacto na gestão da informação.' },
@@ -61,7 +59,7 @@ const Home = () => {
     { title: 'Impacto e Resultados:', text: 'A comprovação dos resultados obtidos por meio de indicadores claros.' },
     { title: 'Replicabilidade e Sustentabilidade:', text: 'A capacidade da prática ser adotada em outros contextos.' }
   ];
-  
+
   const tematicas = [
     { title: 'Transparência Digital', icon: <PolicyIcon fontSize="large" /> },
     { title: 'Governança Eletrônica', icon: <AccountBalanceIcon fontSize="large" /> },
@@ -106,8 +104,8 @@ const Home = () => {
             <Typography variant="h2" className={styles.sectionTitle}>Sobre o Prêmio</Typography>
             <Box className={styles.titleUnderline} />
           </Box>
-          <Grid container spacing={2} columns={{xs : 1 , md :4}}>
-            <Grid size={{xs: 1, md: 2}}>
+          <Grid container spacing={2} columns={{ xs: 1, md: 4 }}>
+            <Grid size={{ xs: 1, md: 2 }}>
               <Card ref={(el) => (cardRefs.current[0] = el)} data-id="card-1" className={`${styles.infoCard} ${visibleCards.has('card-1') ? styles.visible : ''}`}>
                 <Box className={styles.cardAccentBar} />
                 <CardContent>
@@ -120,7 +118,7 @@ const Home = () => {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid size={{xs: 1, md: 2}}>
+            <Grid size={{ xs: 1, md: 2 }}>
               <Card ref={(el) => (cardRefs.current[1] = el)} data-id="card-2" className={`${styles.infoCard} ${visibleCards.has('card-2') ? styles.visible : ''}`}>
                 <Box className={`${styles.cardAccentBar} ${styles.accentSecondary}`} />
                 <CardContent>
@@ -165,21 +163,55 @@ const Home = () => {
 
       <Box className={styles.section}>
         <Box className={styles.contentContainer}>
-          <Grid container spacing={4} sx={{ justifyContent: "center" }}>
-            <Grid>
+          <Grid container spacing={4} sx={{ justifyContent: "center" }}> 
+            <Grid item xs={12} md={7}>
               <Card ref={(el) => (cardRefs.current[5] = el)} data-id="info-card" className={`${styles.infoCard} ${styles.fullHeightCard} ${visibleCards.has('info-card') ? styles.visible : ''}`}>
-                <Box className={styles.cardAccentBar} />
-                <CardContent>
+                <Box className={styles.cardAccentBar}  />
+                <CardContent >
                   <Typography variant="h3" className={styles.cardTitle}>Critérios de Avaliação</Typography>
-                  <Typography variant='p' sx={{ mt: 2 }}>Para garantir uma seleção justa e criteriosa, nossos avaliadores se basearão nos seguintes pilares:</Typography>
-                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem', mt: 2 }}>
-                    {checkItems.map((item, i) => (
-                      <Box key={i} sx={{ display: 'flex', alignItems: 'flex-start' }}>
-                        <CheckCircleOutlineIcon color="primary" sx={{ mr: 1.5, mt: '3px', flexShrink: 0 }} />
-                        <Typography><strong>{item.title}</strong> {item.text}</Typography>
-                      </Box>
+                  <Typography variant='body1' sx={{ mt: 1, mb: 4 }}>
+                    Para garantir uma seleção justa e criteriosa, nossos avaliadores se basearão nos seguintes pilares:
+                  </Typography>
+
+                  <Grid container spacing={3} sx={{ my: 'auto', justifyContent: 'center' }}>
+                    {checkItems.map((item, index) => (
+                      <Grid item xs={12} sm={12} md={4} key={index} sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <Box className={styles.criterionItem}>
+                          <Typography className={styles.criterionNumber}>{index + 1}</Typography>
+                          <Box className={styles.criterionCircleWrapper}>
+                            <svg width="100%" height="100%" viewBox="0 0 200 200" className={styles.criterionCircleSvg}>
+                              <defs>
+                                <linearGradient id={`gradient-${index}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                                  <stop stopColor="#2d2e82" />
+                                </linearGradient>
+                              </defs>
+                              <circle
+                                cx="100"
+                                cy="100"
+                                r="95"
+                                fill="none"
+                                stroke={`url(#gradient-${index})`}
+                                strokeWidth="5.5"
+                                strokeDasharray="600"
+                                strokeDashoffset="100"
+                                transform="rotate(-140 100 100)"
+                              />
+                            </svg>
+                            <Box className={styles.criterionContent}>
+                              <Box className={styles.criterionTextContainer}>
+                                <Typography className={styles.criterionTitle}>
+                                  {item.title}
+                                </Typography>
+                                <Typography className={styles.criterionDesc}>
+                                  {item.text}
+                                </Typography>
+                              </Box>
+                            </Box>
+                          </Box>
+                        </Box>
+                      </Grid>
                     ))}
-                  </Box>
+                  </Grid>
                 </CardContent>
               </Card>
             </Grid>
@@ -197,27 +229,26 @@ const Home = () => {
         </Box>
       </Box>
 
-      {/* ===== SEÇÃO "TEMÁTICAS ELEGÍVEIS" COM AS NOVAS CLASSES APLICADAS ===== */}
       <Box className={`${styles.section} ${styles.sectionLight}`}>
         <Box className={styles.contentContainer}>
           <Box className={styles.sectionHeader}>
             <Typography variant="h2" className={styles.sectionTitle}>Temáticas Elegíveis</Typography>
             <Typography variant="body1" className={styles.sectionSubtitle}>Iniciativas relacionadas aos seguintes temas podem ser submetidas para avaliação:</Typography>
           </Box>
-          <Grid container spacing={4} columns={{xs : 2 ,md:12}}>
+          <Grid container spacing={4} columns={{ xs: 2, md: 12 }}>
             {tematicas.map((item, index) => (
-              <Grid size={{xs:1 , md : 3}} key={item.title}> 
-                <Card 
-                  ref={(el) => (cardRefs.current[7 + index] = el)} 
+              <Grid size={{ xs: 1, md: 3 }} key={item.title}>
+                <Card
+                  ref={(el) => (cardRefs.current[7 + index] = el)}
                   data-id={`tematica-${item.title.replace(/\s+/g, '-')}`}
                   // APLICANDO AS NOVAS CLASSES AQUI
                   className={`${styles.categoryCard} ${styles.themeCard} ${visibleCards.has(`tematica-${item.title.replace(/\s+/g, '-')}`) ? styles.visible : ''}`}
                 >
-                    <Box className={styles.categoryIconWrapper} sx={{display:"flex",justifyContent:"center"}}>{item.icon}</Box>
-                    {/* APLICANDO A NOVA CLASSE DE TÍTULO AQUI */}
-                    <Typography variant="h6" className={styles.themeCardTitle}>
-                      {item.title}
-                    </Typography>
+                  <Box className={styles.categoryIconWrapper} sx={{ display: "flex", justifyContent: "center" }}>{item.icon}</Box>
+                  {/* APLICANDO A NOVA CLASSE DE TÍTULO AQUI */}
+                  <Typography variant="h6" className={styles.themeCardTitle}>
+                    {item.title}
+                  </Typography>
                 </Card>
               </Grid>
             ))}
@@ -241,7 +272,7 @@ const Home = () => {
           </Grid>
         </Box>
       </Box>
-      
+
       <Box className={`${styles.section} ${styles.sectionLight}`}>
         <Box className={styles.contentContainer}>
           <Box className={styles.sectionHeader}>
