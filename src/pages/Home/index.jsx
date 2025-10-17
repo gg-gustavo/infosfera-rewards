@@ -163,13 +163,13 @@ const Home = () => {
 
       <Box className={styles.section}>
         <Box className={styles.contentContainer}>
-          <Grid container spacing={4} sx={{ justifyContent: "center" }}> 
+          <Grid container spacing={4} sx={{ justifyContent: "center" }}>
             <Grid>
               <Card ref={(el) => (cardRefs.current[5] = el)} data-id="info-card" className={`${styles.infoCard} ${styles.fullHeightCard} ${visibleCards.has('info-card') ? styles.visible : ''}`}>
-                <Box className={styles.cardAccentBar}  />
+                <Box className={styles.cardAccentBar} />
                 <CardContent >
-                  <Typography variant="h3" sx={{width:"100%", textAlign:"center"}} className={styles.cardTitle}>Critérios de Avaliação</Typography>
-                  <Typography variant='body1' sx={{ width:"100%",textAlign:"center", mt: 1, mb: 4 }}>
+                  <Typography variant="h3" sx={{ width: "100%", textAlign: "center" }} className={styles.cardTitle}>Critérios de Avaliação</Typography>
+                  <Typography variant='body1' sx={{ width: "100%", textAlign: "center", mt: 1, mb: 4 }}>
                     Para garantir uma seleção justa e criteriosa, nossos avaliadores se basearão nos seguintes pilares:
                   </Typography>
 
