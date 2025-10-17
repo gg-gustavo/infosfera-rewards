@@ -34,8 +34,6 @@
     width: 100%;
 }
 
-
-
 .sectionSubtitle {
     color: #666;
     margin-top: 2rem !important;
@@ -137,9 +135,6 @@
     .heroTitlePart1 {
         font-size: 3rem !important;
     }
-    .heroTitlePart2 {
-        font-size: 1.8rem !important;
-    }
     .heroDescription {
         font-size: 1rem !important;
     }
@@ -152,20 +147,16 @@
     .heroTitlePart1 {
         font-size: 2.5rem !important;
     }
-    .heroTitlePart2 {
-        font-size: 1.5rem !important;
-    }
     .heroDescription {
         font-size: 0.9rem !important;
     }
 }
 
-/* ===== NOVOS ESTILOS PARA CABEÇALHOS DE CATEGORIA ===== */
 .categoryHeader {
-    margin-top: 5rem; /* Aumenta o espaço entre as categorias */
+    margin-top: 5rem;
     margin-bottom: 2rem;
     text-align: left;
-    border-left: 4px solid #2d2e82; /* Detalhe visual */
+    border-left: 4px solid #2d2e82;
     padding-left: 1.5rem;
 }
 
@@ -194,13 +185,9 @@
     line-height: 1.6;
 }
 
-
-/* ===== ESTILOS AJUSTADOS PARA OS CARDS ===== */
-
-/* Estilo para os cards largos (Grande Prêmio e Destaque Paraná) */
 .grandePremioCard {
     border-radius: 24px !important;
-    background: #f8f9fa !important; /* Cor de fundo mais suave */
+    background: #f8f9fa !important;
     border: 1px solid #e0e0e0;
     box-shadow: 0 4px 20px rgba(45, 46, 130, 0.08) !important;
     position: relative;
@@ -222,63 +209,47 @@
 }
 
 .grandePremioContent {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 2rem;
-    padding: 2rem !important;
-    color: #333; /* Texto escuro */
-}
-
-@media (max-width: 768px) {
-    .grandePremioContent {
-        flex-direction: column;
-        text-align: center;
-    }
-}
-
-.grandePremioImageWrapper {
-    position: relative;
-    flex-shrink: 0;
-}
-
-.grandePremioImage {
-    width: 150px;
-    height: 150px;
-    border-radius: 20px; /* Bordas arredondadas */
-    object-fit: cover;
-    border: none;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-}
-
-@media (max-width: 768px) {
-    .grandePremioImage {
-        width: 120px;
-        height: 120px;
-    }
+    /* REMOVIDO gap e flex-direction: row para centralizar o texto */
+    padding: 2.5rem !important;
+    color: #333;
+    text-align: center;
 }
 
 .grandePremioInfo {
     flex: 1;
 }
 
-.vencedorNome {
+/* ===== NOVOS ESTILOS PARA TEXTOS DOS VENCEDORES (CARD GRANDE) ===== */
+.vencedorNomes {
     color: #2d2e82 !important;
     font-weight: 700 !important;
     font-size: 1.8rem !important;
+    margin-bottom: 0.75rem !important;
+}
+
+.vencedorProjeto {
+    color: #333 !important;
+    font-weight: 600 !important;
+    font-size: 1.2rem !important;
     margin-bottom: 0.5rem !important;
 }
 
-@media (max-width: 768px) {
-    .vencedorNome {
-        font-size: 1.5rem !important;
-    }
+.vencedorVinculo {
+    color: #666 !important;
+    font-size: 1rem !important;
+    line-height: 1.6;
 }
 
-.vencedorCargo {
-    color: #555 !important;
-    font-size: 1.1rem !important;
-    line-height: 1.6;
+@media (max-width: 768px) {
+    .vencedorNomes {
+        font-size: 1.5rem !important;
+    }
+    .vencedorProjeto {
+        font-size: 1.1rem !important;
+    }
+    .vencedorVinculo {
+        font-size: 0.95rem !important;
+    }
 }
 
 /* Cards menores (Boas Práticas e Menções Honrosas) */
@@ -292,6 +263,8 @@
     opacity: 0;
     transform: translateY(30px);
     transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    display: flex; /* Adicionado para centralização */
+    flex-direction: column; /* Adicionado para centralização */
 }
 
 .vencedorCard.visible {
@@ -305,47 +278,38 @@
 }
 
 .vencedorCardContent {
-    padding: 2.5rem 2rem !important; /* Mais espaço no topo */
+    padding: 2rem !important;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.imageWrapper {
-    margin-bottom: 1.5rem;
-    position: relative;
-}
-
-.vencedorImage {
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid #f0f4f8;
-    box-shadow: 0 4px 20px rgba(45, 46, 130, 0.15);
-    transition: all 0.3s ease;
-}
-
-.vencedorCard:hover .vencedorImage {
-    transform: scale(1.05);
-    border-color: #2d2e82;
+    flex-grow: 1; /* Faz o conteúdo crescer */
+    justify-content: center; /* Centraliza o conteúdo verticalmente */
 }
 
 .vencedorDetails {
     width: 100%;
 }
 
-.nome {
+/* ===== NOVOS ESTILOS PARA TEXTOS DOS VENCEDORES (CARD PEQUENO) ===== */
+.nomes {
     color: #2d2e82 !important;
     font-weight: 700 !important;
     font-size: 1.25rem !important;
-    margin-bottom: 0.5rem !important;
+    margin-bottom: 0.75rem !important;
     line-height: 1.4;
 }
 
-.cargo {
+.projeto {
+    color: #333 !important;
+    font-size: 1rem !important;
+    margin-bottom: 0.5rem !important;
+    line-height: 1.5;
+    font-weight: 600 !important;
+}
+
+.vinculo {
     color: #666 !important;
-    font-size: 0.95rem !important;
+    font-size: 0.9rem !important;
     line-height: 1.5;
 }

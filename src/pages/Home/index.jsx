@@ -241,11 +241,9 @@ const Home = () => {
                 <Card
                   ref={(el) => (cardRefs.current[7 + index] = el)}
                   data-id={`tematica-${item.title.replace(/\s+/g, '-')}`}
-                  // APLICANDO AS NOVAS CLASSES AQUI
                   className={`${styles.categoryCard} ${styles.themeCard} ${visibleCards.has(`tematica-${item.title.replace(/\s+/g, '-')}`) ? styles.visible : ''}`}
                 >
                   <Box className={styles.categoryIconWrapper} sx={{ display: "flex", justifyContent: "center" }}>{item.icon}</Box>
-                  {/* APLICANDO A NOVA CLASSE DE TÍTULO AQUI */}
                   <Typography variant="h6" className={styles.themeCardTitle}>
                     {item.title}
                   </Typography>
