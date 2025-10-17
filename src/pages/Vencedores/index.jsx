@@ -5,7 +5,6 @@ import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import styles from './index.module.css';
 import bannerImage from '../../assets/banner.jpeg';
 
-// Importando as fotos dos vencedores
 const vencedoresImages = Object.values(
   import.meta.glob('../../assets/vencedores/*.png', { 
     eager: true, 
@@ -14,10 +13,32 @@ const vencedoresImages = Object.values(
   })
 );
 
+// Componente reutilizável para o cabeçalho de cada seção
+const CategoriaHeader = ({ titulo, descricao }) => (
+  <Box className={styles.categoryHeader}>
+    <Box className={styles.categoryTitleWrapper}>
+      <EmojiEventsIcon className={styles.categoryIcon} />
+      <Typography variant="h4" className={styles.categoryTitle}>
+        {titulo}
+      </Typography>
+    </Box>
+    <Typography className={styles.categoryDescription}>
+      {descricao}
+    </Typography>
+  </Box>
+);
+
 const Vencedores = () => {
   const [visibleCards, setVisibleCards] = useState(new Set());
   const cardRefs = useRef([]);
 
+  // Agrupa todos os refs em um único array para o IntersectionObserver
+  const registerRef = (el) => {
+    if (el && !cardRefs.current.includes(el)) {
+      cardRefs.current.push(el);
+    }
+  };
+  
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -31,73 +52,69 @@ const Vencedores = () => {
       },
       { threshold: 0.1 }
     );
-
-    cardRefs.current.forEach((card) => {
+  
+    // Filtra para observar apenas os refs que ainda não foram tornados visíveis
+    const unobservedRefs = cardRefs.current.filter(
+      (ref) => ref && !visibleCards.has(ref.dataset.id)
+    );
+  
+    unobservedRefs.forEach((card) => {
       if (card) observer.observe(card);
     });
-
+  
     return () => observer.disconnect();
-  }, []);
+  }, [visibleCards]); // Re-executa o efeito quando `visibleCards` muda
 
-  // Dados dos vencedores
-  const vencedores = [
-    {
-      nome: 'Nome do Vencedor A',
-      cargo: 'Cargo/Instituição A',
-      premio: 'Grande Prêmio',
-      isGrandePremio: true,
-      foto: vencedoresImages[0]
+// ===== ESTRUTURA DE DADOS COM FOTOS CORRIGIDAS =====
+  // Dados agrupados por categoria para facilitar a renderização
+  const categorias = {
+    grandePremio: {
+      titulo: 'Grande Prêmio',
+      descricao: 'Descrição do grande prêmio.',
+      vencedores: [
+        // Foto 1
+        { nome: 'Nome do Vencedor A', cargo: 'Vence como destaque com o "Projeto XYZ", descrição....', foto: vencedoresImages[0] }
+      ]
     },
-    {
-      nome: 'Nome do Vencedor B',
-      cargo: 'Cargo/Instituição B',
-      premio: 'Prêmio B',
-      isGrandePremio: false,
-      foto: vencedoresImages[1]
+    boasPraticas: {
+      titulo: 'Referência em Boas Práticas',
+      descricao: 'Descrição do prêmio de boas práticas.',
+      vencedores: [
+        // Foto 2
+        { nome: 'Nome do Vencedor B', cargo: 'Vence com o "Projeto XYZ", descrição....', foto: vencedoresImages[1] },
+        // Foto 3
+        { nome: 'Nome do Vencedor C', cargo: 'Vence com o "Projeto XYZ", descrição....', foto: vencedoresImages[2] }
+      ]
     },
-    {
-      nome: 'Nome do Vencedor C',
-      cargo: 'Cargo/Instituição C',
-      premio: 'Prêmio C',
-      isGrandePremio: false,
-      foto: vencedoresImages[2]
+    destaqueParana: {
+      titulo: 'Destaque Paraná',
+      descricao: 'Descrição do prêmio Destaque Paraná.',
+      vencedores: [
+        // Foto 4
+        { nome: 'Nome do Vencedor D', cargo: 'Vence como destaque com o "Projeto XYZ", descrição....', foto: vencedoresImages[3] }
+      ]
     },
-    {
-      nome: 'Nome do Vencedor D',
-      cargo: 'Cargo/Instituição D',
-      premio: 'Prêmio D',
-      isGrandePremio: false,
-      foto: vencedoresImages[3]
-    },
-    {
-      nome: 'Nome do Vencedor E',
-      cargo: 'Cargo/Instituição E',
-      premio: 'Prêmio E',
-      isGrandePremio: false,
-      foto: vencedoresImages[4]
-    },
-    {
-      nome: 'Nome do Vencedor F',
-      cargo: 'Cargo/Instituição F',
-      premio: 'Prêmio F',
-      isGrandePremio: false,
-      foto: vencedoresImages[5]
-    },
-    {
-      nome: 'Nome do Vencedor G',
-      cargo: 'Cargo/Instituição G',
-      premio: 'Prêmio G',
-      isGrandePremio: false,
-      foto: vencedoresImages[6]
-    },
-    {
-      nome: 'Nome do Vencedor H',
-      cargo: 'Cargo/Instituição H',
-      premio: 'Prêmio H',
-      isGrandePremio: false,
-      foto: vencedoresImages[7]
+    mencoesHonrosas: {
+      titulo: 'Menções Honrosas',
+      descricao: 'Descrição para as menções honrosas.',
+      vencedores: [
+        // Foto 5
+        { nome: 'Nome da Menção Honrosa 1', cargo: 'Vence com o "Projeto XYZ", descrição....', foto: vencedoresImages[4] },
+        // Foto 6
+        { nome: 'Nome da Menção Honrosa 2', cargo: 'Vence com o "Projeto XYZ", descrição....', foto: vencedoresImages[5] },
+        // Foto 7
+        { nome: 'Nome da Menção Honrosa 3', cargo: 'Vence com o "Projeto XYZ", descrição....', foto: vencedoresImages[6] },
+        // Foto 8
+        { nome: 'Nome da Menção Honrosa 4', cargo: 'Vence com o "Projeto XYZ", descrição....', foto: vencedoresImages[7] },
+        // Foto 9
+        { nome: 'Nome da Menção Honrosa 5', cargo: 'Vence com o "Projeto XYZ", descrição....', foto: vencedoresImages[8] },
+        // Foto 10
+        { nome: 'Nome da Menção Honrosa 6', cargo: 'Vence com o "Projeto XYZ", descrição....', foto: vencedoresImages[9] },
+        // Foto 11
+        { nome: 'Nome da Menção Honrosa 7', cargo: 'Vence com o "Projeto XYZ", descrição....', foto: vencedoresImages[10] }
+      ]
     }
-  ];
+  };
 
   return (
     <Box className={styles.vencedoresPage}>
@@ -110,7 +127,7 @@ const Vencedores = () => {
                 Vencedores
               </Typography>
               <Typography className={styles.heroDescription}>
-                Projetos que se destacaram por sua originalidade, impacto ecapacidade de transformação.
+                Projetos que se destacaram por sua originalidade, impacto e capacidade de transformação.
               </Typography>
             </Box>
             <Box className={styles.heroDivider} />
@@ -132,90 +149,112 @@ const Vencedores = () => {
             </Typography>
           </Box>
 
-          {/* Grande Prêmio - Destaque */}
-          {vencedores
-            .filter((v) => v.isGrandePremio)
-            .map((vencedor, index) => (
-              <Card
-                key={index}
-                ref={(el) => (cardRefs.current[index] = el)}
-                data-id={`vencedor-${index}`}
-                className={`${styles.grandePremioCard} ${
-                  visibleCards.has(`vencedor-${index}`) ? styles.visible : ''
-                }`}
-              >
-                <Box className={styles.grandePremioAccent} />
-                <CardContent className={styles.grandePremioContent}>
-                  <Box className={styles.grandePremioImageWrapper}>
-                    <img
-                      src={vencedor.foto}
-                      alt={vencedor.nome}
-                      className={styles.grandePremioImage}
-                    />
-                    <Box className={styles.trophyBadge}>
-                      <EmojiEventsIcon sx={{ fontSize: 40 }} />
+          {/* ===== SEÇÃO GRANDE PRÊMIO ===== */}
+          <CategoriaHeader titulo={categorias.grandePremio.titulo} descricao={categorias.grandePremio.descricao} />
+          {categorias.grandePremio.vencedores.map((vencedor, index) => (
+            <Card
+              key={`gp-${index}`}
+              ref={registerRef}
+              data-id={`gp-${index}`}
+              className={`${styles.grandePremioCard} ${visibleCards.has(`gp-${index}`) ? styles.visible : ''}`}
+            >
+              <CardContent className={styles.grandePremioContent}>
+                <Box className={styles.grandePremioImageWrapper}>
+                  <img src={vencedor.foto} alt={vencedor.nome} className={styles.grandePremioImage} />
+                </Box>
+                <Box className={styles.grandePremioInfo}>
+                  <Typography variant="h4" className={styles.vencedorNome}>
+                    {vencedor.nome}
+                  </Typography>
+                  <Typography className={styles.vencedorCargo}>
+                    {vencedor.cargo}
+                  </Typography>
+                </Box>
+              </CardContent>
+            </Card>
+          ))}
+
+          {/* ===== SEÇÃO REFERÊNCIA EM BOAS PRÁTICAS ===== */}
+          <CategoriaHeader titulo={categorias.boasPraticas.titulo} descricao={categorias.boasPraticas.descricao} />
+          <Grid container spacing={4}>
+            {categorias.boasPraticas.vencedores.map((vencedor, index) => (
+              <Grid size={6} key={`bp-${index}`}>
+                <Card
+                  ref={registerRef}
+                  data-id={`bp-${index}`}
+                  className={`${styles.vencedorCard} ${visibleCards.has(`bp-${index}`) ? styles.visible : ''}`}
+                >
+                  <CardContent className={styles.vencedorCardContent}>
+                    <Box className={styles.imageWrapper}>
+                      <img src={vencedor.foto} alt={vencedor.nome} className={styles.vencedorImage} />
                     </Box>
-                  </Box>
-                  <Box className={styles.grandePremioInfo}>
-                    <Box className={styles.premioLabel}>
-                      <EmojiEventsIcon sx={{ mr: 1 }} />
-                      <Typography variant="h5" className={styles.premioText}>
-                        {vencedor.premio}
+                    <Box className={styles.vencedorDetails}>
+                      <Typography variant="h6" className={styles.nome}>
+                        {vencedor.nome}
+                      </Typography>
+                      <Typography className={styles.cargo}>
+                        {vencedor.cargo}
                       </Typography>
                     </Box>
-                    <Typography variant="h3" className={styles.vencedorNome}>
-                      {vencedor.nome}
-                    </Typography>
-                    <Typography className={styles.vencedorCargo}>
-                      {vencedor.cargo}
-                    </Typography>
-                  </Box>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </Grid>
             ))}
-
-          {/* Demais Vencedores */}
-          <Grid container spacing={3} columns={{xs : 1, sm: 2,  md : 3}}>
-            {vencedores
-              .filter((v) => !v.isGrandePremio)
-              .map((vencedor, index) => {
-                const cardIndex = index + 1; // +1 porque o grande prêmio é o 0
-                return (
-                  <Grid size={{xs : 1, sm: 1, md : 1}} key={cardIndex}>
-                    <Card
-                      ref={(el) => (cardRefs.current[cardIndex] = el)}
-                      data-id={`vencedor-${cardIndex}`}
-                      className={`${styles.vencedorCard} ${
-                        visibleCards.has(`vencedor-${cardIndex}`)
-                          ? styles.visible
-                          : ''
-                      }`}
-                    >
-                      <CardContent className={styles.vencedorCardContent}>
-                        <Box className={styles.imageWrapper}>
-                          <img
-                            src={vencedor.foto}
-                            alt={vencedor.nome}
-                            className={styles.vencedorImage}
-                          />
-                        </Box>
-                        <Box className={styles.vencedorDetails}>
-                          <Typography className={styles.premioTag}>
-                            {vencedor.premio}
-                          </Typography>
-                          <Typography variant="h6" className={styles.nome}>
-                            {vencedor.nome}
-                          </Typography>
-                          <Typography className={styles.cargo}>
-                            {vencedor.cargo}
-                          </Typography>
-                        </Box>
-                      </CardContent>
-                    </Card>
-                  </Grid>
-                );
-              })}
           </Grid>
+
+          {/* ===== SEÇÃO DESTAQUE PARANÁ ===== */}
+          <CategoriaHeader titulo={categorias.destaqueParana.titulo} descricao={categorias.destaqueParana.descricao} />
+          {categorias.destaqueParana.vencedores.map((vencedor, index) => (
+             <Card
+              key={`dp-${index}`}
+              ref={registerRef}
+              data-id={`dp-${index}`}
+              className={`${styles.grandePremioCard} ${visibleCards.has(`dp-${index}`) ? styles.visible : ''}`} // Reutilizando o estilo do grande prêmio
+            >
+              <CardContent className={styles.grandePremioContent}>
+                <Box className={styles.grandePremioImageWrapper}>
+                  <img src={vencedor.foto} alt={vencedor.nome} className={styles.grandePremioImage} />
+                </Box>
+                <Box className={styles.grandePremioInfo}>
+                  <Typography variant="h4" className={styles.vencedorNome}>
+                    {vencedor.nome}
+                  </Typography>
+                  <Typography className={styles.vencedorCargo}>
+                    {vencedor.cargo}
+                  </Typography>
+                </Box>
+              </CardContent>
+            </Card>
+          ))}
+
+          {/* ===== SEÇÃO MENÇÕES HONROSAS ===== */}
+          <CategoriaHeader titulo={categorias.mencoesHonrosas.titulo} descricao={categorias.mencoesHonrosas.descricao} />
+          <Grid container spacing={4}>
+            {categorias.mencoesHonrosas.vencedores.map((vencedor, index) => (
+              <Grid item key={`mh-${index}`}>
+                 <Card
+                  ref={registerRef}
+                  data-id={`mh-${index}`}
+                  className={`${styles.vencedorCard} ${visibleCards.has(`mh-${index}`) ? styles.visible : ''}`}
+                >
+                  <CardContent className={styles.vencedorCardContent}>
+                    <Box className={styles.imageWrapper}>
+                      <img src={vencedor.foto} alt={vencedor.nome} className={styles.vencedorImage} />
+                    </Box>
+                    <Box className={styles.vencedorDetails}>
+                      <Typography variant="h6" className={styles.nome}>
+                        {vencedor.nome}
+                      </Typography>
+                      <Typography className={styles.cargo}>
+                        {vencedor.cargo}
+                      </Typography>
+                    </Box>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+
         </Box>
       </Box>
     </Box>
