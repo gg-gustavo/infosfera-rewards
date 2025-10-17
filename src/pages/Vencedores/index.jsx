@@ -178,7 +178,7 @@ const Vencedores = () => {
           <CategoriaHeader titulo={categorias.boasPraticas.titulo} descricao={categorias.boasPraticas.descricao} />
           <Grid container spacing={4}>
             {categorias.boasPraticas.vencedores.map((vencedor, index) => (
-              <Grid size={6} key={`bp-${index}`}>
+              <Grid size={{xs: 12 , md : 6}} key={`bp-${index}`}>
                 <Card
                   ref={registerRef}
                   data-id={`bp-${index}`}
@@ -229,9 +229,9 @@ const Vencedores = () => {
 
           {/* ===== SEÇÃO MENÇÕES HONROSAS ===== */}
           <CategoriaHeader titulo={categorias.mencoesHonrosas.titulo} descricao={categorias.mencoesHonrosas.descricao} />
-          <Grid container spacing={4}>
+          <Grid sx={{width:"100%",justifyContent:"center"}} container spacing={4}>
             {categorias.mencoesHonrosas.vencedores.map((vencedor, index) => (
-              <Grid item key={`mh-${index}`}>
+              <Grid key={`mh-${index}`}>
                  <Card
                   ref={registerRef}
                   data-id={`mh-${index}`}
