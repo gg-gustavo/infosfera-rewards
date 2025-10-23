@@ -110,7 +110,7 @@ const categorias = {
         },
         { 
           nomes: 'Muralha Digital - CIOSP (Centro Integrado de Operações de Segurança Pública)', 
-          projeto: 'Ana Paula Pereira', 
+          projeto: 'Fabiano Arruda Bianchinho', 
           vinculo: 'Prefeitura Municipal de Campo Largo/PR' 
         },
         { 
