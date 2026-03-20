@@ -8,8 +8,8 @@ import logo from '../../assets/logo.png';
 const Header = () => {
   const navItems = [
     { label: 'Home', path: '/' },
+    { label: 'Regulamento', path: '/regulamento' },
     { label: 'Vencedores', path: '/vencedores' },
-    /*{ label: 'Galeria', path: '/galeria' },*/
     { label: 'Contato', path: '/contato' },
   ];
 

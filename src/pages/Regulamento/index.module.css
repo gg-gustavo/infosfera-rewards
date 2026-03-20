@@ -1,0 +1,265 @@
+/* ── PAGE WRAPPER ── */
+.regulamentoPage {
+    background: linear-gradient(180deg, #f8f9fa 100%);
+    min-height: 100vh;
+}
+
+/* ── LAYOUT ── */
+.section {
+    padding: 4rem 0;
+}
+
+.contentContainer {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .contentContainer {
+        padding: 0 1rem;
+    }
+}
+
+/* ── CABEÇALHO ── */
+.sectionHeader {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.sectionTitle {
+    color: #2d2e82;
+    font-weight: 700 !important;
+    font-size: 2.5rem !important;
+    margin-bottom: 1rem !important;
+    display: inline-block;
+}
+
+.titleUnderline {
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(90deg, #2d2e82 0%, #1abc9c 100%);
+    border-radius: 2px;
+    margin-bottom: 1.5rem;
+}
+
+.sectionSubtitle {
+    font-size: 1.1rem !important;
+    color: #666 !important;
+    line-height: 1.8;
+    margin-top: 1.5rem !important;
+    display: block;
+}
+
+/* ── INTRO INSTITUCIONAL ── */
+.introBox {
+    background: linear-gradient(135deg, #2d2e82 0%, #1abc9c 100%);
+    border-radius: 16px;
+    padding: 2rem 2.5rem;
+    margin-bottom: 3rem;
+    box-shadow: 0 4px 20px rgba(45, 46, 130, 0.15);
+}
+
+.introText {
+    color: rgba(255, 255, 255, 0.95) !important;
+    font-size: 1rem !important;
+    line-height: 1.8 !important;
+}
+
+/* ── SEÇÕES DO REGULAMENTO ── */
+.regulamentoSection {
+    margin-bottom: 3rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid #e8e8f0;
+}
+
+.regulamentoSection:last-child {
+    border-bottom: none;
+}
+
+.sectionHeading {
+    color: #2d2e82 !important;
+    font-weight: 700 !important;
+    font-size: 1.3rem !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1.5rem !important;
+    padding-bottom: 0.75rem;
+    border-bottom: 3px solid;
+    border-image: linear-gradient(90deg, #2d2e82 0%, #1abc9c 100%) 1;
+}
+
+/* ── ARTIGOS ── */
+.artigo {
+    margin-bottom: 1.5rem;
+}
+
+.artigoTexto {
+    color: #333 !important;
+    font-size: 0.97rem !important;
+    line-height: 1.85 !important;
+}
+
+.artigoNum {
+    font-weight: 700;
+    color: #2d2e82;
+    margin-right: 0.25rem;
+}
+
+/* ── PARÁGRAFOS ── */
+.paragrafo {
+    margin-top: 0.75rem;
+    margin-left: 1.5rem;
+    padding-left: 1rem;
+    border-left: 3px solid #e0e0f0;
+}
+
+.paragrafoNum {
+    font-weight: 600;
+    color: #555;
+    margin-right: 0.25rem;
+}
+
+/* ── LISTAS ── */
+.lista {
+    margin: 0.75rem 0 0 1.5rem;
+    padding-left: 1rem;
+    color: #333;
+    font-size: 0.97rem;
+    line-height: 1.85;
+}
+
+.lista li {
+    margin-bottom: 0.5rem;
+}
+
+/* ── LINK ── */
+.link {
+    color: #2d2e82;
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 1px solid #1abc9c;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.link:hover {
+    color: #1abc9c;
+}
+
+/* ── TABELAS ── */
+.tableWrapper {
+    overflow-x: auto;
+    margin-top: 1.25rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(45, 46, 130, 0.08);
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.93rem;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.table thead tr {
+    background: linear-gradient(90deg, #2d2e82 0%, #1a1b5e 100%);
+    color: white;
+}
+
+.table thead th {
+    padding: 1rem 1.25rem;
+    text-align: left;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    font-size: 0.9rem;
+}
+
+.table tbody tr {
+    border-bottom: 1px solid #eeeef5;
+    transition: background 0.15s ease;
+}
+
+.table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.table tbody tr:hover {
+    background: #f4f4fb;
+}
+
+.table tbody td {
+    padding: 1rem 1.25rem;
+    color: #333;
+    vertical-align: top;
+    line-height: 1.7;
+}
+
+.table tbody tr:nth-child(even) {
+    background: #f9f9fc;
+}
+
+.table tbody tr:nth-child(even):hover {
+    background: #f4f4fb;
+}
+
+/* Coluna de peso */
+.pesoCol {
+    text-align: center !important;
+    width: 80px;
+}
+
+.pesoBadge {
+    display: inline-block;
+    background: #2d2e82;
+    color: white;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 20px;
+    min-width: 48px;
+    text-align: center;
+}
+
+.pesoBadgeDestaque {
+    background: linear-gradient(135deg, #2d2e82 0%, #1abc9c 100%);
+    font-size: 1.1rem;
+    padding: 0.35rem 0.8rem;
+    box-shadow: 0 2px 8px rgba(26, 188, 156, 0.3);
+}
+
+/* ── RESPONSIVIDADE ── */
+@media (max-width: 768px) {
+    .section {
+        padding: 2.5rem 0;
+    }
+
+    .sectionTitle {
+        font-size: 1.8rem !important;
+    }
+
+    .introBox {
+        padding: 1.5rem;
+    }
+
+    .sectionHeading {
+        font-size: 1.1rem !important;
+    }
+
+    .paragrafo {
+        margin-left: 0.75rem;
+    }
+
+    .table thead th,
+    .table tbody td {
+        padding: 0.75rem 0.9rem;
+        font-size: 0.88rem;
+    }
+}
