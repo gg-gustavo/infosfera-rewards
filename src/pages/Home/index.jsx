@@ -6,8 +6,8 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
 import CorporateFareIcon from '@mui/icons-material/CorporateFare';
-import SchoolIcon from '@mui/icons-material/School';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import AccountTreeIcon from '@mui/icons-material/AccountTree';
+import GavelIcon from '@mui/icons-material/Gavel';
 
 // Ícones para a seção de Temáticas
 import PolicyIcon from '@mui/icons-material/Policy';
@@ -50,9 +50,9 @@ const Home = () => {
   }, []);
 
   const cardCategories = [
-    { icon: CorporateFareIcon, title: 'Instituições Públicas', desc: 'Órgãos e entidades da administração pública que implementaram práticas inovadoras.' },
-    { icon: SchoolIcon, title: 'Academia e Pesquisa', desc: 'Pesquisadores e grupos acadêmicos com estudos de impacto na gestão da informação.' },
-    { icon: TrendingUpIcon, title: 'Iniciativas de Destaque', desc: 'Projetos individuais ou de equipes que demonstraram resultados excepcionais e replicáveis.' }
+    { icon: CorporateFareIcon, title: 'Instituições Esferas e Poderes Públicos', desc: 'Órgãos e entidades dos Poderes Executivo, Legislativo e Judiciário em todos os níveis: Federal, Estadual, Distrital e Municipal.' },
+    { icon: AccountTreeIcon, title: 'Estrutura Administrativa e Controle', desc: 'Administração Direta e Indireta, incluindo autarquias, fundações, empresas públicas, consórcios e sistemas de controle como Tribunais de Contas.' },
+    { icon: GavelIcon, title: 'Funções Essenciais à Justiça', desc: 'Instituições fundamentais como o Ministério Público, Advocacia Pública e Defensoria Pública de todo o país.' }
   ];
   const checkItems = [
     { title: 'Relevância e Originalidade:', text: 'A importância e a inovação do projeto para a gestão pública.' },
@@ -219,9 +219,9 @@ const Home = () => {
               <Card ref={(el) => (cardRefs.current[6] = el)} data-id="highlight-card" className={`${styles.highlightCard} ${styles.fullHeightCard} ${visibleCards.has('highlight-card') ? styles.visible : ''}`}>
                 <CardContent>
                   <EmojiEventsOutlinedIcon sx={{ fontSize: 80, mb: 2 }} />
-                  <Typography variant="h4" component="h3">A Premiação</Typography>
-                  <Typography sx={{ mt: 1 }}>A cerimônia de reconhecimento acontecerá durante a Sessão Solene do <strong>Infosfera 2025</strong>.</Typography>
-                  <Typography variant="h5" component="p" fontWeight="bold" sx={{ mt: 2 }}>21 de outubro de 2025</Typography>
+                  <Typography variant="h4" component="h3">Prêmio Infosfera 2026</Typography>
+                  <Typography sx={{ mt: 1 }}>A cerimônia de reconhecimento acontecerá em sessão solene em <strong>Goiânia/GO.</strong></Typography>
+                  <Typography variant="h5" component="p" fontWeight="bold" sx={{ mt: 2 }}>Novembro de 2026</Typography>
                 </CardContent>
               </Card>
             </Grid>
