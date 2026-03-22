@@ -1,14 +1,33 @@
 import { useState, useEffect, useRef } from 'react';
 import { Typography, Box, Grid, Card, CardContent } from '@mui/material';
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import CtaVerde from '../../components/CtaVerde';
+import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
+import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
 
 import styles from './index.module.css';
 import bannerImage from '../../assets/banner.jpeg';
 
+const FotoPlaceholder = ({ label }) => (
+  <Box sx={{
+    width: '100%', aspectRatio: '16/7', border: '2px dashed #d0d2f0',
+    borderRadius: '16px', background: '#f7f8fc',
+    display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+    gap: 1, mb: 3, cursor: 'default',
+  }}>
+    <AddPhotoAlternateOutlinedIcon sx={{ fontSize: 48, color: '#b0b3d8' }} />
+    <Typography sx={{ color: '#9497c4', fontSize: '0.875rem', fontWeight: 600 }}>
+      {label || 'Foto da categoria'}
+    </Typography>
+    <Typography sx={{ color: '#b8bad8', fontSize: '0.75rem' }}>
+      Imagem a ser adicionada
+    </Typography>
+  </Box>
+);
+
 const CategoriaHeader = ({ titulo, descricao }) => (
   <Box className={styles.categoryHeader}>
     <Box className={styles.categoryTitleWrapper}>
-      <EmojiEventsIcon className={styles.categoryIcon} />
+      <EmojiEventsOutlinedIcon className={styles.categoryIcon} />
       <Typography variant="h4" className={styles.categoryTitle}>
         {titulo}
       </Typography>
@@ -169,8 +188,9 @@ const categorias = {
             </Typography>
           </Box>
 
-          {/* ===== SEÇÃO GRANDE PRÊMIO (SEM IMAGEM) ===== */}
+          {/* ===== SEÇÃO GRANDE PRÊMIO ===== */}
           <CategoriaHeader titulo={categorias.grandePremio.titulo} />
+          <FotoPlaceholder label="Foto — Grande Prêmio Infosfera" />
           {categorias.grandePremio.vencedores.map((vencedor, index) => (
             <Card
               key={`gp-${index}`}
@@ -194,8 +214,9 @@ const categorias = {
             </Card>
           ))}
 
-          {/* ===== SEÇÃO REFERÊNCIA EM BOAS PRÁTICAS (SEM IMAGEM) ===== */}
+          {/* ===== SEÇÃO REFERÊNCIA EM BOAS PRÁTICAS ===== */}
           <CategoriaHeader titulo={categorias.boasPraticas.titulo} />
+          <FotoPlaceholder label="Foto — Referência em Boas Práticas" />
           <Grid container spacing={4}>
             {categorias.boasPraticas.vencedores.map((vencedor, index) => (
               <Grid size={{xs: 12 , md : 6}} key={`bp-${index}`}>
@@ -222,8 +243,9 @@ const categorias = {
             ))}
           </Grid>
 
-          {/* ===== SEÇÃO DESTAQUE PARANÁ (SEM IMAGEM) ===== */}
+          {/* ===== SEÇÃO DESTAQUE PARANÁ ===== */}
           <CategoriaHeader titulo={categorias.destaqueParana.titulo} />
+          <FotoPlaceholder label="Foto — Destaque Paraná" />
           {categorias.destaqueParana.vencedores.map((vencedor, index) => (
              <Card
               key={`dp-${index}`}
@@ -247,8 +269,9 @@ const categorias = {
             </Card>
           ))}
 
-          {/* ===== SEÇÃO MENÇÕES HONROSAS (SEM IMAGEM) ===== */}
-          <CategoriaHeader titulo={categorias.mencoesHonrosas.titulo}  />
+          {/* ===== SEÇÃO MENÇÕES HONROSAS ===== */}
+          <CategoriaHeader titulo={categorias.mencoesHonrosas.titulo} />
+          <FotoPlaceholder label="Foto — Menções Honrosas" />
           <Grid sx={{width:"100%",justifyContent:"center"}} container spacing={4}>
             {categorias.mencoesHonrosas.vencedores.map((vencedor, index) => (
               <Grid item xs={12} sm={6} md={4} key={`mh-${index}`}>
@@ -277,6 +300,8 @@ const categorias = {
 
         </Box>
       </Box>
+      
+      <CtaVerde />
     </Box>
   );
 };

@@ -1,35 +1,48 @@
 import { useState, useEffect, useRef } from 'react';
-import { Typography, Box, Grid, Card, CardContent, Stack } from '@mui/material';
+import { Typography, Box, Grid, Card, CardContent, Stack, Button, Chip } from '@mui/material';
 
-// Ícones para as seções existentes (intocados)
-import StarBorderIcon from '@mui/icons-material/StarBorder';
+// Outlined icons - style matching boaspraticas.infosfera.inf.br
+import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
-import CorporateFareIcon from '@mui/icons-material/CorporateFare';
-import SchoolIcon from '@mui/icons-material/School';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import CorporateFareOutlinedIcon from '@mui/icons-material/CorporateFareOutlined';
+import GavelOutlinedIcon from '@mui/icons-material/GavelOutlined';
+import AccountBalanceOutlinedIcon from '@mui/icons-material/AccountBalanceOutlined';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import PlaceOutlinedIcon from '@mui/icons-material/PlaceOutlined';
+import WorkspacePremiumOutlinedIcon from '@mui/icons-material/WorkspacePremiumOutlined';
+import StarsOutlinedIcon from '@mui/icons-material/StarsOutlined';
+import LocationCityOutlinedIcon from '@mui/icons-material/LocationCityOutlined';
+import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined';
+import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 
-// Ícones para a seção de Temáticas
-import PolicyIcon from '@mui/icons-material/Policy';
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
-import VpnlockIcon from '@mui/icons-material/VpnLock';
-import MemoryIcon from '@mui/icons-material/Memory';
-import StackedBarChartIcon from '@mui/icons-material/StackedBarChart';
-import WheelchairPickupIcon from '@mui/icons-material/WheelchairPickup';
-import ScreenRotationAltIcon from '@mui/icons-material/ScreenRotationAlt';
-import PsychologyAltIcon from '@mui/icons-material/PsychologyAlt';
-import AssuredWorkloadIcon from '@mui/icons-material/AssuredWorkload';
-import SwitchAccessShortcutIcon from '@mui/icons-material/SwitchAccessShortcut';
-import AdUnitsIcon from '@mui/icons-material/AdUnits';
-import AppShortcutIcon from '@mui/icons-material/AppShortcut';
+// Criteria icons
+import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
+import TrendingUpOutlinedIcon from '@mui/icons-material/TrendingUpOutlined';
+import AutorenewOutlinedIcon from '@mui/icons-material/AutorenewOutlined';
 
+// Steps icons
+import MoveToInboxOutlinedIcon from '@mui/icons-material/MoveToInboxOutlined';
+import VerifiedOutlinedIcon from '@mui/icons-material/VerifiedOutlined';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+
+// Thematic icons (outlined)
+import PolicyOutlinedIcon from '@mui/icons-material/PolicyOutlined';
+import BarChartOutlinedIcon from '@mui/icons-material/BarChartOutlined';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
+import SecurityOutlinedIcon from '@mui/icons-material/SecurityOutlined';
+import DevicesOutlinedIcon from '@mui/icons-material/DevicesOutlined';
 
 import styles from './index.module.css';
 import bannerImage from '../../assets/banner.jpeg';
+import CtaVerde from '../../components/CtaVerde';
 
-// Logos (código original mantido)
 const realizacaoLogos = Object.values(import.meta.glob('../../assets/realizacao/*.jpg', { eager: true, query: '?url', import: 'default' }));
 const apoioLogos = Object.values(import.meta.glob('../../assets/apoio/*.jpg', { eager: true, query: '?url', import: 'default' }));
+
+const PLATFORM_URL = 'https://boaspraticas.infosfera.inf.br/';
 
 const Home = () => {
   const [visibleCards, setVisibleCards] = useState(new Set());
@@ -49,85 +62,120 @@ const Home = () => {
     return () => observer.disconnect();
   }, []);
 
-  const cardCategories = [
-    { icon: CorporateFareIcon, title: 'Instituições Públicas', desc: 'Órgãos e entidades da administração pública que implementaram práticas inovadoras.' },
-    { icon: SchoolIcon, title: 'Academia e Pesquisa', desc: 'Pesquisadores e grupos acadêmicos com estudos de impacto na gestão da informação.' },
-    { icon: TrendingUpIcon, title: 'Iniciativas de Destaque', desc: 'Projetos individuais ou de equipes que demonstraram resultados excepcionais e replicáveis.' }
+  const whoCanParticipate = [
+    { icon: CorporateFareOutlinedIcon, title: 'Poder Executivo', desc: 'Ministérios, secretarias, autarquias, fundações públicas, empresas públicas e sociedades de economia mista, em nível federal, estadual ou municipal.' },
+    { icon: GavelOutlinedIcon, title: 'Poder Judiciário e MP', desc: 'Tribunais, Ministério Público, Advocacia Pública, Defensoria Pública e Tribunais de Contas de todos os entes federativos.' },
+    { icon: AccountBalanceOutlinedIcon, title: 'Poder Legislativo', desc: 'Câmaras Municipais, Assembleias Legislativas, Câmara dos Deputados, Senado Federal e demais órgãos legislativos.' },
   ];
+
   const checkItems = [
-    { title: 'Relevância e Originalidade:', text: 'A importância e a inovação do projeto para a gestão pública.' },
-    { title: 'Impacto e Resultados:', text: 'A comprovação dos resultados obtidos por meio de indicadores claros.' },
-    { title: 'Replicabilidade e Sustentabilidade:', text: 'A capacidade da prática ser adotada em outros contextos.' }
+    { num: '1', icon: <AssignmentOutlinedIcon sx={{ fontSize: 72, color: '#2d2e82' }} />, title: 'Relevância e Qualidade Técnica', text: 'Pertinência da solução frente aos problemas identificados e robustez metodológica. Alinhamento com os eixos temáticos, grau de inovação e conformidade normativa.', weight: '3,5' },
+    { num: '2', icon: <TrendingUpOutlinedIcon sx={{ fontSize: 72, color: '#2d2e82' }} />, title: 'Impacto e Resultados', text: 'Eficácia da prática e benefícios gerados. Valor público com indicadores de desempenho, ganhos de eficiência e melhoria na qualidade dos serviços prestados.', weight: '4,0' },
+    { num: '3', icon: <AutorenewOutlinedIcon sx={{ fontSize: 72, color: '#2d2e82' }} />, title: 'Replicabilidade e Sustentabilidade', text: 'Capacidade da prática de ser transferida ou adaptada para outros contextos, com viabilidade financeira e governança que garanta continuidade no tempo.', weight: '3,0' },
+  ];
+
+  const howToSteps = [
+    { num: '1', icon: <MoveToInboxOutlinedIcon sx={{ fontSize: 72, color: '#2d2e82' }} />, title: 'Plataforma de Boas Práticas', desc: 'Sua porta de entrada. Cadastre sua prática em boaspraticas.infosfera.inf.br. Gratuito e sem limite de submissões por órgão.' },
+    { num: '2', icon: <VerifiedOutlinedIcon sx={{ fontSize: 72, color: '#2d2e82' }} />, title: 'Regra Fundamental', desc: 'Detalhe resultados e impacto para desbloquear a elegibilidade. A prática precisa atingir o Status Ouro na plataforma.' },
+    { num: '3', icon: <CheckCircleOutlineIcon sx={{ fontSize: 72, color: '#2d2e82' }} />, title: 'Confirme o Interesse', desc: 'Após análise de admissibilidade (1–15 ago), confirme formalmente a participação na fase competitiva do Prêmio.' },
+    { num: '4', icon: <EmojiEventsIcon sx={{ fontSize: 72, color: '#2d2e82' }} />, title: 'Reconhecimento', desc: 'No Prêmio Infosfera de Gestão da Informação na Esfera Pública. Cerimônia em novembro de 2026, Goiânia/GO.' },
   ];
 
   const tematicas = [
-    { title: 'Transparência Digital', icon: <PolicyIcon fontSize="large" /> },
-    { title: 'Governança Eletrônica', icon: <AccountBalanceIcon fontSize="large" /> },
-    { title: 'Segurança Cibernética', icon: <VpnlockIcon fontSize="large" /> },
-    { title: 'Preservação da Memória', icon: <MemoryIcon fontSize="large" /> },
-    { title: 'Inteligência de Dados', icon: <StackedBarChartIcon fontSize="large" /> },
-    { title: 'Inclusão Digital', icon: <WheelchairPickupIcon fontSize="large" /> },
-    { title: 'Interoperabilidade', icon: <ScreenRotationAltIcon fontSize="large" /> },
-    { title: 'Gestão do Conhecimento', icon: <PsychologyAltIcon fontSize="large" /> },
-    { title: 'Compliance Digital', icon: <AssuredWorkloadIcon fontSize="large" /> },
-    { title: 'Inovação em Serviços', icon: <SwitchAccessShortcutIcon fontSize="large" /> },
-    { title: 'Curadoria Digital', icon: <AdUnitsIcon fontSize="large" /> },
-    { title: 'Transformação Digital', icon: <AppShortcutIcon fontSize="large" /> },
+    { title: 'Governança Digital e Eficiência', icon: <PolicyOutlinedIcon sx={{ fontSize: 40, color: '#2d2e82' }} />, desc: 'Transformação digital, interoperabilidade, inovação em serviços públicos.' },
+    { title: 'Gestão Estratégica da Informação', icon: <BarChartOutlinedIcon sx={{ fontSize: 40, color: '#2d2e82' }} />, desc: 'Inteligência de dados, IA no setor público, gestão do conhecimento.' },
+    { title: 'Transparência e Integridade', icon: <VisibilityOutlinedIcon sx={{ fontSize: 40, color: '#2d2e82' }} />, desc: 'Transparência digital, inclusão digital, compliance governamental.' },
+    { title: 'Preservação Digital', icon: <ArchiveOutlinedIcon sx={{ fontSize: 40, color: '#2d2e82' }} />, desc: 'Memória institucional, curadoria de acervos, gestão de documentos digitais.' },
+    { title: 'Segurança e Resiliência', icon: <SecurityOutlinedIcon sx={{ fontSize: 40, color: '#2d2e82' }} />, desc: 'Segurança cibernética, confidencialidade, integridade de dados.' },
+    { title: 'Outros Temas Correlatos', icon: <DevicesOutlinedIcon sx={{ fontSize: 40, color: '#2d2e82' }} />, desc: 'Inovação em processos, cidades inteligentes, sustentabilidade digital e outros.' },
   ];
+
+  const awardCategories = [
+    { icon: <EmojiEventsOutlinedIcon sx={{ fontSize: 44, color: '#fff' }} />, title: 'Grande Prêmio Infosfera', desc: 'A prática com maior pontuação global absoluta: o melhor da gestão da informação pública em 2026.', highlight: true },
+    { icon: <PlaceOutlinedIcon sx={{ fontSize: 44, color: '#2d2e82' }} />, title: 'Destaque Regional (Goiás)', desc: 'Maior pontuação técnica entre instituições sediadas no Estado de Goiás, anfitrião do evento.' },
+    { icon: <LocationCityOutlinedIcon sx={{ fontSize: 44, color: '#2d2e82' }} />, title: 'Destaque Municipal', desc: 'Distinção exclusiva para prefeituras, secretarias municipais e autarquias municipais.' },
+    { icon: <WorkspacePremiumOutlinedIcon sx={{ fontSize: 44, color: '#2d2e82' }} />, title: 'Menções Honrosas', desc: 'Até 7 práticas finalistas de mérito excepcional: criatividade, baixo custo ou superação tecnológica.' },
+    { icon: <StarsOutlinedIcon sx={{ fontSize: 44, color: '#2d2e82' }} />, title: 'Referência em Boa Prática', desc: 'Categoria especial para iniciativas de notório impacto nacional fora do fluxo regular.' },
+    { icon: <PublicOutlinedIcon sx={{ fontSize: 44, color: '#2d2e82' }} />, title: 'Escolha Popular', desc: 'Votação pública digital após divulgação dos finalistas. Única categoria acumulável com as demais.' },
+  ];
+
+  const timeline = [
+    { period: '1 abr – 31 jul', label: 'Inscrições abertas', active: true },
+    { period: '1–15 ago', label: 'Análise de admissibilidade', active: false },
+    { period: '1–30 ago', label: 'Avaliação de mérito', active: false },
+    { period: '10 set', label: 'Divulgação dos finalistas', active: false },
+    { period: '5–9 out', label: 'Aclamação Pública', active: false },
+    { period: '5 nov', label: 'Cerimônia · Goiânia/GO', active: false },
+  ];
+
+  const cardIds = useRef({
+    sobre1: 'card-sobre-1', sobre2: 'card-sobre-2',
+    ...whoCanParticipate.reduce((acc, _, i) => ({ ...acc, [`who-${i}`]: `who-${i}` }), {}),
+    premiacao: 'premiacao-card',
+    ...awardCategories.reduce((acc, _, i) => ({ ...acc, [`award-${i}`]: `award-${i}` }), {}),
+    ...tematicas.reduce((acc, _, i) => ({ ...acc, [`tema-${i}`]: `tema-${i}` }), {}),
+    ...howToSteps.reduce((acc, _, i) => ({ ...acc, [`step-${i}`]: `step-${i}` }), {}),
+    ...checkItems.reduce((acc, _, i) => ({ ...acc, [`crit-${i}`]: `crit-${i}` }), {}),
+  });
 
   return (
     <Box className={styles.homePage}>
+
+      {/* ── HERO ── */}
       <Box className={styles.heroBanner} style={{ backgroundImage: `url(${bannerImage})` }}>
         <Box className={styles.heroOverlay} />
         <Box className={`${styles.contentContainer} ${styles.heroContentWrapper}`}>
           <Box className={styles.heroContent}>
             <Box className={styles.heroTextBlock}>
-              <Typography className={styles.heroTitlePart1}>
-                Prêmio Infosfera
-              </Typography>
-              <Typography className={styles.heroTitlePart2}>
-                Boas Práticas em Gestão da Informação na Esfera Pública
-              </Typography>
+              <Chip label="Inscrições abertas · 1 abr – 31 jul 2026" className={styles.heroBadge} size="small" />
+              <Typography className={styles.heroTitlePart1}>Prêmio Infosfera</Typography>
+              <Typography className={styles.heroTitlePart2}>Boas Práticas em Gestão da Informação na Esfera Pública</Typography>
               <Typography className={styles.heroDescription}>
-                Uma iniciativa que busca identificar, valorizar e dar visibilidade a projetos que se destacam pela originalidade, impacto e capacidade de transformação.
+                Reconhecimento nacional de servidores, equipes e órgãos que transformam a administração pública por meio de inovação e boas práticas. Cerimônia em <strong>novembro de 2026 · Goiânia/GO</strong>.
               </Typography>
+              <Box className={styles.heroActions}>
+                <Button variant="contained" size="large" href={PLATFORM_URL} target="_blank" rel="noopener noreferrer" className={styles.heroCta} endIcon={<ArrowForwardIcon />}>
+                  Inscreva sua prática agora
+                </Button>
+                <Typography className={styles.heroDeadline}>Prazo final: 31 de julho de 2026</Typography>
+              </Box>
             </Box>
             <Box className={styles.heroDivider} />
           </Box>
         </Box>
       </Box>
 
-
+      {/* ── SOBRE O PRÊMIO ── */}
       <Box className={styles.section}>
         <Box className={styles.contentContainer}>
           <Box className={styles.sectionHeader}>
             <Typography variant="h2" className={styles.sectionTitle}>Sobre o Prêmio</Typography>
             <Box className={styles.titleUnderline} />
           </Box>
-          <Grid container spacing={2} columns={{ xs: 1, md: 4 }}>
+          <Grid container spacing={3} columns={{ xs: 1, md: 4 }}>
             <Grid size={{ xs: 1, md: 2 }}>
-              <Card ref={(el) => (cardRefs.current[0] = el)} data-id="card-1" className={`${styles.infoCard} ${visibleCards.has('card-1') ? styles.visible : ''}`}>
+              <Card ref={(el) => (cardRefs.current[0] = el)} data-id={cardIds.current.sobre1} className={`${styles.infoCard} ${visibleCards.has(cardIds.current.sobre1) ? styles.visible : ''}`}>
                 <Box className={styles.cardAccentBar} />
-                <CardContent>
+                <CardContent sx={{ p: '2rem !important' }}>
                   <Box className={styles.cardHeader}>
-                    <Box className={`${styles.cardIconWrapper} ${styles.iconPrimary}`}><StarBorderIcon fontSize="large" /></Box>
+                    <Box className={styles.cardIconWrapper}><StarOutlineIcon sx={{ fontSize: 28, color: '#2d2e82' }} /></Box>
                     <Typography variant="h3" className={styles.cardTitle}>O Reconhecimento</Typography>
                   </Box>
-                  <Typography><strong>O Prêmio Infosfera é uma homenagem ao esforço e à inovação.</strong></Typography>
-                  <Typography>Em sua primeira edição, celebramos profissionais, equipes e instituições que estão redefinindo a gestão da informação na esfera pública através de soluções criativas e eficazes.</Typography>
+                  <Typography sx={{ fontWeight: 600, mb: 1 }}>O Prêmio Infosfera celebra inovação comprovada na gestão pública.</Typography>
+                  <Typography sx={{ color: '#555', lineHeight: 1.7 }}>Uma iniciativa do Infojus.UFPR e do LabRisk/UnB para identificar e premiar solenemente práticas que transformam a administração pública brasileira, de pilotos a soluções plenamente estabelecidas.</Typography>
                 </CardContent>
               </Card>
             </Grid>
             <Grid size={{ xs: 1, md: 2 }}>
-              <Card ref={(el) => (cardRefs.current[1] = el)} data-id="card-2" className={`${styles.infoCard} ${visibleCards.has('card-2') ? styles.visible : ''}`}>
+              <Card ref={(el) => (cardRefs.current[1] = el)} data-id={cardIds.current.sobre2} className={`${styles.infoCard} ${visibleCards.has(cardIds.current.sobre2) ? styles.visible : ''}`}>
                 <Box className={`${styles.cardAccentBar} ${styles.accentSecondary}`} />
-                <CardContent>
+                <CardContent sx={{ p: '2rem !important' }}>
                   <Box className={styles.cardHeader}>
-                    <Box className={`${styles.cardIconWrapper} ${styles.iconSecondary}`}><LightbulbOutlinedIcon fontSize="large" /></Box>
+                    <Box className={styles.cardIconWrapper}><LightbulbOutlinedIcon sx={{ fontSize: 28, color: '#1abc9c' }} /></Box>
                     <Typography variant="h3" className={styles.cardTitle}>A Missão</Typography>
                   </Box>
-                  <Typography><strong>Nossa missão é ser uma vitrine de inovação para todo o setor.</strong></Typography>
-                  <Typography>Através de um rigoroso processo de avaliação, queremos destacar práticas que não só alcançam resultados concretos, mas que também inspiram e podem ser replicadas.</Typography>
+                  <Typography sx={{ fontWeight: 600, mb: 1 }}>Combater o isolamento de boas ideias e criar um repositório nacional de referências.</Typography>
+                  <Typography sx={{ color: '#555', lineHeight: 1.7 }}>Fomentamos a replicabilidade de práticas de sucesso, servindo como instrumento de reconhecimento e memória institucional técnica para todo o setor público.</Typography>
                 </CardContent>
               </Card>
             </Grid>
@@ -135,153 +183,261 @@ const Home = () => {
         </Box>
       </Box>
 
+      {/* ── QUEM PODE PARTICIPAR ── */}
       <Box className={`${styles.section} ${styles.sectionLight}`}>
         <Box className={styles.contentContainer}>
           <Box className={styles.sectionHeader}>
             <Typography variant="h2" className={styles.sectionTitle}>Quem Pode Participar</Typography>
             <Box className={styles.titleUnderline} />
-            <Typography className={styles.sectionSubtitle}>O prêmio está aberto a todos que estão fazendo a diferença na gestão da informação pública.</Typography>
+            <Typography className={styles.sectionSubtitle}>
+              Qualquer órgão ou entidade da Administração Pública, direta ou indireta, em todos os níveis federativos pode se inscrever.
+            </Typography>
           </Box>
-          <Stack direction={{ xs: "column", md: "row" }} spacing={4}>
-            {cardCategories.map((item, index) => {
+          <Stack direction={{ xs: 'column', md: 'row' }} spacing={3}>
+            {whoCanParticipate.map((item, index) => {
               const Icon = item.icon;
+              const id = cardIds.current[`who-${index}`];
               return (
-                <Grid key={index} sx={{ width: '100%' }}>
-                  <Card ref={(el) => (cardRefs.current[2 + index] = el)} data-id={`cat-${index}`} className={`${styles.categoryCard} ${visibleCards.has(`cat-${index}`) ? styles.visible : ''}`}>
-                    <CardContent>
-                      <Box className={styles.categoryIconWrapper}><Icon fontSize="large" /></Box>
-                      <Typography variant="h5" component="h3" className={styles.categoryTitle}>{item.title}</Typography>
-                      <Typography>{item.desc}</Typography>
+                <Box key={index} sx={{ flex: 1 }}>
+                  <Card ref={(el) => (cardRefs.current[2 + index] = el)} data-id={id} className={`${styles.categoryCard} ${visibleCards.has(id) ? styles.visible : ''}`}>
+                    <CardContent sx={{ p: '2rem !important' }}>
+                      <Box className={styles.categoryIconWrapper}><Icon sx={{ fontSize: 32, color: '#2d2e82' }} /></Box>
+                      <Typography variant="h6" className={styles.categoryTitle}>{item.title}</Typography>
+                      <Typography sx={{ color: '#555', fontSize: '0.9rem', lineHeight: 1.65 }}>{item.desc}</Typography>
+                    </CardContent>
+                  </Card>
+                </Box>
+              );
+            })}
+          </Stack>
+          <Box className={styles.participationNote}>
+            <Typography variant="body2"><strong>Inscrição gratuita e ilimitada:</strong> cada órgão pode submeter quantas práticas quiser. As 3 com maior pontuação técnica avançam para a fase competitiva.</Typography>
+          </Box>
+        </Box>
+      </Box>
+
+      {/* COMO SE INSCREVER - layout de círculos */}
+      <Box className={`${styles.section} ${styles.sectionLight}`}>
+        <Box className={styles.contentContainer}>
+          <Box className={styles.sectionHeader}>
+            <Typography variant="h2" className={styles.sectionTitle}>Como se Inscrever</Typography>
+            <Box className={styles.titleUnderline} />
+            <Typography className={styles.sectionSubtitle}>
+              A inclusão de uma prática na Plataforma de Boas Práticas é a porta de entrada para o reconhecimento por meio do Prêmio Infosfera.
+            </Typography>
+          </Box>
+
+          <Box className={styles.circleStepsRow}>
+            {howToSteps.map((step, index) => {
+              const id = cardIds.current[`step-${index}`];
+              return (
+                <Box
+                  key={index}
+                  ref={(el) => (cardRefs.current[5 + index] = el)}
+                  data-id={id}
+                  className={`${styles.circleStep} ${visibleCards.has(id) ? styles.visible : ''}`}
+                  style={{ transitionDelay: `${index * 80}ms` }}
+                >
+                  <Box className={styles.circleStepTop}>
+                    <Box className={styles.circleStepBadge}>{step.num}</Box>
+                    <Box className={styles.circleStepRing}>{step.icon}</Box>
+                  </Box>
+                  <Typography className={styles.circleStepTitle}>{step.title}</Typography>
+                  <Typography className={styles.circleStepDesc}>{step.desc}</Typography>
+                </Box>
+              );
+            })}
+          </Box>
+
+          <Box className={styles.ctaCenter}>
+            <Button
+              variant="outlined"
+              size="large"
+              href={PLATFORM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.btnOutlinePrimary}
+              endIcon={<ArrowForwardIcon />}
+            >
+              Cadastre sua prática e participe!
+            </Button>
+          </Box>
+        </Box>
+      </Box>
+
+      {/* ── CRONOGRAMA ── */}
+      <Box className={`${styles.section} ${styles.sectionDark}`}>
+        <Box className={styles.contentContainer}>
+          <Box className={styles.sectionHeader}>
+            <Typography variant="h2" className={`${styles.sectionTitle} ${styles.sectionTitleLight}`}>Cronograma 2026</Typography>
+            <Box className={styles.titleUnderline} />
+            <Typography className={`${styles.sectionSubtitle} ${styles.sectionSubtitleLight}`}>
+              Fique atento às datas. As inscrições encerram em <strong>31 de julho de 2026</strong>.
+            </Typography>
+          </Box>
+          <Box className={styles.timelineWrapper}>
+            {timeline.map((item, index) => (
+              <Box key={index} className={`${styles.timelineItem} ${item.active ? styles.timelineActive : ''}`}>
+                <Box className={styles.timelineDot}><CalendarMonthOutlinedIcon sx={{ fontSize: 20 }} /></Box>
+                <Box className={styles.timelineContent}>
+                  <Typography className={styles.timelinePeriod}>{item.period}</Typography>
+                  <Typography className={styles.timelineLabel}>{item.label}</Typography>
+                </Box>
+                {index < timeline.length - 1 && <Box className={styles.timelineConnector} />}
+              </Box>
+            ))}
+          </Box>
+          <Box className={styles.ctaCenter}>
+            <Button variant="outlined" size="large" href={PLATFORM_URL} target="_blank" rel="noopener noreferrer" className={styles.heroCtaOutline} endIcon={<ArrowForwardIcon />}>
+              Garantir minha vaga
+            </Button>
+          </Box>
+        </Box>
+      </Box>
+
+      {/* CRITÉRIOS DE AVALIAÇÃO - layout de círculos */}
+      <Box className={`${styles.section} ${styles.sectionLight}`}>
+        <Box className={styles.contentContainer}>
+          <Box className={styles.sectionHeader}>
+            <Typography variant="h2" className={styles.sectionTitle}>Critérios de Avaliação</Typography>
+            <Box className={styles.titleUnderline} />
+            <Typography className={styles.sectionSubtitle}>
+              Para garantir uma seleção justa e criteriosa, a Comissão Julgadora se baseia nos seguintes pilares:
+            </Typography>
+          </Box>
+
+          <Box className={styles.circleStepsRow}>
+            {checkItems.map((item, index) => {
+              const id = cardIds.current[`crit-${index}`];
+              return (
+                <Box
+                  key={index}
+                  ref={(el) => (cardRefs.current[9 + index] = el)}
+                  data-id={id}
+                  className={`${styles.circleStep} ${visibleCards.has(id) ? styles.visible : ''}`}
+                  style={{ transitionDelay: `${index * 80}ms` }}
+                >
+                  <Box className={styles.circleStepTop}>
+                    <Box className={styles.circleStepBadge}>{item.num}</Box>
+                    <Box className={styles.circleStepRing}>{item.icon}</Box>
+                  </Box>
+                  <Typography className={styles.circleStepTitle}>{item.title}</Typography>
+                  <Typography className={styles.circleStepDesc}>{item.text}</Typography>
+                  <Chip label={`Peso ${item.weight}`} size="small" className={styles.weightChip} />
+                </Box>
+              );
+            })}
+          </Box>
+
+          <Box className={styles.ctaCenter} sx={{ mt: 5 }}>
+            <Card
+              ref={(el) => (cardRefs.current[12] = el)}
+              data-id={cardIds.current.premiacao}
+              className={`${styles.highlightCard} ${visibleCards.has(cardIds.current.premiacao) ? styles.visible : ''}`}
+            >
+              <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', p: '2.5rem !important' }}>
+                <EmojiEventsOutlinedIcon sx={{ fontSize: 64, mb: 1.5, color: 'white' }} />
+                <Typography variant="h5" sx={{ fontWeight: 700, mb: 0.5, color: 'white' }}>A Cerimônia</Typography>
+                <Typography sx={{ color: 'rgba(255,255,255,0.75)', mb: 1 }}>
+                  Premiação durante o <strong style={{ color: 'white' }}>EnAJUS, o Encontro de Administração da Justiça</strong>.
+                </Typography>
+                <Typography sx={{ fontWeight: 700, fontSize: '1.2rem', color: 'white' }}>5 de novembro de 2026 · Goiânia/GO</Typography>
+                <Button variant="outlined" href={PLATFORM_URL} target="_blank" rel="noopener noreferrer" endIcon={<ArrowForwardIcon />} sx={{ mt: 2.5, borderColor: 'rgba(255,255,255,0.5)', color: 'white', textTransform: 'none', borderRadius: '50px', '&:hover': { borderColor: 'white', bgcolor: 'rgba(255,255,255,0.1)' } }}>
+                  Quero participar
+                </Button>
+              </CardContent>
+            </Card>
+          </Box>
+        </Box>
+      </Box>
+
+      {/* ── CATEGORIAS DE PREMIAÇÃO ── */}
+      <Box className={styles.section}>
+        <Box className={styles.contentContainer}>
+          <Box className={styles.sectionHeader}>
+            <Typography variant="h2" className={styles.sectionTitle}>Categorias de Premiação</Typography>
+            <Box className={styles.titleUnderline} />
+            <Typography className={styles.sectionSubtitle}>
+              Uma prática pode ser reconhecida em uma das seguintes categorias (não cumulativas, exceto a Escolha Popular):
+            </Typography>
+          </Box>
+          <Grid container spacing={3} columns={{ xs: 1, md: 3 }}>
+            {awardCategories.map((award, index) => {
+              const id = cardIds.current[`award-${index}`];
+              return (
+                <Grid key={index} size={{ xs: 1, md: 1 }}>
+                  <Card ref={(el) => (cardRefs.current[13 + index] = el)} data-id={id} className={`${styles.awardCard} ${award.highlight ? styles.awardCardHighlight : ''} ${visibleCards.has(id) ? styles.visible : ''}`}>
+                    <CardContent sx={{ p: '2rem !important' }}>
+                      <Box className={`${styles.awardIconWrapper} ${award.highlight ? styles.awardIconHighlight : ''}`}>{award.icon}</Box>
+                      <Typography className={`${styles.awardTitle} ${award.highlight ? styles.awardTitleHighlight : ''}`}>{award.title}</Typography>
+                      <Typography className={`${styles.awardDesc} ${award.highlight ? styles.awardDescHighlight : ''}`}>{award.desc}</Typography>
                     </CardContent>
                   </Card>
                 </Grid>
               );
             })}
-          </Stack>
-        </Box>
-      </Box>
-
-      <Box className={styles.section}>
-        <Box className={styles.contentContainer}>
-          <Grid container spacing={4} sx={{ justifyContent: "center" }}>
-            <Grid>
-              <Card ref={(el) => (cardRefs.current[5] = el)} data-id="info-card" className={`${styles.infoCard} ${styles.fullHeightCard} ${visibleCards.has('info-card') ? styles.visible : ''}`}>
-                <Box className={styles.cardAccentBar} />
-                <CardContent >
-                  <Typography variant="h3" sx={{ width: "100%", textAlign: "center" }} className={styles.cardTitle}>Critérios de Avaliação</Typography>
-                  <Typography variant='body1' sx={{ width: "100%", textAlign: "center", mt: 1, mb: 4 }}>
-                    Para garantir uma seleção justa e criteriosa, nossos avaliadores se basearão nos seguintes pilares:
-                  </Typography>
-
-                  <Grid container spacing={3} sx={{ my: 'auto', justifyContent: 'center' }}>
-                    {checkItems.map((item, index) => (
-                      <Grid key={index} sx={{ display: 'flex', justifyContent: 'center' }}>
-                        <Box className={styles.criterionItem}>
-                          <Typography className={styles.criterionNumber}>{index + 1}</Typography>
-                          <Box className={styles.criterionCircleWrapper}>
-                            <svg width="100%" height="100%" viewBox="0 0 200 200" className={styles.criterionCircleSvg}>
-                              <defs>
-                                <linearGradient id={`gradient-${index}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                                  <stop stopColor="#2d2e82" />
-                                </linearGradient>
-                              </defs>
-                              <circle
-                                cx="100"
-                                cy="100"
-                                r="95"
-                                fill="none"
-                                stroke={`url(#gradient-${index})`}
-                                strokeWidth="5.5"
-                                strokeDasharray="600"
-                                strokeDashoffset="100"
-                                transform="rotate(-140 100 100)"
-                              />
-                            </svg>
-                            <Box className={styles.criterionContent}>
-                              <Box className={styles.criterionTextContainer}>
-                                <Typography className={styles.criterionTitle}>
-                                  {item.title}
-                                </Typography>
-                                <Typography className={styles.criterionDesc}>
-                                  {item.text}
-                                </Typography>
-                              </Box>
-                            </Box>
-                          </Box>
-                        </Box>
-                      </Grid>
-                    ))}
-                  </Grid>
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid>
-              <Card ref={(el) => (cardRefs.current[6] = el)} data-id="highlight-card" className={`${styles.highlightCard} ${styles.fullHeightCard} ${visibleCards.has('highlight-card') ? styles.visible : ''}`}>
-                <CardContent>
-                  <EmojiEventsOutlinedIcon sx={{ fontSize: 80, mb: 2 }} />
-                  <Typography variant="h4" component="h3">A Premiação</Typography>
-                  <Typography sx={{ mt: 1 }}>A cerimônia de reconhecimento acontecerá durante a Sessão Solene do <strong>Infosfera 2025</strong>.</Typography>
-                  <Typography variant="h5" component="p" fontWeight="bold" sx={{ mt: 2 }}>21 de outubro de 2025</Typography>
-                </CardContent>
-              </Card>
-            </Grid>
           </Grid>
         </Box>
       </Box>
 
+      {/* ── EIXOS TEMÁTICOS ── */}
       <Box className={`${styles.section} ${styles.sectionLight}`}>
         <Box className={styles.contentContainer}>
           <Box className={styles.sectionHeader}>
-            <Typography variant="h2" className={styles.sectionTitle}>Temáticas Elegíveis</Typography>
-            <Typography variant="body1" className={styles.sectionSubtitle}>Iniciativas relacionadas aos seguintes temas podem ser submetidas para avaliação:</Typography>
+            <Typography variant="h2" className={styles.sectionTitle}>Eixos Temáticos</Typography>
+            <Box className={styles.titleUnderline} />
+            <Typography className={styles.sectionSubtitle}>
+              Iniciativas relacionadas aos seguintes eixos são elegíveis. Projetos aderentes ao propósito geral também são aceitos.
+            </Typography>
           </Box>
-          <Grid container spacing={4} columns={{ xs: 2, md: 12 }}>
-            {tematicas.map((item, index) => (
-              <Grid size={{ xs: 1, md: 3 }} key={item.title}>
-                <Card
-                  ref={(el) => (cardRefs.current[7 + index] = el)}
-                  data-id={`tematica-${item.title.replace(/\s+/g, '-')}`}
-                  className={`${styles.categoryCard} ${styles.themeCard} ${visibleCards.has(`tematica-${item.title.replace(/\s+/g, '-')}`) ? styles.visible : ''}`}
-                >
-                  <Box className={styles.categoryIconWrapper} sx={{ display: "flex", justifyContent: "center" }}>{item.icon}</Box>
-                  <Typography variant="h6" className={styles.themeCardTitle}>
-                    {item.title}
-                  </Typography>
-                </Card>
-              </Grid>
-            ))}
+          <Grid container spacing={3} columns={{ xs: 1, md: 3 }}>
+            {tematicas.map((item, index) => {
+              const id = cardIds.current[`tema-${index}`];
+              return (
+                <Grid size={{ xs: 1, md: 1 }} key={item.title}>
+                  <Card ref={(el) => (cardRefs.current[19 + index] = el)} data-id={id} className={`${styles.tematicaCard} ${visibleCards.has(id) ? styles.visible : ''}`}>
+                    <Box className={styles.tematicaIconWrapper}>{item.icon}</Box>
+                    <Typography className={styles.themeCardTitle}>{item.title}</Typography>
+                    <Typography className={styles.themeCardDesc}>{item.desc}</Typography>
+                  </Card>
+                </Grid>
+              );
+            })}
           </Grid>
         </Box>
       </Box>
 
+      
+      <CtaVerde />
+
+      {/* ── REALIZAÇÃO ── */}
       <Box className={styles.section}>
         <Box className={styles.contentContainer}>
           <Box className={styles.sectionHeader}>
             <Typography variant="h2" className={styles.sectionTitle}>Realização</Typography>
+            <Box className={styles.titleUnderline} />
           </Box>
-          <Grid container spacing={4} columns={{ xs: 1, md: 4 }} className={styles.logoGridContainer}>
+          <Grid container spacing={3} columns={{ xs: 1, md: 4 }} className={styles.logoGridContainer}>
             {realizacaoLogos.map((logo, index) => (
               <Grid size={{ xs: 1, md: 1 }} key={index}>
-                <Box className={styles.logoWrapper}>
-                  <img src={logo} alt={`Logo Realização ${index + 1}`} className={styles.logoImage} />
-                </Box>
+                <Box className={styles.logoWrapper}><img src={logo} alt={`Logo Realização ${index + 1}`} className={styles.logoImage} /></Box>
               </Grid>
             ))}
           </Grid>
         </Box>
       </Box>
 
+      {/* ── APOIO ── */}
       <Box className={`${styles.section} ${styles.sectionLight}`}>
         <Box className={styles.contentContainer}>
           <Box className={styles.sectionHeader}>
             <Typography variant="h2" className={styles.sectionTitle}>Apoio</Typography>
+            <Box className={styles.titleUnderline} />
           </Box>
-          <Grid container spacing={1} columns={{ xs: 12, sm: 12, md: 12 }} className={styles.logoGridContainer}>
+          <Grid container spacing={2} columns={{ xs: 12 }} className={styles.logoGridContainer}>
             {apoioLogos.map((logo, index) => (
-              <Grid spacing={1} size={{ xs: 12, sm: 6, md: 3 }} key={index}>
-                <Box className={styles.logoWrapper}>
-                  <img src={logo} alt={`Logo Apoio ${index + 1}`} className={styles.logoImage} />
-                </Box>
+              <Grid size={{ xs: 12, sm: 6, md: 3 }} key={index}>
+                <Box className={styles.logoWrapper}><img src={logo} alt={`Logo Apoio ${index + 1}`} className={styles.logoImage} /></Box>
               </Grid>
             ))}
           </Grid>

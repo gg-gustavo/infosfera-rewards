@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import Categorias from './pages/Categorias';
 import Vencedores from './pages/Vencedores';
+import Regulamento from './pages/Regulamento';
 import Contato from './pages/Contato';
 //import Galeria from './pages/Galeria';
 
@@ -25,6 +26,7 @@ function App() {
           <Route path="/categorias" element={<Categorias />}/>
           <Route path="/vencedores" element={<Vencedores />} />
           {/* <Route path="/galeria" element={<Galeria />} /> */}
+          <Route path="/regulamento" element={<Regulamento />} />
           <Route path="/contato" element={<Contato />} />
         </Routes>
       </Box>

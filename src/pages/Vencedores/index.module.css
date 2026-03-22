@@ -30,8 +30,16 @@
     color: #2d2e82;
     font-weight: 700 !important;
     font-size: 2.5rem !important;
-    margin-bottom: 1rem !important;
+    margin-bottom: 0 !important;
     width: 100%;
+}
+
+.titleUnderline {
+    width: 48px;
+    height: 3px;
+    background: linear-gradient(90deg, #2d2e82, #1abc9c);
+    border-radius: 2px;
+    margin: 0.9rem auto 0;
 }
 
 .sectionSubtitle {

@@ -1,40 +1,67 @@
-import { Box, Container, Typography, Link, IconButton } from '@mui/material';
+import { Box, Container, Typography, Link, IconButton, Divider } from '@mui/material';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import InstagramIcon from '@mui/icons-material/Instagram';
-import YouTubeIcon from '@mui/icons-material/YouTube';
-import styles from './index.module.css'; // 1. Verifique se a importação está correta
+
+import styles from './index.module.css';
+import logo from '../../assets/logo.png';
+
+const socials = [
+  {
+    icon: <InstagramIcon />,
+    label: 'Instagram',
+    href: 'https://www.instagram.com/infosferabr',
+  },
+  {
+    icon: <LinkedInIcon />,
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/company/infosfera2025/',
+  },
+];
 
 const Footer = () => {
   return (
     <Box component="footer" className={styles.footer}>
       <Container maxWidth="lg">
-        <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
-          <Link href="https://linkedin.com" target="_blank" rel="noopener noreferrer" color="inherit">
-            {/* 2. GARANTA QUE O className={styles.iconButton} ESTÁ AQUI */}
-            <IconButton color="inherit" aria-label="LinkedIn" className={styles.iconButton}>
-              <LinkedInIcon />
-            </IconButton>
-          </Link>
-          <Link href="https://instagram.com" target="_blank" rel="noopener noreferrer" color="inherit">
-            {/* E AQUI */}
-            <IconButton color="inherit" aria-label="Instagram" className={styles.iconButton}>
-              <InstagramIcon />
-            </IconButton>
-          </Link>
-          <Link href="https://youtube.com" target="_blank" rel="noopener noreferrer" color="inherit">
-            {/* E AQUI TAMBÉM */}
-            <IconButton color="inherit" aria-label="YouTube" className={styles.iconButton}>
-              <YouTubeIcon />
-            </IconButton>
-          </Link>
+        <Box className={styles.footerTop}>
+          <Box className={styles.footerBrand}>
+            <img src={logo} alt="Logo Infosfera" className={styles.footerLogo} />
+            <Typography className={styles.footerTagline}>
+              Gestão da Informação na Esfera Pública
+            </Typography>
+          </Box>
+
+          <Box className={styles.footerLinks}>
+            <Box className={styles.socialRow}>
+              {socials.map((s) => (
+                <Link
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  color="inherit"
+                  underline="none"
+                  className={styles.socialItem}
+                >
+                  <IconButton color="inherit" aria-label={s.label} className={styles.iconButton}>
+                    {s.icon}
+                  </IconButton>
+                  <Typography className={styles.socialLabel}>{s.label}</Typography>
+                </Link>
+              ))}
+            </Box>
+          </Box>
         </Box>
 
-        <Typography variant="body2" align="center" gutterBottom>
-          Infosfera. Gestão da Informação na Esfera Pública
-        </Typography>
-        <Typography variant="caption" align="center" display="block">
-          ©{new Date().getFullYear()}. INFOJUS. Núcleo de Pesquisa em Informação, Direito e Sociedade.
-        </Typography>
+        <Divider className={styles.footerDivider} />
+
+        <Box className={styles.footerBottom}>
+          <Typography variant="caption" className={styles.footerCopy}>
+            © {new Date().getFullYear()} INFOJUS · Núcleo de Pesquisa em Informação, Direito e Sociedade · UFPR
+          </Typography>
+          <Typography variant="caption" className={styles.footerCopyRight}>
+            Todos os direitos reservados
+          </Typography>
+        </Box>
       </Container>
     </Box>
   );
