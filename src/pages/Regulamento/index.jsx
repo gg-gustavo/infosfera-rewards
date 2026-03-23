@@ -40,9 +40,9 @@ const objetivos = [
 ];
 
 const elegibilidade = [
-  { titulo: 'Poder Executivo', desc: 'Ministérios, secretarias, autarquias, fundações públicas, empresas públicas e sociedades de economia mista, em todos os níveis federativos.', icon: <AssignmentOutlinedIcon sx={{ fontSize: 28, color: '#2d2e82' }} /> },
-  { titulo: 'Poder Judiciário e MP', desc: 'Tribunais, Ministério Público, Advocacia Pública, Defensoria Pública e Tribunais de Contas de todos os entes federativos.', icon: <GavelOutlinedIcon sx={{ fontSize: 28, color: '#2d2e82' }} /> },
-  { titulo: 'Poder Legislativo', desc: 'Câmaras Municipais, Assembleias Legislativas, Câmara dos Deputados, Senado Federal e demais órgãos legislativos.', icon: <PolicyOutlinedIcon sx={{ fontSize: 28, color: '#2d2e82' }} /> },
+  { titulo: 'Instituições Esferas e Poderes Públicos', desc: 'Órgãos e entidades dos Poderes Executivo, Legislativo e Judiciário em todos os níveis: Federal, Estadual, Distrital e Municipal.', icon: <AssignmentOutlinedIcon sx={{ fontSize: 28, color: '#2d2e82' }} /> },
+  { titulo: 'Estrutura Administrativa e Controle', desc: 'Administração Direta e Indireta, incluindo autarquias, fundações, empresas públicas, consórcios e sistemas de controle como Tribunais de Contas.', icon: <PolicyOutlinedIcon sx={{ fontSize: 28, color: '#2d2e82' }} /> },
+  { titulo: 'Funções Essenciais à Justiça', desc: 'Instituições fundamentais como o Ministério Público, Advocacia Pública e Defensoria Pública de todo o país.', icon: <GavelOutlinedIcon sx={{ fontSize: 28, color: '#2d2e82' }} /> },
   { titulo: 'Consórcios e Entidades', desc: 'Consórcios públicos, entidades da administração indireta, fundações e empresas públicas vinculadas.', icon: <GroupsOutlinedIcon sx={{ fontSize: 28, color: '#2d2e82' }} /> },
 ];
 
