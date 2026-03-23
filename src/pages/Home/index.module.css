@@ -425,7 +425,7 @@
     font-weight: 900;
     color: #f0f1ff;
     line-height: 1;
-    font-family: 'Inter', Georgia, serif;
+    font-family: var(--font-body);
     position: absolute;
     top: 0.75rem;
     right: 1rem;
@@ -570,7 +570,7 @@
     font-weight: 900 !important;
     color: #e8e9f5 !important;
     line-height: 1 !important;
-    font-family: 'Inter', Georgia, serif !important;
+    font-family: var(--font-body) !important;
     flex-shrink: 0;
     letter-spacing: -0.05em !important;
 }
@@ -795,7 +795,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Montserrat', Arial, sans-serif;
+    font-family: var(--font-heading);
     font-size: 1.6rem;
     font-weight: 800;
     color: #2d2e82;
@@ -823,7 +823,7 @@
 }
 
 .circleStepTitle {
-    font-family: 'Montserrat', Arial, sans-serif !important;
+    font-family: var(--font-heading) !important;
     font-weight: 700 !important;
     font-size: 1rem !important;
     color: #0d0e3f !important;
@@ -915,12 +915,12 @@
     background: white;
     border-radius: 12px;
     border: 1px solid #e5e7eb;
-    height: 100%;
+    min-height: 110px;
     margin: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1rem;
+    padding: 1.25rem;
     transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 .logoWrapper:hover {
@@ -929,9 +929,10 @@
 }
 .logoImage {
     max-width: 100%;
+    max-height: 72px;
+    width: auto;
     height: auto;
     object-fit: contain;
-    border-radius: 8px;
 }
 
 /* ══════════════════════════════════════
@@ -967,4 +968,17 @@
     .logoWrapper {
         padding: 0.75rem;
     }
+}
+
+.logoTextFallback {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1rem;
+    color: #2d2e82;
+    text-align: center;
+    padding: 0.5rem;
+}
+
+.logoWrapperDark {
+    background: #0d0e3f !important;
 }

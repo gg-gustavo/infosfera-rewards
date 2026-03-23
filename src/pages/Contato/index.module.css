@@ -23,6 +23,7 @@
 }
 
 .sectionTitle {
+    font-family: var(--font-heading) !important;
     color: #2d2e82;
     font-weight: 700 !important;
     font-size: 2.5rem !important;
@@ -41,6 +42,7 @@
     font-size: 1.2rem !important;
     color: #666 !important;
     line-height: 1.8;
+    margin-top: 1.75rem !important;
 }
 .heroBanner {
     height: 500px;

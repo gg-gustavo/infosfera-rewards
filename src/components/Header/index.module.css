@@ -3,7 +3,7 @@
     position: sticky;
     top: 0;
     z-index: 1000;
-    background: rgba(10, 52, 115, 0.92);
+    background: rgba(13, 14, 63, 0.92);
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -11,7 +11,7 @@
 }
 
 .headerScrolled {
-    background: rgba(6, 40, 100, 0.98);
+    background: rgba(13, 14, 63, 0.99);
     box-shadow: 0 4px 32px rgba(0, 0, 0, 0.25);
     border-bottom-color: rgba(26, 188, 156, 0.2);
 }
@@ -178,7 +178,7 @@
 /* ── Drawer mobile ── */
 .drawer {
     width: 280px !important;
-    background: #063473 !important;
+    background: #0d0e3f !important;
     color: white !important;
 }
 

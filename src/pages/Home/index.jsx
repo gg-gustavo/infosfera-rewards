@@ -38,9 +38,52 @@ import DevicesOutlinedIcon from '@mui/icons-material/DevicesOutlined';
 import styles from './index.module.css';
 import bannerImage from '../../assets/banner.jpeg';
 import CtaVerde from '../../components/CtaVerde';
+import labriskLogo from '../../assets/apoio/labrisk.png';
 
-const realizacaoLogos = Object.values(import.meta.glob('../../assets/realizacao/*.jpg', { eager: true, query: '?url', import: 'default' }));
-const apoioLogos = Object.values(import.meta.glob('../../assets/apoio/*.jpg', { eager: true, query: '?url', import: 'default' }));
+// Realização — ordem dos arquivos: 1, 2, 3, 4
+const realizacaoLogoMap = {
+  '1.jpg': { href: 'https://www.ufpr.br/portalufpr/noticias/categoria/infojus/', label: 'InfoJus UFPR' },
+  '2.jpg': { href: 'https://ppggi.ufpr.br/', label: 'PPGGI UFPR' },
+  '3.jpg': { href: 'https://ppga.unb.br/', label: 'PGAP UnB' },
+  '4.jpg': { href: 'https://www.ufpr.br/', label: 'UFPR' },
+};
+
+// Apoio — ordem lexicográfica dos arquivos: 1,10,11,12,13,14,15,16,18,2,3,4,5,6,7,8,9
+const apoioLogoMap = {
+  '1.jpg':  { href: 'https://www.mppr.mp.br/', label: 'Ministério Público do Paraná' },
+  '10.jpg': { href: 'https://abissal.design/', label: 'Abissal Design Estratégico' },
+  '11.jpg': { href: 'https://doity.com.br/', label: 'Doity' },
+  '12.jpg': { href: 'https://abades.com.br/', label: 'ABADES' },
+  '13.jpg': { href: 'https://cra-pr.org.br/', label: 'CRA-PR' },
+  '14.jpg': { href: 'https://www.curitiba.pr.gov.br/', label: 'Prefeitura de Curitiba' },
+  '15.jpg': { href: 'https://www.agenciacuritiba.com.br/', label: 'Agência Curitiba' },
+  '16.jpg': { href: 'https://www.curitiba.pr.gov.br/', label: 'Você no Pinhão' },
+  '18.jpg': { href: '#', label: 'Giga Soluções Audiovisuais' },
+  '2.jpg':  { href: 'https://escolasuperior.mppr.mp.br/', label: 'Escola Superior do MPPR' },
+  '3.jpg':  { href: 'https://www.gov.br/ibict/pt-br', label: 'IBICT' },
+  '4.jpg':  { href: 'https://www.utfpr.edu.br/', label: 'UTFPR' },
+  '5.jpg':  { href: 'https://www.cmc.pr.gov.br/', label: 'Câmara Municipal de Curitiba' },
+  '6.jpg':  { href: 'https://www.cmc.pr.gov.br/escoladolegislativo/', label: 'Escola do Legislativo CMC' },
+  '7.jpg':  { href: 'https://www.sebrae.com.br/', label: 'SEBRAE' },
+  '8.jpg':  { href: 'https://www.ibepes.org.br/', label: 'IBEPES' },
+  '9.jpg':  { href: 'https://www.gov.br/capes/pt-br', label: 'CAPES' },
+};
+
+const realizacaoRaw = import.meta.glob('../../assets/realizacao/*.jpg', { eager: true, query: '?url', import: 'default' });
+const apoioRaw = import.meta.glob('../../assets/apoio/*.jpg', { eager: true, query: '?url', import: 'default' });
+
+const realizacaoLogos = Object.entries(realizacaoRaw).map(([path, src]) => {
+  const file = path.split('/').pop();
+  return { src, ...(realizacaoLogoMap[file] || { href: '#', label: file }) };
+});
+
+const apoioLogos = [
+  ...Object.entries(apoioRaw).map(([path, src]) => {
+    const file = path.split('/').pop();
+    return { src, ...(apoioLogoMap[file] || { href: '#', label: file }) };
+  }),
+  { src: labriskLogo, href: 'http://labrisk.unb.br/', label: 'LabRisk/UnB' },
+];
 
 const PLATFORM_URL = 'https://boaspraticas.infosfera.inf.br/';
 
@@ -420,7 +463,16 @@ const Home = () => {
           <Grid container spacing={3} columns={{ xs: 1, md: 4 }} className={styles.logoGridContainer}>
             {realizacaoLogos.map((logo, index) => (
               <Grid size={{ xs: 1, md: 1 }} key={index}>
-                <Box className={styles.logoWrapper}><img src={logo} alt={`Logo Realização ${index + 1}`} className={styles.logoImage} /></Box>
+                <Box
+                  component="a"
+                  href={logo.href}
+                  target={logo.href !== '#' ? '_blank' : undefined}
+                  rel="noopener noreferrer"
+                  className={styles.logoWrapper}
+                  sx={{ textDecoration: 'none', cursor: logo.href !== '#' ? 'pointer' : 'default' }}
+                >
+                  <img src={logo.src} alt={logo.label} className={styles.logoImage} />
+                </Box>
               </Grid>
             ))}
           </Grid>
@@ -437,7 +489,16 @@ const Home = () => {
           <Grid container spacing={2} columns={{ xs: 12 }} className={styles.logoGridContainer}>
             {apoioLogos.map((logo, index) => (
               <Grid size={{ xs: 12, sm: 6, md: 3 }} key={index}>
-                <Box className={styles.logoWrapper}><img src={logo} alt={`Logo Apoio ${index + 1}`} className={styles.logoImage} /></Box>
+                <Box
+                  component="a"
+                  href={logo.href}
+                  target={logo.href !== '#' ? '_blank' : undefined}
+                  rel="noopener noreferrer"
+                  className={styles.logoWrapper}
+                  sx={{ textDecoration: 'none', cursor: logo.href !== '#' ? 'pointer' : 'default' }}
+                >
+                  <img src={logo.src} alt={logo.label} className={styles.logoImage} />
+                </Box>
               </Grid>
             ))}
           </Grid>
