@@ -27,7 +27,7 @@ const FotoPremio = ({ src, alt }) => (
       src={src}
       alt={alt}
       loading="lazy"
-      style={{ width: '100%', maxHeight: '420px', objectFit: 'cover', objectPosition: 'center top', display: 'block' }}
+      style={{ width: '100%', maxHeight: '420px', objectFit: 'cover', objectPosition: 'center 25%', display: 'block' }}
     />
   </Box>
 );
@@ -213,7 +213,7 @@ const categorias = {
                         src={vencedor.foto}
                         alt={`${vencedor.vinculo} — Referência em Boas Práticas 2025`}
                         loading="lazy"
-                        style={{ width: '100%', height: '200px', objectFit: 'cover', objectPosition: 'center top', display: 'block' }}
+                        style={{ width: '100%', height: '220px', objectFit: 'cover', objectPosition: 'center 30%', display: 'block' }}
                       />
                     </Box>
                   )}
@@ -258,9 +258,9 @@ const categorias = {
           {/* ===== SEÇÃO MENÇÕES HONROSAS ===== */}
           <CategoriaHeader titulo={categorias.mencoesHonrosas.titulo} />
           <FotoPremio src={fotoPremiados} alt="Práticas finalistas premiadas com Menção Honrosa — Prêmio Infosfera 2025" />
-          <Grid sx={{width:"100%",justifyContent:"center"}} container spacing={4}>
+          <Grid container spacing={3} columns={{ xs: 1, sm: 2, md: 3 }}>
             {categorias.mencoesHonrosas.vencedores.map((vencedor, index) => (
-              <Grid item xs={12} sm={6} md={4} key={`mh-${index}`}>
+              <Grid size={{ xs: 1, sm: 1, md: 1 }} key={`mh-${index}`}>
                 <Card
                   ref={registerRef}
                   data-id={`mh-${index}`}
@@ -272,7 +272,7 @@ const categorias = {
                         src={vencedor.foto}
                         alt={`${vencedor.vinculo} — Menção Honrosa Prêmio Infosfera 2025`}
                         loading="lazy"
-                        style={{ width: '100%', height: '180px', objectFit: 'cover', objectPosition: 'center top', display: 'block' }}
+                        style={{ width: '100%', height: '220px', objectFit: 'cover', objectPosition: 'center 30%', display: 'block' }}
                       />
                     </Box>
                   )}
