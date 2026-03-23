@@ -42,7 +42,7 @@ const Footer = () => {
                   underline="none"
                   className={styles.socialItem}
                 >
-                  <IconButton color="inherit" aria-label={s.label} className={styles.iconButton}>
+                  <IconButton color="inherit" aria-label={`Acessar ${s.label} do Prêmio Infosfera`} className={styles.iconButton}>
                     {s.icon}
                   </IconButton>
                   <Typography className={styles.socialLabel}>{s.label}</Typography>

@@ -982,3 +982,73 @@
 .logoWrapperDark {
     background: #0d0e3f !important;
 }
+
+/* ── Stats ── */
+.statItem {
+    text-align: center;
+    padding: 1.5rem 1rem;
+}
+.statValue {
+    font-family: 'Montserrat', Arial, sans-serif !important;
+    font-size: clamp(2.5rem, 6vw, 3.5rem) !important;
+    font-weight: 800 !important;
+    color: #1abc9c !important;
+    line-height: 1 !important;
+    letter-spacing: -0.03em !important;
+}
+.statLabel {
+    color: rgba(255,255,255,0.65) !important;
+    font-size: 0.875rem !important;
+    margin-top: 0.5rem !important;
+    line-height: 1.4 !important;
+}
+
+/* ── Testimonials ── */
+.testimonialCard {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    height: 100%;
+    position: relative;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.testimonialCard::before {
+    content: '\201C';
+    position: absolute;
+    top: 1rem;
+    left: 1.5rem;
+    font-size: 4rem;
+    font-family: Georgia, serif;
+    color: var(--color-primary-bg);
+    line-height: 1;
+}
+.testimonialCard:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+}
+.testimonialQuote {
+    color: var(--color-text-body) !important;
+    font-size: 0.95rem !important;
+    line-height: 1.75 !important;
+    font-style: italic;
+    padding-top: 1.5rem;
+}
+.testimonialAuthor {
+    border-top: 1px solid var(--color-border);
+    padding-top: 1rem;
+    margin-top: auto;
+}
+.testimonialName {
+    font-weight: 700 !important;
+    color: var(--color-text-dark) !important;
+    font-size: 0.875rem !important;
+}
+.testimonialRole {
+    color: var(--color-primary) !important;
+    font-size: 0.8rem !important;
+    margin-top: 0.2rem !important;
+}

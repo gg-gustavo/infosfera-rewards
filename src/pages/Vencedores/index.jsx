@@ -2,25 +2,33 @@ import { useState, useEffect, useRef } from 'react';
 import { Typography, Box, Grid, Card, CardContent } from '@mui/material';
 import CtaVerde from '../../components/CtaVerde';
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
-import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
 
 import styles from './index.module.css';
 import bannerImage from '../../assets/banner.jpeg';
 
-const FotoPlaceholder = ({ label }) => (
-  <Box sx={{
-    width: '100%', aspectRatio: '16/7', border: '2px dashed #d0d2f0',
-    borderRadius: '16px', background: '#f7f8fc',
-    display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-    gap: 1, mb: 3, cursor: 'default',
-  }}>
-    <AddPhotoAlternateOutlinedIcon sx={{ fontSize: 48, color: '#b0b3d8' }} />
-    <Typography sx={{ color: '#9497c4', fontSize: '0.875rem', fontWeight: 600 }}>
-      {label || 'Foto da categoria'}
-    </Typography>
-    <Typography sx={{ color: '#b8bad8', fontSize: '0.75rem' }}>
-      Imagem a ser adicionada
-    </Typography>
+// Fotos dos premiados 2025
+import fotoRJ        from '../../assets/premiados/PREFEITURA DO RJ.JPG';
+import fotoPinhais   from '../../assets/premiados/PREFEITURA DE PINHAIS.JPG';
+import fotoSenado    from '../../assets/premiados/SENADO FEDERAL.JPG';
+import fotoMPFMA     from '../../assets/premiados/MPF MA.JPG';
+import fotoPremiados from '../../assets/premiados/PREMIADOS.JPG';
+import fotoTRERN     from '../../assets/premiados/TRE-RN.JPG';
+import fotoSantana   from '../../assets/premiados/PREFEITURA DE SANTANA DO LIVRAMENTO.JPG';
+import fotoCampoLargo from '../../assets/premiados/PREFEITURA DE CAMPO LARGO.JPG';
+import fotoMGI       from '../../assets/premiados/MGI - Painel ID.JPG';
+import fotoTRESP     from '../../assets/premiados/TRE - SP.JPG';
+import fotoTRESP1    from '../../assets/premiados/TRE - SP1.JPG';
+import fotoTREGO     from '../../assets/premiados/TRE - GO.JPG';
+import fotoTCEPR     from '../../assets/premiados/TCE - PR.JPG';
+
+const FotoPremio = ({ src, alt }) => (
+  <Box sx={{ width: '100%', mb: 3, borderRadius: '16px', overflow: 'hidden', lineHeight: 0 }}>
+    <img
+      src={src}
+      alt={alt}
+      loading="lazy"
+      style={{ width: '100%', maxHeight: '420px', objectFit: 'cover', objectPosition: 'center top', display: 'block' }}
+    />
   </Box>
 );
 
@@ -90,15 +98,17 @@ const categorias = {
       titulo: 'Referência em Boas Práticas',
       descricao: 'Descrição do prêmio de boas práticas.',
       vencedores: [
-        { 
-          nomes: 'Normas.leg.br', 
-          projeto: 'João Alberto de Oliveira Lima', 
-          vinculo: 'Senado Federal' 
+        {
+          nomes: 'Normas.leg.br',
+          projeto: 'João Alberto de Oliveira Lima',
+          vinculo: 'Senado Federal',
+          foto: fotoSenado,
         },
-        { 
-          nomes: 'Investigação a partir de sistemas de informações das emendas parlamentares de saúde destinadas aos municípios maranhenses', 
-          projeto: 'Juraci Guimarães Junior', 
-          vinculo: 'Ministério Público Federal do Maranhão' 
+        {
+          nomes: 'Investigação a partir de sistemas de informações das emendas parlamentares de saúde destinadas aos municípios maranhenses',
+          projeto: 'Juraci Guimarães Junior',
+          vinculo: 'Ministério Público Federal do Maranhão',
+          foto: fotoMPFMA,
         }
       ]
     },
@@ -117,41 +127,13 @@ const categorias = {
       titulo: 'Menções Honrosas',
       descricao: 'Descrição para as menções honrosas.',
       vencedores: [
-        { 
-          nomes: 'Projeto - TRE-RN Simples Assim: Justiça para Você!', 
-          projeto: 'Andréa Carla Guedes Toscano Campos', 
-          vinculo: 'Tribunal Regional Eleitoral do Rio Grande do Norte' 
-        },
-        { 
-          nomes: 'NEM: Núcleo de Estatística Municipal', 
-          projeto: 'Rafael Damasceno de Camargo, Bianca Borger Lussani, Felipe Gomes Madruga', 
-          vinculo: 'Prefeitura Municipal de Sant\'Ana do Livramento/RS' 
-        },
-        { 
-          nomes: 'Muralha Digital - CIOSP (Centro Integrado de Operações de Segurança Pública)', 
-          projeto: 'Fabiano Arruda Bianchinho', 
-          vinculo: 'Prefeitura Municipal de Campo Largo/PR' 
-        },
-        { 
-          nomes: 'Painel ID: Dados, um caminho para a cidadania', 
-          projeto: 'Hudson Vinicius Mesquita, Simone Cabanelas Martinez, Thiara dos Santos Alves, Bianca Izumi Maeda, Beatriz Aleixo Bezerra de Sales', 
-          vinculo: 'Secretaria de Governo Digital / Ministério da Gestão e da Inovação em Serviços Públicos' 
-        },
-        { 
-          nomes: 'Inovação e Gestão no Poder Judiciário: Uma Abordagem Empírica com Inteligência Artificial Generativa para Otimização e Gestão de Riscos de Processos', 
-          projeto: 'Luís Felipe de Oliveira Reis', 
-          vinculo: 'Tribunal Regional Eleitoral de São Paulo' 
-        },
-        { 
-          nomes: 'Boas Práticas na Gestão de Grupo de Trabalho Remoto para Análise de Processos Judiciais Antigos no TRE Goiás', 
-          projeto: 'Vitor Carneiro Ramos, Patrick Letouze, José Carlos Lucio Maia, Ilana Murici Ayres, Rodrigo de Melo Brustolin', 
-          vinculo: 'Tribunal Regional Eleitoral de Goiás' 
-        },
-        { 
-          nomes: 'Painel e Indicador de Maturidade do Plano Plurianual das Entidades Municipais do Estado do Paraná', 
-          projeto: 'Robson Fernandes Soares, Rafael Morais Gonçalves Ayres, Fabio Junior Damacena, Douglas Nascimento de Oliveira, Vinicius Garcia Pimenta', 
-          vinculo: 'Tribunal de Contas do Estado do Paraná' 
-        }
+        { nomes: 'Projeto - TRE-RN Simples Assim: Justiça para Você!', projeto: 'Andréa Carla Guedes Toscano Campos', vinculo: 'Tribunal Regional Eleitoral do Rio Grande do Norte', foto: fotoTRERN },
+        { nomes: 'NEM: Núcleo de Estatística Municipal', projeto: 'Rafael Damasceno de Camargo, Bianca Borger Lussani, Felipe Gomes Madruga', vinculo: 'Prefeitura Municipal de Sant\'Ana do Livramento/RS', foto: fotoSantana },
+        { nomes: 'Muralha Digital - CIOSP (Centro Integrado de Operações de Segurança Pública)', projeto: 'Fabiano Arruda Bianchinho', vinculo: 'Prefeitura Municipal de Campo Largo/PR', foto: fotoCampoLargo },
+        { nomes: 'Painel ID: Dados, um caminho para a cidadania', projeto: 'Hudson Vinicius Mesquita, Simone Cabanelas Martinez, Thiara dos Santos Alves, Bianca Izumi Maeda, Beatriz Aleixo Bezerra de Sales', vinculo: 'Secretaria de Governo Digital / Ministério da Gestão e da Inovação em Serviços Públicos', foto: fotoMGI },
+        { nomes: 'Inovação e Gestão no Poder Judiciário: Uma Abordagem Empírica com Inteligência Artificial Generativa para Otimização e Gestão de Riscos de Processos', projeto: 'Luís Felipe de Oliveira Reis', vinculo: 'Tribunal Regional Eleitoral de São Paulo', foto: fotoTRESP },
+        { nomes: 'Boas Práticas na Gestão de Grupo de Trabalho Remoto para Análise de Processos Judiciais Antigos no TRE Goiás', projeto: 'Vitor Carneiro Ramos, Patrick Letouze, José Carlos Lucio Maia, Ilana Murici Ayres, Rodrigo de Melo Brustolin', vinculo: 'Tribunal Regional Eleitoral de Goiás', foto: fotoTREGO },
+        { nomes: 'Painel e Indicador de Maturidade do Plano Plurianual das Entidades Municipais do Estado do Paraná', projeto: 'Robson Fernandes Soares, Rafael Morais Gonçalves Ayres, Fabio Junior Damacena, Douglas Nascimento de Oliveira, Vinicius Garcia Pimenta', vinculo: 'Tribunal de Contas do Estado do Paraná', foto: fotoTCEPR },
       ]
     }
   };
@@ -190,7 +172,7 @@ const categorias = {
 
           {/* ===== SEÇÃO GRANDE PRÊMIO ===== */}
           <CategoriaHeader titulo={categorias.grandePremio.titulo} />
-          <FotoPlaceholder label="Foto — Grande Prêmio Infosfera" />
+          <FotoPremio src={fotoRJ} alt="Equipe vencedora do Grande Prêmio Infosfera 2025 — Prefeitura do Rio de Janeiro" />
           {categorias.grandePremio.vencedores.map((vencedor, index) => (
             <Card
               key={`gp-${index}`}
@@ -216,7 +198,7 @@ const categorias = {
 
           {/* ===== SEÇÃO REFERÊNCIA EM BOAS PRÁTICAS ===== */}
           <CategoriaHeader titulo={categorias.boasPraticas.titulo} />
-          <FotoPlaceholder label="Foto — Referência em Boas Práticas" />
+          <FotoPremio src={fotoPremiados} alt="Premiados Prêmio Infosfera 2025 — cerimônia de premiação" />
           <Grid container spacing={4}>
             {categorias.boasPraticas.vencedores.map((vencedor, index) => (
               <Grid size={{xs: 12 , md : 6}} key={`bp-${index}`}>
@@ -225,17 +207,21 @@ const categorias = {
                   data-id={`bp-${index}`}
                   className={`${styles.vencedorCard} ${visibleCards.has(`bp-${index}`) ? styles.visible : ''}`}
                 >
+                  {vencedor.foto && (
+                    <Box sx={{ lineHeight: 0, overflow: 'hidden', borderRadius: '20px 20px 0 0' }}>
+                      <img
+                        src={vencedor.foto}
+                        alt={`${vencedor.vinculo} — Referência em Boas Práticas 2025`}
+                        loading="lazy"
+                        style={{ width: '100%', height: '200px', objectFit: 'cover', objectPosition: 'center top', display: 'block' }}
+                      />
+                    </Box>
+                  )}
                   <CardContent className={styles.vencedorCardContent}>
                     <Box className={styles.vencedorDetails}>
-                      <Typography variant="h6" className={styles.nomes}>
-                        {vencedor.nomes}
-                      </Typography>
-                       <Typography className={styles.projeto}>
-                        {vencedor.projeto}
-                      </Typography>
-                      <Typography className={styles.vinculo}>
-                        {vencedor.vinculo}
-                      </Typography>
+                      <Typography variant="h6" className={styles.nomes}>{vencedor.nomes}</Typography>
+                      <Typography className={styles.projeto}>{vencedor.projeto}</Typography>
+                      <Typography className={styles.vinculo}>{vencedor.vinculo}</Typography>
                     </Box>
                   </CardContent>
                 </Card>
@@ -245,7 +231,7 @@ const categorias = {
 
           {/* ===== SEÇÃO DESTAQUE PARANÁ ===== */}
           <CategoriaHeader titulo={categorias.destaqueParana.titulo} />
-          <FotoPlaceholder label="Foto — Destaque Paraná" />
+          <FotoPremio src={fotoPinhais} alt="Equipe vencedora — Prefeitura de Pinhais/PR, Destaque Paraná 2025" />
           {categorias.destaqueParana.vencedores.map((vencedor, index) => (
              <Card
               key={`dp-${index}`}
@@ -271,26 +257,30 @@ const categorias = {
 
           {/* ===== SEÇÃO MENÇÕES HONROSAS ===== */}
           <CategoriaHeader titulo={categorias.mencoesHonrosas.titulo} />
-          <FotoPlaceholder label="Foto — Menções Honrosas" />
+          <FotoPremio src={fotoPremiados} alt="Práticas finalistas premiadas com Menção Honrosa — Prêmio Infosfera 2025" />
           <Grid sx={{width:"100%",justifyContent:"center"}} container spacing={4}>
             {categorias.mencoesHonrosas.vencedores.map((vencedor, index) => (
               <Grid item xs={12} sm={6} md={4} key={`mh-${index}`}>
-                 <Card
+                <Card
                   ref={registerRef}
                   data-id={`mh-${index}`}
                   className={`${styles.vencedorCard} ${visibleCards.has(`mh-${index}`) ? styles.visible : ''}`}
                 >
+                  {vencedor.foto && (
+                    <Box sx={{ lineHeight: 0, overflow: 'hidden', borderRadius: '20px 20px 0 0' }}>
+                      <img
+                        src={vencedor.foto}
+                        alt={`${vencedor.vinculo} — Menção Honrosa Prêmio Infosfera 2025`}
+                        loading="lazy"
+                        style={{ width: '100%', height: '180px', objectFit: 'cover', objectPosition: 'center top', display: 'block' }}
+                      />
+                    </Box>
+                  )}
                   <CardContent className={styles.vencedorCardContent}>
                     <Box className={styles.vencedorDetails}>
-                      <Typography variant="h6" className={styles.nomes}>
-                        {vencedor.nomes}
-                      </Typography>
-                      <Typography className={styles.projeto}>
-                        {vencedor.projeto}
-                      </Typography>
-                      <Typography className={styles.vinculo}>
-                        {vencedor.vinculo}
-                      </Typography>
+                      <Typography variant="h6" className={styles.nomes}>{vencedor.nomes}</Typography>
+                      <Typography className={styles.projeto}>{vencedor.projeto}</Typography>
+                      <Typography className={styles.vinculo}>{vencedor.vinculo}</Typography>
                     </Box>
                   </CardContent>
                 </Card>
