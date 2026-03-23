@@ -1,7 +1,10 @@
+import { useEffect } from 'react';
 import { Box, Typography, Divider, Chip } from '@mui/material';
 import styles from './index.module.css';
 
-const RegulamentoIntegra = () => (
+const RegulamentoIntegra = () => {
+  useEffect(() => { window.scrollTo({ top: 0, behavior: 'instant' }); }, []);
+  return (
   <Box className={styles.page}>
     <Box className={styles.container}>
 
@@ -208,6 +211,7 @@ const RegulamentoIntegra = () => (
 
     </Box>
   </Box>
-);
+  );
+};
 
 export default RegulamentoIntegra;

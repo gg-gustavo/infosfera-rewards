@@ -13,6 +13,7 @@ const navItems = [
   { label: 'Início', path: '/' },
   { label: 'Vencedores', path: '/vencedores' },
   { label: 'Regulamento', path: '/regulamento' },
+  { label: 'Regulamento na Íntegra', path: '/regulamento-integra' },
   { label: 'Contato', path: '/contato' },
 ];
 
