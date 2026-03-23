@@ -144,6 +144,17 @@ const Regulamento = () => {
                 A inscrição é feita exclusivamente pela <strong>Plataforma Infosfera de Boas Práticas</strong>. Não são aceitas submissões por outro meio ou fora do prazo.
               </Typography>
             </Box>
+            <Box sx={{ textAlign: 'center', mt: 3 }}>
+              <Button
+                component={Link}
+                to="/regulamento-integra"
+                variant="contained"
+                startIcon={<DescriptionOutlinedIcon />}
+                className={styles.btnPrimary}
+              >
+                Ler o regulamento na íntegra
+              </Button>
+            </Box>
           </Box>
         </Box>
       </Box>
@@ -492,13 +503,15 @@ const Regulamento = () => {
       </Box>
 
       
-      {/* Link para regulamento na íntegra */}
-      <Box sx={{ background: '#f7f8fc', py: 3, textAlign: 'center', borderTop: '1px solid #e5e7eb' }}>
+      {/* Botão regulamento na íntegra — fim da página */}
+      <Box sx={{ background: '#f7f8fc', py: 4, textAlign: 'center', borderTop: '1px solid #e5e7eb' }}>
+        <Typography sx={{ color: '#666', mb: 2, fontSize: '0.95rem' }}>Precisa do texto legal completo?</Typography>
         <Button
           component={Link}
           to="/regulamento-integra"
+          variant="contained"
           startIcon={<DescriptionOutlinedIcon />}
-          sx={{ color: '#2d2e82', fontWeight: 600, textTransform: 'none', fontSize: '0.95rem', '&:hover': { background: '#f0f1ff' } }}
+          className={styles.btnPrimary}
         >
           Ler o regulamento na íntegra
         </Button>

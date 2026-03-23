@@ -369,7 +369,7 @@
 .highlightCard {
     height: 100%;
     border-radius: 12px !important;
-    background: #0e8a68 !important;
+    background: linear-gradient(135deg, #2d2e82 0%, #1abc9c 100%) !important;
     color: white !important;
     display: flex;
     flex-direction: column;

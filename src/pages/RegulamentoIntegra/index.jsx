@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Box, Typography, Divider, Chip } from '@mui/material';
+import CtaVerde from '../../components/CtaVerde';
 import styles from './index.module.css';
 
 const Art = ({ children }) => <Typography component="div" className={styles.article}>{children}</Typography>;
@@ -14,6 +15,7 @@ const Sec = ({ title, children }) => (
 const RegulamentoIntegra = () => {
   useEffect(() => { window.scrollTo({ top: 0, behavior: 'instant' }); }, []);
   return (
+    <>
     <Box className={styles.page}>
       <Box className={styles.container}>
 
@@ -295,6 +297,8 @@ const RegulamentoIntegra = () => {
 
       </Box>
     </Box>
+    <CtaVerde />
+    </>
   );
 };
 
