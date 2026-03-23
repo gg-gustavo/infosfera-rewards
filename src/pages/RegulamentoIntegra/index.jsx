@@ -18,7 +18,7 @@ const RegulamentoIntegra = () => {
       <Box className={styles.container}>
 
         <Box className={styles.header}>
-          <Chip label="Minuta submetida para aprovação do Comitê Executivo em 11/03" className={styles.chip} size="small" />
+          <Chip label="Aprovado em 18/03" className={styles.chip} size="small" />
           <Typography variant="h1" className={styles.title}>Prêmio Infosfera 2026</Typography>
           <Typography className={styles.subtitle}>
             Regulamento do Prêmio Infosfera de Boas Práticas em Gestão da Informação na Esfera Pública - Edição 2026
@@ -41,7 +41,7 @@ const RegulamentoIntegra = () => {
             Art. 4º. São objetivos estratégicos da premiação:
             <ul>
               <li>Identificar práticas em uso de gestão da informação que contribuam para o aprimoramento e modernização da gestão pública;</li>
-              <li>Combater o isolamento de boas ideias, fomentando uma cultura nacional de compartilhamento;</li>
+              <li>Mitigar o isolamento de boas ideias, fomentando uma cultura nacional de compartilhamento;</li>
               <li>Fomentar a replicabilidade de boas práticas;</li>
               <li>Servir de instrumento de reconhecimento nacional e como repositório de memória institucional e técnica de práticas em uso.</li>
             </ul>
@@ -65,12 +65,12 @@ const RegulamentoIntegra = () => {
         <Sec title="Admissibilidade ao Prêmio e Temáticas">
           <Art>
             Art. 9º. Para concorrer ao Prêmio, as práticas inscritas devem estar obrigatoriamente vinculadas a um ou mais dos eixos temáticos indicados no Anexo I.
-            <Par>Parágrafo único. A lista de temas e subtemas do Anexo I não é exaustiva, podendo ser admitidas submissões em assuntos diversos desde que aderentes ao propósito geral do Prêmio.</Par>
+            <Par>Parágrafo único. A lista de temas e subtemas do Anexo I não é exaustiva, podendo ser admitidas submissões em assuntos diversos, desde que aderentes ao propósito geral do Prêmio.</Par>
           </Art>
           <Art>
-            Art. 10. São condições adicionais de admissibilidade ao Prêmio:
+            Art. 10. São condições adicionais de admissibilidade de práticas ao Prêmio:
             <ul>
-              <li>As práticas devem apresentar resultados práticos e mensuráveis, sendo admitidos diferentes níveis de maturidade de operação (de piloto a plenamente estabelecidas);</li>
+              <li>Apresentar resultados práticos e mensuráveis, sendo admitidos diferentes níveis de maturidade de operação (de piloto a plenamente estabelecidas);</li>
               <li>Possuir status de Cadastro Ouro na Plataforma Infosfera de Boas Práticas até a data limite da inscrição, o que se refere à existência de evidências exaustivas que comprovem resultados e o impacto real da prática.</li>
             </ul>
             <Par>Parágrafo único. Práticas consideradas meramente conceituais ou em fase inicial de planejamento não serão admissíveis ao Prêmio, visto que a essência da premiação é o reconhecimento das iniciativas aplicadas e comprovadas.</Par>
@@ -112,7 +112,7 @@ const RegulamentoIntegra = () => {
               <li><strong>Grande Prêmio Infosfera:</strong> distinção máxima concedida à prática que obtiver a maior pontuação global absoluta no ranking geral, independentemente do eixo temático ou da esfera federativa, sendo considerada a solução de maior impacto e excelência da edição;</li>
               <li><strong>Destaque Regional (Goiás):</strong> distinção outorgada à prática de maior pontuação técnica entre as instituições sediadas no Estado de Goiás, com o objetivo de valorizar a inovação no ente federativo anfitrião do evento;</li>
               <li><strong>Destaque Municipal:</strong> distinção destinada exclusivamente a iniciativas desenvolvidas no âmbito de Prefeituras, Secretarias Municipais ou autarquias municipais, visando reconhecer a capilaridade da inovação no nível local;</li>
-              <li><strong>Menções Honrosas:</strong> distinções de reconhecimento técnico atribuídas a até 07 (sete) práticas finalistas que, embora não tenham atingido o topo do ranking global, demonstrem mérito excepcional em critérios específicos, tais como criatividade disruptiva, baixo custo de implementação ou superação de desafios tecnológicos complexos.</li>
+              <li><strong>Menções Honrosas:</strong> distinções de reconhecimento técnico atribuídas a até 07 (sete) práticas finalistas que, embora não tenham atingido o topo do ranking global, demonstram mérito excepcional em critérios específicos, tais como criatividade disruptiva, baixo custo de implementação ou superação de desafios tecnológicos complexos.</li>
             </ul>
             <Par>Parágrafo único. Vigora o princípio da não cumulatividade, pelo qual uma única prática não poderá ser premiada em mais de uma categoria, devendo prevalecer, quando for o caso, a premiação de maior hierarquia.</Par>
           </Art>
@@ -201,7 +201,7 @@ const RegulamentoIntegra = () => {
             <Par>§ 1º. Para fins de nova candidatura à premiação, deverá ser observado um interstício mínimo de 01 (uma) edição de intervalo.</Par>
             <Par>§ 2º. A restrição de que trata o caput não impede que a prática permaneça ativa e disponível na Plataforma Infosfera do Boas Práticas para fins de consulta, disseminação e replicabilidade.</Par>
             <Par>§ 3º. A prática premiada em edição anterior poderá ser submetida novamente ao certame após o período de interstício, desde que o proponente demonstre, de forma inequívoca, que a iniciativa sofreu atualizações substanciais, melhorias incrementais ou expansão de impacto que justifiquem uma nova avaliação técnica.</Par>
-            <Par>§ 4º. Casos de práticas que tenham recebido apenas "Menção Honrosa" ou que tenham sido mapeadas como "Referência em Boa Prática" não se sujeitam à regra do interstício, podendo concorrer normalmente nas categorias principais na edição seguinte.</Par>
+            <Par>§ 4º. Casos de práticas que tenham recebido Menção Honrosa ou que tenham sido mapeadas como Referência em Boa Prática não se sujeitam à regra do interstício, podendo concorrer normalmente nas categorias principais na edição seguinte.</Par>
           </Art>
         </Sec>
 
@@ -245,11 +245,11 @@ const RegulamentoIntegra = () => {
               </Box>
               <Box component="tbody">
                 {[
-                  ['A. Governança Digital e Eficiência Administrativa','Foco na transformação digital como ferramenta de desburocratização e economia. Inclui a modernização da máquina pública, otimização de processos e melhoria na comunicação interinstitucional.','Governança Eletrônica; Interoperabilidade; Transformação Digital; Inovação em Serviços Públicos; Compliance e Integridade Digital.'],
+                  ['A. Governança Digital e Eficiência Administrativa','Foco na transformação digital como ferramenta de desburocratização e economia. Inclui a modernização da máquina pública, otimização de processos e melhoria na comunicação interinstitucional.','Governança Eletrônica; Interoperabilidade; Transformação Digital; Inovação em Serviços Públicos.'],
                   ['B. Gestão Estratégica da Informação','Abrange desde a estruturação de dados até o uso de tecnologias avançadas (IA) para extrair insights, apoiar decisões fundamentadas e criar políticas públicas baseadas em evidências.','Inteligência de Dados Públicos; Observatório de Dados; Gestão do Conhecimento; Inteligência Artificial e Ética no Setor Público.'],
                   ['C. Transparência e Integridade Governamental','Iniciativas que promovem a publicidade das ações governamentais, o acesso democrático à informação e o fortalecimento do controle social e da participação cidadã.','Transparência Digital; Inclusão Digital e Acessibilidade; Compliance e Integridade Digital.'],
                   ['D. Preservação Digital e Memória Institucional','Metodologias e sistemas dedicados à salvaguarda do patrimônio informacional público digital, garantindo acesso a longo prazo a registros de valor histórico e probatório.','Preservação da Memória Institucional; Curadoria Digital de Acervos Públicos; Gestão de Documentos Arquivísticos Digitais.'],
-                  ['E. Segurança e Resiliência Informacional','Proteção do ecossistema público contra ameaças e incidentes. Foco na integridade, confidencialidade e disponibilidade dos dados, além de estratégias de mitigação de riscos.','Segurança Cibernética; Confidencialidade e Integridade; Gestão de Documentos Digitais; Segurança, Compliance e Integridade Digital.'],
+                  ['E. Privacidade, Segurança e Resiliência Informacional','Proteção do ecossistema público contra ameaças e incidentes. Foco na integridade, confidencialidade e disponibilidade dos dados, além de estratégias de mitigação de riscos, incluindo aspectos de privacidade e proteção de dados.','Segurança Cibernética; Confidencialidade e Integridade; Gestão de Documentos Digitais; Segurança, Privacidade e Proteção de dados'],
                   ['F. Outros Temas Correlatos','Projetos que apresentem aderência aos objetivos do Prêmio Infosfera 2026, mas que não estejam explicitamente listados nas categorias anteriores.','Inovação em Processos; Transparência Ativa; Tecnologias Emergentes; Cidades Inteligentes; Sustentabilidade Digital; e outras propostas de gestão da informação na esfera pública.'],
                 ].map(([cat, desc, ex]) => (
                   <Box key={cat} component="tr" sx={{'&:hover':{background:'#f7f8fc'},borderBottom:'1px solid #e5e7eb'}}>
