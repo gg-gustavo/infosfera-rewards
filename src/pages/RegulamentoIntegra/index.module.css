@@ -87,13 +87,13 @@
     line-height: 1.7;
 }
 
-.article em {
-    color: #666;
-    font-size: 0.9rem;
-    display: block;
-    margin-top: 0.5rem;
+.paragrafo {
+    color: #666 !important;
+    font-size: 0.9rem !important;
+    margin-top: 0.65rem !important;
     padding-left: 1rem;
     border-left: 2px solid #e5e7eb;
+    line-height: 1.7 !important;
 }
 
 @media (max-width: 600px) {
