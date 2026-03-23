@@ -106,18 +106,7 @@ const Home = () => {
     return () => observer.disconnect();
   }, []);
 
-  const stats = [
-    { value: '47', label: 'práticas inscritas em 2025' },
-    { value: '14', label: 'estados representados' },
-    { value: '3', label: 'poderes da República participando' },
-    { value: '12', label: 'práticas reconhecidas' },
-  ];
 
-  const testimonials = [
-    { quote: 'O Prêmio Infosfera nos motivou a documentar e compartilhar o que fazíamos em silêncio. Hoje nossa prática é referência nacional.', author: 'Kelly Ferreira Esch', role: 'Prefeitura do Rio de Janeiro · Grande Prêmio 2025' },
-    { quote: 'A visibilidade que o prêmio trouxe abriu portas para que outros municípios replicassem nosso modelo de compartilhamento de dados.', author: 'Ricardo Fujiwara', role: 'Prefeitura de Pinhais/PR · Destaque Paraná 2025' },
-    { quote: 'Participar foi um processo de aprendizado. A plataforma nos obrigou a organizar evidências que já tínhamos, mas nunca tínhamos sistematizado.', author: 'João Alberto de Oliveira Lima', role: 'Senado Federal · Referência em Boas Práticas 2025' },
-  ];
 
   const whoCanParticipate = [
     { icon: CorporateFareOutlinedIcon, title: 'Poder Executivo', desc: 'Ministérios, secretarias, autarquias, fundações públicas, empresas públicas e sociedades de economia mista, em nível federal, estadual ou municipal.' },
@@ -236,46 +225,6 @@ const Home = () => {
                 </CardContent>
               </Card>
             </Grid>
-          </Grid>
-        </Box>
-      </Box>
-
-      {/* ── NÚMEROS ── */}
-      <Box className={`${styles.section} ${styles.sectionDark}`}>
-        <Box className={styles.contentContainer}>
-          <Grid container spacing={3} columns={{ xs: 2, md: 4 }}>
-            {stats.map((stat, i) => (
-              <Grid key={i} size={{ xs: 1, md: 1 }}>
-                <Box className={styles.statItem}>
-                  <Typography className={styles.statValue}>{stat.value}</Typography>
-                  <Typography className={styles.statLabel}>{stat.label}</Typography>
-                </Box>
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
-      </Box>
-
-      {/* ── DEPOIMENTOS ── */}
-      <Box className={`${styles.section} ${styles.sectionLight}`}>
-        <Box className={styles.contentContainer}>
-          <Box className={styles.sectionHeader}>
-            <Typography variant="h2" className={styles.sectionTitle}>O que dizem os participantes</Typography>
-            <Box className={styles.titleUnderline} />
-            <Typography className={styles.sectionSubtitle}>Vencedores da edição 2025 falam sobre o impacto do Prêmio Infosfera.</Typography>
-          </Box>
-          <Grid container spacing={3} columns={{ xs: 1, md: 3 }}>
-            {testimonials.map((t, i) => (
-              <Grid key={i} size={{ xs: 1, md: 1 }}>
-                <Box className={styles.testimonialCard}>
-                  <Typography className={styles.testimonialQuote}>"{t.quote}"</Typography>
-                  <Box className={styles.testimonialAuthor}>
-                    <Typography className={styles.testimonialName}>{t.author}</Typography>
-                    <Typography className={styles.testimonialRole}>{t.role}</Typography>
-                  </Box>
-                </Box>
-              </Grid>
-            ))}
           </Grid>
         </Box>
       </Box>
