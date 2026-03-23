@@ -167,11 +167,16 @@
 .hamburger {
     display: none !important;
     color: white !important;
+    min-width: 48px !important;
+    min-height: 48px !important;
+    padding: 0.5rem !important;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 @media (max-width: 899px) {
     .hamburger {
-        display: flex !important;
+        display: inline-flex !important;
     }
 }
 
@@ -180,6 +185,7 @@
     width: 280px !important;
     background: #0d0e3f !important;
     color: white !important;
+    z-index: 1400 !important;
 }
 
 .drawerHeader {
@@ -197,6 +203,10 @@
 
 .drawerClose {
     color: rgba(255, 255, 255, 0.7) !important;
+    min-width: 48px !important;
+    min-height: 48px !important;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .drawerNav {
