@@ -24,6 +24,8 @@ import TrendingUpOutlinedIcon from '@mui/icons-material/TrendingUpOutlined';
 import AutorenewOutlinedIcon from '@mui/icons-material/AutorenewOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import CtaVerde from '../../components/CtaVerde';
+import { Link } from 'react-router-dom';
+import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 
 import styles from './index.module.css';
 import bannerImage from '../../assets/banner.jpeg';
@@ -490,6 +492,18 @@ const Regulamento = () => {
       </Box>
 
       
+      {/* Link para regulamento na íntegra */}
+      <Box sx={{ background: '#f7f8fc', py: 3, textAlign: 'center', borderTop: '1px solid #e5e7eb' }}>
+        <Button
+          component={Link}
+          to="/regulamento-integra"
+          startIcon={<DescriptionOutlinedIcon />}
+          sx={{ color: '#2d2e82', fontWeight: 600, textTransform: 'none', fontSize: '0.95rem', '&:hover': { background: '#f0f1ff' } }}
+        >
+          Ler o regulamento na íntegra
+        </Button>
+      </Box>
+
       <CtaVerde />
 
     </Box>

@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import Categorias from './pages/Categorias';
 import Vencedores from './pages/Vencedores';
 import Regulamento from './pages/Regulamento';
+import RegulamentoIntegra from './pages/RegulamentoIntegra';
 import Contato from './pages/Contato';
 import NotFound from './pages/NotFound';
 //import Galeria from './pages/Galeria';
@@ -29,6 +30,7 @@ function App() {
           <Route path="/vencedores" element={<Vencedores />} />
           {/* <Route path="/galeria" element={<Galeria />} /> */}
           <Route path="/regulamento" element={<Regulamento />} />
+          <Route path="/regulamento-integra" element={<RegulamentoIntegra />} />
           <Route path="/contato" element={<Contato />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

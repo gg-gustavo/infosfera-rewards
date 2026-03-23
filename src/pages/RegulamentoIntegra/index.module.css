@@ -1,0 +1,102 @@
+.page {
+    background: #fff;
+    padding: 4rem 0 6rem;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.chip {
+    background: #f0f1ff !important;
+    color: #2d2e82 !important;
+    font-weight: 700 !important;
+    font-size: 0.75rem !important;
+    margin-bottom: 1.25rem !important;
+}
+
+.title {
+    font-family: 'Montserrat', Arial, sans-serif !important;
+    font-size: clamp(1.75rem, 4vw, 2.5rem) !important;
+    font-weight: 800 !important;
+    color: #0d0e3f !important;
+    letter-spacing: -0.02em !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.subtitle {
+    color: #2d2e82 !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+    margin-bottom: 1.5rem !important;
+}
+
+.preamble {
+    color: #555 !important;
+    line-height: 1.8 !important;
+    font-size: 0.95rem !important;
+    max-width: 780px;
+    margin: 0 auto !important;
+    text-align: left;
+}
+
+.divider {
+    margin: 2.5rem 0 !important;
+    border-color: #e5e7eb !important;
+}
+
+.section {
+    margin-bottom: 3rem;
+}
+
+.sectionTitle {
+    font-family: 'Montserrat', Arial, sans-serif !important;
+    font-size: 1.3rem !important;
+    font-weight: 800 !important;
+    color: #2d2e82 !important;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid #f0f1ff;
+    margin-bottom: 1.25rem !important;
+}
+
+.articles {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.article {
+    color: #444 !important;
+    line-height: 1.8 !important;
+    font-size: 0.95rem !important;
+}
+
+.article ul, .article ol {
+    margin: 0.75rem 0 0.75rem 1.5rem;
+}
+
+.article li {
+    margin-bottom: 0.4rem;
+    line-height: 1.7;
+}
+
+.article em {
+    color: #666;
+    font-size: 0.9rem;
+    display: block;
+    margin-top: 0.5rem;
+    padding-left: 1rem;
+    border-left: 2px solid #e5e7eb;
+}
+
+@media (max-width: 600px) {
+    .container { padding: 0 1.25rem; }
+    .page { padding: 2rem 0 4rem; }
+}

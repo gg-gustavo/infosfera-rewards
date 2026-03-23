@@ -109,9 +109,9 @@ const Home = () => {
 
 
   const whoCanParticipate = [
-    { icon: CorporateFareOutlinedIcon, title: 'Poder Executivo', desc: 'Ministérios, secretarias, autarquias, fundações públicas, empresas públicas e sociedades de economia mista, em nível federal, estadual ou municipal.' },
-    { icon: GavelOutlinedIcon, title: 'Poder Judiciário e MP', desc: 'Tribunais, Ministério Público, Advocacia Pública, Defensoria Pública e Tribunais de Contas de todos os entes federativos.' },
-    { icon: AccountBalanceOutlinedIcon, title: 'Poder Legislativo', desc: 'Câmaras Municipais, Assembleias Legislativas, Câmara dos Deputados, Senado Federal e demais órgãos legislativos.' },
+    { icon: CorporateFareOutlinedIcon, title: 'Instituições Esferas e Poderes Públicos', desc: 'Órgãos e entidades dos Poderes Executivo, Legislativo e Judiciário em todos os níveis: Federal, Estadual, Distrital e Municipal.' },
+    { icon: AccountBalanceOutlinedIcon, title: 'Estrutura Administrativa e Controle', desc: 'Administração Direta e Indireta, incluindo autarquias, fundações, empresas públicas, consórcios e sistemas de controle como Tribunais de Contas.' },
+    { icon: GavelOutlinedIcon, title: 'Funções Essenciais à Justiça', desc: 'Instituições fundamentais como o Ministério Público, Advocacia Pública e Defensoria Pública de todo o país.' },
   ];
 
   const checkItems = [

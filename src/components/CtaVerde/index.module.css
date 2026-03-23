@@ -1,5 +1,5 @@
 .section {
-    background: #0e8a68;
+    background: linear-gradient(135deg, #2d2e82 0%, #1abc9c 100%);
     padding: 5rem 0;
 }
 
@@ -46,7 +46,7 @@
 .btn {
     margin-top: 2rem !important;
     background: #ffffff !important;
-    color: #0e8a68 !important;
+    color: #2d2e82 !important;
     font-weight: 700 !important;
     font-size: 0.95rem !important;
     text-transform: none !important;
@@ -58,7 +58,7 @@
 }
 
 .btn:hover {
-    background: #f0faf6 !important;
+    background: #f0f1ff !important;
     transform: translateY(-2px) !important;
     box-shadow: 0 6px 28px rgba(0, 0, 0, 0.2) !important;
 }
