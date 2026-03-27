@@ -12,6 +12,7 @@ import Regulamento from './pages/Regulamento';
 import RegulamentoIntegra from './pages/RegulamentoIntegra';
 import Contato from './pages/Contato';
 import NotFound from './pages/NotFound';
+import ScrollToTop from './components/ScrollToTop';
 //import Galeria from './pages/Galeria';
 
 
@@ -19,6 +20,7 @@ import NotFound from './pages/NotFound';
 function App() {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      <ScrollToTop />
       <Header />
       <Box component="main" sx={{ flexGrow: 1 }}>
         <Routes>
