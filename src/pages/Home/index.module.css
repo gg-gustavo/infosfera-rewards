@@ -353,6 +353,21 @@
     font-size: 0.9rem;
 }
 
+.supporterNote {
+    text-align: center;
+    margin-top: 2rem;
+    color: #888;
+    font-size: 0.85rem;
+}
+.supporterLink {
+    color: #2d2e82;
+    text-decoration: underline;
+    font-weight: 600;
+}
+.supporterLink:hover {
+    color: #1abc9c;
+}
+
 /* ── fullHeightCard ── */
 .fullHeightCard {
     display: flex;
@@ -933,6 +948,10 @@
     width: auto;
     height: auto;
     object-fit: contain;
+}
+.logoImageLarge {
+    max-height: 90px;
+    transform: scale(1.15);
 }
 
 /* ══════════════════════════════════════

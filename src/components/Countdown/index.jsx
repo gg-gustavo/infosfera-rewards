@@ -42,8 +42,8 @@ const Countdown = () => {
           <Box key={label} className={styles.unitGroup}>
             <Box className={styles.unitBox}>
               <Typography className={styles.unitValue}>{pad(value)}</Typography>
+              <Typography className={styles.unitLabel}>{label}</Typography>
             </Box>
-            <Typography className={styles.unitLabel}>{label}</Typography>
             {i < units.length - 1 && <Typography className={styles.sep}>:</Typography>}
           </Box>
         ))}

@@ -10,7 +10,7 @@ import logo from '../../assets/logo.png';
 const PLATFORM_URL = 'https://boaspraticas.infosfera.inf.br/';
 
 const navItems = [
-  { label: 'Início', path: '/' },
+  { label: 'Sobre o Prêmio', path: '/' },
   { label: 'Vencedores', path: '/vencedores' },
   { label: 'Regulamento', path: '/regulamento' },
   { label: 'Contato', path: '/contato' },

@@ -50,7 +50,7 @@ const temas = [
   { letra: 'A', titulo: 'Governança Digital e Eficiência', desc: 'Transformação digital, interoperabilidade, modernização da máquina pública e inovação em serviços públicos.', exemplos: 'Governança Eletrônica; Interoperabilidade; Compliance Digital.', icon: <PolicyOutlinedIcon sx={{ fontSize: 32, color: '#2d2e82' }} /> },
   { letra: 'B', titulo: 'Gestão Estratégica da Informação', desc: 'Estruturação de dados, uso de IA e políticas públicas baseadas em evidências.', exemplos: 'Inteligência de Dados Públicos; Gestão do Conhecimento; IA e Ética no Setor Público.', icon: <BarChartOutlinedIcon sx={{ fontSize: 32, color: '#2d2e82' }} /> },
   { letra: 'C', titulo: 'Transparência e Integridade', desc: 'Publicidade das ações governamentais, acesso democrático à informação e controle social.', exemplos: 'Transparência Digital; Inclusão Digital; Acessibilidade.', icon: <VisibilityOutlinedIcon sx={{ fontSize: 32, color: '#2d2e82' }} /> },
-  { letra: 'D', titulo: 'Preservação Digital', desc: 'Salvaguarda do patrimônio informacional público digital e acesso de longo prazo a registros históricos.', exemplos: 'Preservação da Memória Institucional; Curadoria Digital; Gestão de Documentos Arquivísticos.', icon: <ArchiveOutlinedIcon sx={{ fontSize: 32, color: '#2d2e82' }} /> },
+  { letra: 'D', titulo: 'Preservação Digital e Memória Institucional', desc: 'Salvaguarda do patrimônio informacional público digital e acesso de longo prazo a registros históricos.', exemplos: 'Preservação da Memória Institucional; Curadoria Digital; Gestão de Documentos Arquivísticos.', icon: <ArchiveOutlinedIcon sx={{ fontSize: 32, color: '#2d2e82' }} /> },
   { letra: 'E', titulo: 'Segurança e Resiliência', desc: 'Proteção do ecossistema público contra ameaças, integridade e confidencialidade dos dados.', exemplos: 'Segurança Cibernética; Confidencialidade; Gestão de Riscos.', icon: <SecurityOutlinedIcon sx={{ fontSize: 32, color: '#2d2e82' }} /> },
   { letra: 'F', titulo: 'Outros Temas Correlatos', desc: 'Projetos aderentes aos objetivos do Prêmio que não estejam nas categorias anteriores.', exemplos: 'Cidades Inteligentes; Sustentabilidade Digital; Tecnologias Emergentes.', icon: <DevicesOutlinedIcon sx={{ fontSize: 32, color: '#2d2e82' }} /> },
 ];
@@ -84,9 +84,9 @@ const faqs = [
   { p: 'Preciso pagar para participar?', r: 'Não. A participação é gratuita e voluntária. Não há taxa de inscrição, e o Prêmio não concede remuneração, prêmios em espécie ou benefícios financeiros diretos.' },
   { p: 'Quantas práticas minha instituição pode submeter?', r: 'Ilimitadas na plataforma. Contudo, apenas as 3 práticas com maior pontuação técnica de cada instituição avançam para a fase competitiva do Prêmio.' },
   { p: 'O que é o Status Ouro?', r: 'É o nível máximo de completude de cadastro na Plataforma de Boas Práticas. Exige o preenchimento completo de todos os campos e a anexação de evidências que comprovem resultados e impacto real da prática. Sem o Status Ouro, a prática não é admissível ao Prêmio.' },
-  { p: 'Práticas em fase de piloto podem participar?', r: 'Sim. São aceitos diferentes níveis de maturidade, de pilotos a iniciativas plenamente estabelecidas, desde que a prática apresente resultados práticos e mensuráveis e atinja o Status Ouro.' },
+  { p: 'Práticas em fase de piloto podem participar?', r: 'Sim. São aceitos diferentes níveis de maturidade, de pilotos a iniciativas plenamente estabelecidas, desde que a prática apresente resultados práticos e mensuráveis e possua cadastro com Status Ouro na Plataforma de Boas Práticas.' },
   { p: 'Uma prática pode ganhar em mais de uma categoria?', r: 'Não, salvo a categoria Escolha Popular. Vigora o princípio da não cumulatividade: uma prática não pode ser premiada em mais de uma categoria regular, prevalecendo a de maior hierarquia.' },
-  { p: 'Uma prática vencedora na edição anterior pode participar?', r: 'Práticas premiadas nas categorias principais (Grande Prêmio, Destaque Regional, Destaque Municipal) na edição imediatamente anterior precisam aguardar um intervalo de uma edição. Quem recebeu apenas Menção Honrosa ou foi mapeado como Referência pode concorrer normalmente.' },
+  { p: 'Uma prática vencedora na edição anterior pode participar?', r: 'Práticas premiadas nas categorias principais na edição imediatamente anterior precisam aguardar um intervalo de uma edição. Quem recebeu Menção Honrosa ou foi mapeado como Referência pode concorrer normalmente.' },
   { p: 'O que acontece se a prática for finalista, mas a instituição não comparecer à cerimônia?', r: 'A premiação será cancelada para aquela prática. A presença institucional na cerimônia em Goiânia é condição obrigatória para receber o troféu e o certificado. O Comitê pode transferir a honraria para a prática seguinte no ranking.' },
   { p: 'Como funciona a Escolha Popular?', r: 'Após a divulgação dos finalistas técnicos, abre-se votação pública digital. A Comissão Julgadora homologa o resultado e pode invalidar votações com uso de bots, impulsionamento pago ou condutas antiéticas.' },
   { p: 'Cabem recursos das decisões da Comissão Julgadora?', r: 'Não. As decisões da Comissão têm natureza estritamente técnica e soberana. Não cabe recurso administrativo quanto ao mérito da avaliação, pontuação ou classificação final.' },
@@ -505,7 +505,6 @@ const Regulamento = () => {
       
       {/* Botão regulamento na íntegra — fim da página */}
       <Box sx={{ background: '#f7f8fc', py: 4, textAlign: 'center', borderTop: '1px solid #e5e7eb' }}>
-        <Typography sx={{ color: '#666', mb: 2, fontSize: '0.95rem' }}>Precisa do texto legal completo?</Typography>
         <Button
           component={Link}
           to="/regulamento-integra"

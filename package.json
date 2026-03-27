@@ -14,9 +14,11 @@
     "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^7.3.2",
     "@mui/material": "^7.3.2",
+    "@rollup/rollup-win32-x64-msvc": "^4.60.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "react-router-dom": "^7.9.3"
+    "react-router-dom": "^7.9.3",
+    "rollup": "^4.60.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
@@ -30,7 +32,7 @@
     "globals": "^16.4.0",
     "sharp": "^0.34.5",
     "terser": "^5.46.1",
-    "vite": "^7.1.7",
+    "vite": "^8.0.3",
     "vite-plugin-singlefile": "^2.3.2"
   }
 }

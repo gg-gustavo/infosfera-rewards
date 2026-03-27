@@ -39,51 +39,59 @@ import styles from './index.module.css';
 import bannerImage from '../../assets/banner.jpeg';
 import CtaVerde from '../../components/CtaVerde';
 import Countdown from '../../components/Countdown';
-import labriskLogo from '../../assets/apoio/labrisk.png';
+import labriskLogo from '../../assets/apoio/19.png';
 
-// Realização — ordem dos arquivos: 1, 2, 3, 4
+// Realização — ordem dos arquivos: 1, 2, 3 (UFPR movida para Apoio, LabRisk entra)
 const realizacaoLogoMap = {
   '1.jpg': { href: 'https://www.ufpr.br/portalufpr/noticias/categoria/infojus/', label: 'InfoJus UFPR' },
   '2.jpg': { href: 'https://ppggi.ufpr.br/', label: 'PPGGI UFPR' },
   '3.jpg': { href: 'https://ppga.unb.br/', label: 'PGAP UnB' },
-  '4.jpg': { href: 'https://www.ufpr.br/', label: 'UFPR' },
 };
 
-// Apoio — ordem lexicográfica dos arquivos: 1,10,11,12,13,14,15,16,18,2,3,4,5,6,7,8,9
+// Apoio — excluidos: Doity (11.jpg), Giga (18.jpg). UFPR adicionada (vem de realizacao/4.jpg)
 const apoioLogoMap = {
   '1.jpg':  { href: 'https://www.mppr.mp.br/', label: 'Ministério Público do Paraná' },
   '10.jpg': { href: 'https://abissal.design/', label: 'Abissal Design Estratégico' },
-  '11.jpg': { href: 'https://doity.com.br/', label: 'Doity' },
   '12.jpg': { href: 'https://abades.com.br/', label: 'ABADES' },
   '13.jpg': { href: 'https://cra-pr.org.br/', label: 'CRA-PR' },
   '14.jpg': { href: 'https://www.curitiba.pr.gov.br/', label: 'Prefeitura de Curitiba' },
   '15.jpg': { href: 'https://www.agenciacuritiba.com.br/', label: 'Agência Curitiba' },
-  '16.jpg': { href: 'https://www.curitiba.pr.gov.br/', label: 'Você no Pinhão' },
-  '18.jpg': { href: '#', label: 'Giga Soluções Audiovisuais' },
+  '16.jpg': { href: 'https://www.curitiba.pr.gov.br/', label: 'Você no Pinhão', large: true },
   '2.jpg':  { href: 'https://escolasuperior.mppr.mp.br/', label: 'Escola Superior do MPPR' },
   '3.jpg':  { href: 'https://www.gov.br/ibict/pt-br', label: 'IBICT' },
   '4.jpg':  { href: 'https://www.utfpr.edu.br/', label: 'UTFPR' },
   '5.jpg':  { href: 'https://www.cmc.pr.gov.br/', label: 'Câmara Municipal de Curitiba' },
   '6.jpg':  { href: 'https://www.cmc.pr.gov.br/escoladolegislativo/', label: 'Escola do Legislativo CMC' },
   '7.jpg':  { href: 'https://www.sebrae.com.br/', label: 'SEBRAE' },
-  '8.jpg':  { href: 'https://www.ibepes.org.br/', label: 'IBEPES' },
+  '8.jpg':  { href: 'https://www.ibepes.org.br/', label: 'IBEPES', large: true },
   '9.jpg':  { href: 'https://www.gov.br/capes/pt-br', label: 'CAPES' },
 };
 
 const realizacaoRaw = import.meta.glob('../../assets/realizacao/*.jpg', { eager: true, query: '?url', import: 'default' });
 const apoioRaw = import.meta.glob('../../assets/apoio/*.jpg', { eager: true, query: '?url', import: 'default' });
 
-const realizacaoLogos = Object.entries(realizacaoRaw).map(([path, src]) => {
-  const file = path.split('/').pop();
-  return { src, ...(realizacaoLogoMap[file] || { href: '#', label: file }) };
-});
+const realizacaoLogos = [
+  ...Object.entries(realizacaoRaw)
+    .filter(([path]) => !path.endsWith('/4.jpg'))
+    .map(([path, src]) => {
+      const file = path.split('/').pop();
+      return { src, ...(realizacaoLogoMap[file] || { href: '#', label: file }) };
+    }),
+  { src: labriskLogo, href: 'http://labrisk.unb.br/', label: 'LabRisk/UnB' },
+];
+
+// UFPR logo comes from realizacao/4.jpg (moved to apoio)
+const ufprEntry = Object.entries(realizacaoRaw).find(([path]) => path.endsWith('/4.jpg'));
+const ufprLogo = ufprEntry ? { src: ufprEntry[1], href: 'https://www.ufpr.br/', label: 'UFPR' } : null;
 
 const apoioLogos = [
-  ...Object.entries(apoioRaw).map(([path, src]) => {
-    const file = path.split('/').pop();
-    return { src, ...(apoioLogoMap[file] || { href: '#', label: file }) };
-  }),
-  { src: labriskLogo, href: 'http://labrisk.unb.br/', label: 'LabRisk/UnB' },
+  ...Object.entries(apoioRaw)
+    .filter(([path]) => !path.endsWith('/11.jpg') && !path.endsWith('/18.jpg'))
+    .map(([path, src]) => {
+      const file = path.split('/').pop();
+      return { src, ...(apoioLogoMap[file] || { href: '#', label: file }) };
+    }),
+  ...(ufprLogo ? [ufprLogo] : []),
 ];
 
 const PLATFORM_URL = 'https://boaspraticas.infosfera.inf.br/';
@@ -115,29 +123,29 @@ const Home = () => {
   ];
 
   const checkItems = [
-    { num: '1', icon: <AssignmentOutlinedIcon sx={{ fontSize: 72, color: '#2d2e82' }} />, title: 'Relevância e Qualidade Técnica', text: 'Pertinência da solução frente aos problemas identificados e robustez metodológica. Alinhamento com os eixos temáticos, grau de inovação e conformidade normativa.', weight: '3,5' },
-    { num: '2', icon: <TrendingUpOutlinedIcon sx={{ fontSize: 72, color: '#2d2e82' }} />, title: 'Impacto e Resultados', text: 'Eficácia da prática e benefícios gerados. Valor público com indicadores de desempenho, ganhos de eficiência e melhoria na qualidade dos serviços prestados.', weight: '4,0' },
-    { num: '3', icon: <AutorenewOutlinedIcon sx={{ fontSize: 72, color: '#2d2e82' }} />, title: 'Replicabilidade e Sustentabilidade', text: 'Capacidade da prática de ser transferida ou adaptada para outros contextos, com viabilidade financeira e governança que garanta continuidade no tempo.', weight: '3,0' },
+    { num: '1', icon: <AssignmentOutlinedIcon sx={{ fontSize: 72, color: '#2d2e82' }} />, title: 'Relevância e Qualidade Técnica', text: 'Pertinência da solução frente aos problemas identificados, robustez metodológica, e alinhamento com os eixos temáticos, grau de inovação, conformidade técnica e normativa.', weight: '3,5' },
+    { num: '2', icon: <TrendingUpOutlinedIcon sx={{ fontSize: 72, color: '#2d2e82' }} />, title: 'Impacto e Resultados', text: 'Eficácia da prática e benefícios gerados. Valor público com indicadores de desempenho, ganhos de eficiência e melhoria na qualidade dos processos ou serviços prestados.', weight: '4,0' },
+    { num: '3', icon: <AutorenewOutlinedIcon sx={{ fontSize: 72, color: '#2d2e82' }} />, title: 'Replicabilidade e Sustentabilidade', text: 'Capacidade da prática de ser transferida ou adaptada para outros contextos e condições de continuidade no tempo.', weight: '3,0' },
   ];
 
   const howToSteps = [
     { num: '1', icon: <MoveToInboxOutlinedIcon sx={{ fontSize: 72, color: '#2d2e82' }} />, title: 'Plataforma de Boas Práticas', desc: 'Sua porta de entrada. Cadastre sua prática em boaspraticas.infosfera.inf.br. Gratuito e sem limite de submissões por órgão.' },
     { num: '2', icon: <VerifiedOutlinedIcon sx={{ fontSize: 72, color: '#2d2e82' }} />, title: 'Regra Fundamental', desc: 'Detalhe resultados e impacto para desbloquear a elegibilidade. A prática precisa atingir o Status Ouro na plataforma.' },
     { num: '3', icon: <CheckCircleOutlineIcon sx={{ fontSize: 72, color: '#2d2e82' }} />, title: 'Confirme o Interesse', desc: 'Após análise de admissibilidade (1–15 ago), confirme formalmente a participação na fase competitiva do Prêmio.' },
-    { num: '4', icon: <EmojiEventsIcon sx={{ fontSize: 72, color: '#2d2e82' }} />, title: 'Reconhecimento', desc: 'No Prêmio Infosfera de Gestão da Informação na Esfera Pública. Cerimônia em novembro de 2026, Goiânia/GO.' },
+    { num: '4', icon: <EmojiEventsIcon sx={{ fontSize: 72, color: '#2d2e82' }} />, title: 'Reconhecimento', desc: 'Prêmio Infosfera de Boas Práticas em Gestão da Informação na Esfera Pública. Cerimônia em novembro de 2026, Goiânia/GO.' },
   ];
 
   const tematicas = [
-    { title: 'Governança Digital e Eficiência', icon: <PolicyOutlinedIcon sx={{ fontSize: 40, color: '#2d2e82' }} />, desc: 'Transformação digital, interoperabilidade, inovação em serviços públicos.' },
-    { title: 'Gestão Estratégica da Informação', icon: <BarChartOutlinedIcon sx={{ fontSize: 40, color: '#2d2e82' }} />, desc: 'Inteligência de dados, IA no setor público, gestão do conhecimento.' },
-    { title: 'Transparência e Integridade', icon: <VisibilityOutlinedIcon sx={{ fontSize: 40, color: '#2d2e82' }} />, desc: 'Transparência digital, inclusão digital, compliance governamental.' },
-    { title: 'Preservação Digital', icon: <ArchiveOutlinedIcon sx={{ fontSize: 40, color: '#2d2e82' }} />, desc: 'Memória institucional, curadoria de acervos, gestão de documentos digitais.' },
-    { title: 'Segurança e Resiliência', icon: <SecurityOutlinedIcon sx={{ fontSize: 40, color: '#2d2e82' }} />, desc: 'Segurança cibernética, confidencialidade, integridade de dados.' },
-    { title: 'Outros Temas Correlatos', icon: <DevicesOutlinedIcon sx={{ fontSize: 40, color: '#2d2e82' }} />, desc: 'Inovação em processos, cidades inteligentes, sustentabilidade digital e outros.' },
+    { title: 'Governança Digital e Eficiência', icon: <PolicyOutlinedIcon sx={{ fontSize: 40, color: '#2d2e82' }} />, desc: 'Exemplos: transformação digital, interoperabilidade, inovação em serviços públicos.' },
+    { title: 'Gestão Estratégica da Informação', icon: <BarChartOutlinedIcon sx={{ fontSize: 40, color: '#2d2e82' }} />, desc: 'Exemplos: inteligência de dados, IA no setor público, gestão do conhecimento.' },
+    { title: 'Transparência e Integridade', icon: <VisibilityOutlinedIcon sx={{ fontSize: 40, color: '#2d2e82' }} />, desc: 'Exemplos: transparência digital, inclusão digital, compliance governamental.' },
+    { title: 'Preservação Digital e Memória Institucional', icon: <ArchiveOutlinedIcon sx={{ fontSize: 40, color: '#2d2e82' }} />, desc: 'Exemplos: memória institucional, curadoria de acervos, gestão de documentos digitais.' },
+    { title: 'Segurança e Resiliência', icon: <SecurityOutlinedIcon sx={{ fontSize: 40, color: '#2d2e82' }} />, desc: 'Exemplos: segurança cibernética, confidencialidade, integridade de dados.' },
+    { title: 'Outros Temas Correlatos', icon: <DevicesOutlinedIcon sx={{ fontSize: 40, color: '#2d2e82' }} />, desc: 'Exemplos: inovação em processos, cidades inteligentes, sustentabilidade digital.' },
   ];
 
   const awardCategories = [
-    { icon: <EmojiEventsOutlinedIcon sx={{ fontSize: 44, color: '#fff' }} />, title: 'Grande Prêmio Infosfera', desc: 'A prática com maior pontuação global absoluta: o melhor da gestão da informação pública em 2026.', highlight: true },
+    { icon: <EmojiEventsOutlinedIcon sx={{ fontSize: 44, color: '#fff' }} />, title: 'Grande Prêmio Infosfera', desc: 'A prática com maior pontuação global absoluta: o melhor da gestão da informação na esfera pública em 2026.', highlight: true },
     { icon: <PlaceOutlinedIcon sx={{ fontSize: 44, color: '#2d2e82' }} />, title: 'Destaque Regional (Goiás)', desc: 'Maior pontuação técnica entre instituições sediadas no Estado de Goiás, anfitrião do evento.' },
     { icon: <LocationCityOutlinedIcon sx={{ fontSize: 44, color: '#2d2e82' }} />, title: 'Destaque Municipal', desc: 'Distinção exclusiva para prefeituras, secretarias municipais e autarquias municipais.' },
     { icon: <WorkspacePremiumOutlinedIcon sx={{ fontSize: 44, color: '#2d2e82' }} />, title: 'Menções Honrosas', desc: 'Até 7 práticas finalistas de mérito excepcional: criatividade, baixo custo ou superação tecnológica.' },
@@ -177,7 +185,7 @@ const Home = () => {
               <Typography className={styles.heroTitlePart1}>Prêmio Infosfera</Typography>
               <Typography className={styles.heroTitlePart2}>Boas Práticas em Gestão da Informação na Esfera Pública</Typography>
               <Typography className={styles.heroDescription}>
-                Reconhecimento nacional de servidores, equipes e órgãos que transformam a administração pública por meio de inovação e boas práticas. Cerimônia em <strong>novembro de 2026 · Goiânia/GO</strong>.
+                Reconhecimento nacional de servidores, equipes e órgãos que transformam a administração pública por meio do desenvolvimento e aplicação de boas práticas em gestão da informação. Cerimônia em <strong>novembro de 2026 · Goiânia/GO</strong>.
               </Typography>
               <Box className={styles.heroActions}>
                 <Button variant="contained" size="large" href={PLATFORM_URL} target="_blank" rel="noopener noreferrer" className={styles.heroCta} endIcon={<ArrowForwardIcon />}>
@@ -208,7 +216,7 @@ const Home = () => {
                     <Typography variant="h3" className={styles.cardTitle}>O Reconhecimento</Typography>
                   </Box>
                   <Typography sx={{ fontWeight: 600, mb: 1 }}>O Prêmio Infosfera celebra inovação comprovada na gestão pública.</Typography>
-                  <Typography sx={{ color: '#555', lineHeight: 1.7 }}>Uma iniciativa do Infojus.UFPR e do LabRisk/UnB para identificar e premiar solenemente práticas que transformam a administração pública brasileira, de pilotos a soluções plenamente estabelecidas.</Typography>
+                  <Typography sx={{ color: '#555', lineHeight: 1.7 }}>Uma iniciativa do Núcleo de Pesquisa em Informação, Direito e Sociedade (Infojus/UFPR) e do Laboratório de Riscos, Privacidade, Segurança da Informação e Crises (LabRisk/UnB) para identificar e premiar solenemente práticas que transformam a administração pública brasileira, de pilotos a soluções plenamente estabelecidas.</Typography>
                 </CardContent>
               </Card>
             </Grid>
@@ -335,7 +343,7 @@ const Home = () => {
           </Box>
           <Box className={styles.ctaCenter}>
             <Button variant="outlined" size="large" href={PLATFORM_URL} target="_blank" rel="noopener noreferrer" className={styles.heroCtaOutline} endIcon={<ArrowForwardIcon />}>
-              Garantir minha vaga
+              Inscreva sua prática
             </Button>
           </Box>
         </Box>
@@ -500,11 +508,16 @@ const Home = () => {
                   className={styles.logoWrapper}
                   sx={{ textDecoration: 'none', cursor: logo.href !== '#' ? 'pointer' : 'default' }}
                 >
-                  <img src={logo.src} alt={logo.label} className={styles.logoImage} />
+                  <img src={logo.src} alt={logo.label} className={`${styles.logoImage} ${logo.large ? styles.logoImageLarge : ''}`} />
                 </Box>
               </Grid>
             ))}
           </Grid>
+          <Box className={styles.supporterNote}>
+            <Typography variant="body2">
+              Quer ser um apoiador institucional? <a href="#/contato" className={styles.supporterLink}>Entre em contato</a>.
+            </Typography>
+          </Box>
         </Box>
       </Box>
     </Box>

@@ -257,7 +257,6 @@ const categorias = {
 
           {/* ===== SEÇÃO MENÇÕES HONROSAS ===== */}
           <CategoriaHeader titulo={categorias.mencoesHonrosas.titulo} />
-          <FotoPremio src={fotoPremiados} alt="Práticas finalistas premiadas com Menção Honrosa — Prêmio Infosfera 2025" />
           <Grid container spacing={3} columns={{ xs: 1, md: 2 }}>
             {categorias.mencoesHonrosas.vencedores.map((vencedor, index) => (
               <Grid size={{ xs: 1, md: 1 }} key={`mh-${index}`}>
