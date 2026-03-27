@@ -1,23 +1,136 @@
 .footer {
-    background-color: #2d2e82; /* Mesma cor do header */
+    background: #0d0e3f;
     color: white;
-    padding: 32px 0;
-    margin-top: 48px;
+    padding: 3rem 0 1.5rem;
+    margin-top: 0;
+}
+
+/* ── Top row ── */
+.footerTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+/* ── Brand ── */
+.footerBrand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.footerLogo {
+    height: 44px;
+    width: auto;
+    max-width: 200px;
+    object-fit: contain;
+    opacity: 0.92;
+}
+
+.footerTagline {
+    color: rgba(255, 255, 255, 0.5) !important;
+    font-size: 0.8rem !important;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    max-width: 240px;
+}
+
+/* ── Links / Socials ── */
+.footerLinks {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-top: 0.5rem;
+}
+
+.footerLinksTitle {
+    color: rgba(255, 255, 255, 0.4) !important;
+    font-size: 0.7rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.socialRow {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.socialItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 12px;
+    transition: background 0.2s ease;
+    text-decoration: none !important;
+}
+
+.socialItem:hover {
+    background: rgba(255, 255, 255, 0.07);
 }
 
 .iconButton {
-    /* Aumenta o tamanho do ícone */
-    font-size: 3rem !important; /* Ajustei para 3rem, pois 5rem pode ser muito grande. Mude se preferir! */
-
-    /* Adiciona espaçamento horizontal */
-    margin: 0 1.5rem; /* Ajustei para 1.5rem. Mude se preferir! */
-
-    /* Transição suave para a animação */
-    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+    color: rgba(255, 255, 255, 0.7) !important;
+    transition: color 0.2s ease, transform 0.2s ease !important;
+    padding: 0 !important;
 }
 
-.iconButton:hover {
-    /* Efeito ao passar o mouse: aumenta o tamanho e muda a cor */
-    transform: scale(1.2);
-    color: #bbbbbb;
+.socialItem:hover .iconButton {
+    color: #1abc9c !important;
+    transform: translateY(-2px);
+}
+
+.socialLabel {
+    color: rgba(255, 255, 255, 0.4) !important;
+    font-size: 0.65rem !important;
+    letter-spacing: 0.05em;
+}
+
+/* ── Divider ── */
+.footerDivider {
+    border-color: rgba(255, 255, 255, 0.08) !important;
+    margin-bottom: 1.5rem !important;
+}
+
+/* ── Bottom row ── */
+.footerBottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.footerCopy {
+    color: rgba(255, 255, 255, 0.35) !important;
+    font-size: 0.72rem !important;
+}
+
+.footerCopyRight {
+    color: rgba(255, 255, 255, 0.25) !important;
+    font-size: 0.68rem !important;
+}
+
+@media (max-width: 600px) {
+    .footerTop {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    .footerBottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.35rem;
+    }
+    .socialRow {
+        gap: 0.75rem;
+    }
+    .footerLogo {
+        height: 36px;
+    }
 }

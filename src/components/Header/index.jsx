@@ -1,64 +1,130 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { AppBar, Toolbar, Box, Button, IconButton, Menu, MenuItem } from '@mui/material';
+import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Box, Button, IconButton, Drawer, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import styles from './index.module.css';
 import logo from '../../assets/logo.png';
 
-const Header = () => {
-  const navItems = [
-    { label: 'Home', path: '/' },
-    { label: 'Regulamento', path: '/regulamento' },
-    { label: 'Vencedores', path: '/vencedores' },
-    { label: 'Contato', path: '/contato' },
-  ];
+const PLATFORM_URL = 'https://boaspraticas.infosfera.inf.br/';
 
-  const [anchorEl, setAnchorEl] = useState(null);
-  const handleMenu = (event) => setAnchorEl(event.currentTarget);
-  const handleClose = () => setAnchorEl(null);
+const navItems = [
+  { label: 'Sobre o Prêmio', path: '/' },
+  { label: 'Vencedores', path: '/vencedores' },
+  { label: 'Regulamento', path: '/regulamento' },
+  { label: 'Contato', path: '/contato' },
+];
+
+const Header = () => {
+  const [scrolled, setScrolled] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const location = useLocation();
+
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <header>
-      <AppBar position="static" className={styles.appBar} elevation={0}>
-        <Toolbar sx={{ padding: { xs: '0 16px', md: '0 24px' } }}>
-          <Box sx={{ flexGrow: 1 }}>
-            <Link to="/">
-              <img src={logo} alt="Logo Infosfera" className={styles.logo} />
-            </Link>
-          </Box>
-          
-          <Box sx={{ display: { xs: 'none', md: 'block' } }}>
-            {navItems.map((item) => (
-              <Button key={item.label} color="inherit" component={Link} to={item.path}>
-                {item.label}
-              </Button>
-            ))}
-          </Box>
+    <>
+      <header className={`${styles.header} ${scrolled ? styles.headerScrolled : ''}`}>
+        <Box className={styles.toolbar}>
+          {/* Logo */}
+          <Link to="/" className={styles.logoLink}>
+            <img src={logo} alt="Logo Infosfera" className={styles.logo} />
+          </Link>
 
-          <Box sx={{ display: { xs: 'block', md: 'none' } }}>
+          {/* Nav desktop */}
+          <nav className={styles.nav}>
+            {navItems.map((item) => (
+              <Link
+                key={item.label}
+                to={item.path}
+                onClick={scrollToTop}
+                className={`${styles.navLink} ${location.pathname === item.path ? styles.navLinkActive : ''}`}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+
+          {/* CTA desktop */}
+          <Box className={styles.headerActions}>
+            <Button
+              variant="contained"
+              href={PLATFORM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.ctaButton}
+              endIcon={<ArrowForwardIcon sx={{ fontSize: '0.9rem !important' }} />}
+            >
+              Inscrever prática
+            </Button>
+
+            {/* Hamburger mobile */}
             <IconButton
-              size="large"
-              aria-label="menu"
-              onClick={handleMenu}
-              color="inherit"
+              className={styles.hamburger}
+              onClick={() => setDrawerOpen(true)}
+              aria-label="Abrir menu"
             >
               <MenuIcon />
             </IconButton>
-            <Menu
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
-              {navItems.map((item) => (
-                <MenuItem key={item.label} onClick={handleClose} component={Link} to={item.path}>
-                  {item.label}
-                </MenuItem>
-              ))}
-            </Menu>
           </Box>
-        </Toolbar>
-      </AppBar>
-    </header>
+        </Box>
+
+        {/* Linha decorativa inferior */}
+        <Box className={styles.headerAccentLine} />
+      </header>
+
+      {/* Drawer mobile */}
+      <Drawer
+        anchor="right"
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+        PaperProps={{ className: styles.drawer }}
+      >
+        <Box className={styles.drawerHeader}>
+          <img src={logo} alt="Logo Infosfera" className={styles.drawerLogo} />
+          <IconButton onClick={() => setDrawerOpen(false)} className={styles.drawerClose}>
+            <CloseIcon />
+          </IconButton>
+        </Box>
+
+        <List className={styles.drawerNav}>
+          {navItems.map((item) => (
+            <ListItem key={item.label} disablePadding>
+              <ListItemButton
+                component={Link}
+                to={item.path}
+                onClick={() => { setDrawerOpen(false); scrollToTop(); }}
+                className={`${styles.drawerItem} ${location.pathname === item.path ? styles.drawerItemActive : ''}`}
+              >
+                <ListItemText primary={item.label} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+
+        <Box className={styles.drawerCta}>
+          <Button
+            variant="contained"
+            fullWidth
+            href={PLATFORM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.ctaButton}
+            endIcon={<ArrowForwardIcon />}
+            onClick={() => setDrawerOpen(false)}
+          >
+            Inscrever prática
+          </Button>
+        </Box>
+      </Drawer>
+    </>
   );
 };
 

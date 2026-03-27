@@ -23,29 +23,26 @@
 }
 
 .sectionTitle {
+    font-family: var(--font-heading) !important;
     color: #2d2e82;
     font-weight: 700 !important;
     font-size: 2.5rem !important;
-    margin-bottom: 1rem !important;
-    position: relative;
-    display: inline-block;
+    margin-bottom: 0 !important;
 }
 
 .titleUnderline {
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 4px;
-    background: linear-gradient(90deg, #2d2e82 0%, #1abc9c 100%);
+    width: 48px;
+    height: 3px;
+    background: linear-gradient(90deg, #2d2e82, #1abc9c);
     border-radius: 2px;
+    margin: 0.9rem auto 0;
 }
 
 .sectionSubtitle {
     font-size: 1.2rem !important;
     color: #666 !important;
     line-height: 1.8;
+    margin-top: 1.75rem !important;
 }
 .heroBanner {
     height: 500px;
@@ -165,15 +162,6 @@
     overflow: hidden;
 }
 
-.formCard::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #2d2e82 0%, #1abc9c 100%);
-}
 
 .formCard > div {
     padding: 3rem !important;
