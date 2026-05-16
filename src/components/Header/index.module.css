@@ -1,22 +1,248 @@
-.appBar {
-    background-color: #2d2e82 !important;
-    color: white !important;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+/* ── Base header ── */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(13, 14, 63, 0.92);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    transition: background 0.35s ease, box-shadow 0.35s ease;
+}
+
+.headerScrolled {
+    background: rgba(13, 14, 63, 0.99);
+    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.25);
+    border-bottom-color: rgba(26, 188, 156, 0.2);
+}
+
+/* Linha colorida na base do header */
+.headerAccentLine {
+    height: 2px;
+    background: linear-gradient(90deg, #2d2e82 0%, #1abc9c 50%, #2d2e82 100%);
+    background-size: 200% 100%;
+    animation: shimmer 4s linear infinite;
+}
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* ── Toolbar ── */
+.toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    height: 72px;
+}
+
+@media (max-width: 768px) {
+    .toolbar {
+        padding: 0 1rem;
+        height: 60px;
+    }
+}
+
+/* ── Logo ── */
+.logoLink {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    flex-shrink: 0;
 }
 
 .logo {
-    height: 55px; /* Altura padrão para Mobile */
+    height: 44px;
     width: auto;
-    margin: 1rem 1rem;
-    transition: all 0.3s ease-in-out; /* Mudei para 'all' para transicionar a altura também */
+    transition: opacity 0.2s ease;
+}
+
+.logo:hover {
+    opacity: 0.85;
 }
 
 @media (min-width: 900px) {
     .logo {
-        /* Aumentando a força da regra com !important */
-        height: 75px !important; /* Mudei para 60px, 20px era muito pequeno. Ajuste como quiser! */
-        width: auto !important;
-        
-        margin: 1rem 10rem;
+        height: 52px;
     }
+}
+
+/* ── Nav desktop ── */
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+@media (max-width: 899px) {
+    .nav {
+        display: none;
+    }
+}
+
+.navLink {
+    position: relative;
+    color: rgba(255, 255, 255, 0.82);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.5rem 0.85rem;
+    border-radius: 6px;
+    transition: color 0.2s ease, background 0.2s ease;
+}
+
+.navLink::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: calc(100% - 1.7rem);
+    height: 2px;
+    background: #1abc9c;
+    border-radius: 1px;
+    transition: transform 0.25s ease;
+}
+
+.navLink:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.07);
+}
+
+.navLink:hover::after {
+    transform: translateX(-50%) scaleX(1);
+}
+
+.navLinkActive {
+    color: #ffffff !important;
+    font-weight: 600;
+}
+
+.navLinkActive::after {
+    transform: translateX(-50%) scaleX(1) !important;
+    background: #1abc9c;
+}
+
+/* ── Header actions ── */
+.headerActions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* ── CTA button ── */
+.ctaButton {
+    background: linear-gradient(135deg, #2d2e82 0%, #1abc9c 100%) !important;
+    color: white !important;
+    font-weight: 700 !important;
+    font-size: 0.8rem !important;
+    letter-spacing: 0.04em !important;
+    text-transform: none !important;
+    padding: 0.5rem 1.25rem !important;
+    border-radius: 24px !important;
+    box-shadow: 0 2px 12px rgba(45, 46, 130, 0.35) !important;
+    transition: all 0.25s ease !important;
+    white-space: nowrap;
+}
+
+.ctaButton:hover {
+    background: linear-gradient(135deg, #1e1f6e 0%, #16a085 100%) !important;
+    box-shadow: 0 4px 20px rgba(45, 46, 130, 0.5) !important;
+    transform: translateY(-1px) !important;
+}
+
+@media (max-width: 899px) {
+    .ctaButton {
+        display: none !important;
+    }
+}
+
+/* ── Hamburger ── */
+.hamburger {
+    display: none !important;
+    color: white !important;
+    min-width: 48px !important;
+    min-height: 48px !important;
+    padding: 0.5rem !important;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+@media (max-width: 899px) {
+    .hamburger {
+        display: inline-flex !important;
+    }
+}
+
+/* ── Drawer mobile ── */
+.drawer {
+    width: 280px !important;
+    background: #0d0e3f !important;
+    color: white !important;
+    z-index: 1400 !important;
+}
+
+.drawerHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.25rem 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.drawerLogo {
+    height: 40px;
+    width: auto;
+}
+
+.drawerClose {
+    color: rgba(255, 255, 255, 0.7) !important;
+    min-width: 48px !important;
+    min-height: 48px !important;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.drawerNav {
+    padding: 1rem 0 !important;
+    flex: 1;
+}
+
+.drawerItem {
+    padding: 0.75rem 1.5rem !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-size: 1rem !important;
+    letter-spacing: 0.04em;
+    border-left: 3px solid transparent;
+    transition: all 0.2s ease !important;
+}
+
+.drawerItem:hover {
+    color: white !important;
+    background: rgba(255, 255, 255, 0.07) !important;
+    border-left-color: #1abc9c !important;
+}
+
+.drawerItemActive {
+    color: white !important;
+    background: rgba(26, 188, 156, 0.12) !important;
+    border-left-color: #1abc9c !important;
+    font-weight: 600 !important;
+}
+
+.drawerCta {
+    padding: 1.25rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.drawerCta .ctaButton {
+    display: flex !important;
+    font-size: 0.9rem !important;
+    padding: 0.75rem 1.5rem !important;
 }

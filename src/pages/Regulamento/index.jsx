@@ -1,690 +1,523 @@
-import { Typography, Box } from '@mui/material';
+import { useState } from 'react';
+import { Box, Typography, Card, CardContent, Grid, Button, Chip, Accordion, AccordionSummary, AccordionDetails, Stack } from '@mui/material';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
+import GavelOutlinedIcon from '@mui/icons-material/GavelOutlined';
+import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
+import VerifiedOutlinedIcon from '@mui/icons-material/VerifiedOutlined';
+import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
+import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
+import PolicyOutlinedIcon from '@mui/icons-material/PolicyOutlined';
+import BarChartOutlinedIcon from '@mui/icons-material/BarChartOutlined';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
+import SecurityOutlinedIcon from '@mui/icons-material/SecurityOutlined';
+import DevicesOutlinedIcon from '@mui/icons-material/DevicesOutlined';
+import PlaceOutlinedIcon from '@mui/icons-material/PlaceOutlined';
+import LocationCityOutlinedIcon from '@mui/icons-material/LocationCityOutlined';
+import WorkspacePremiumOutlinedIcon from '@mui/icons-material/WorkspacePremiumOutlined';
+import StarsOutlinedIcon from '@mui/icons-material/StarsOutlined';
+import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined';
+import TrendingUpOutlinedIcon from '@mui/icons-material/TrendingUpOutlined';
+import AutorenewOutlinedIcon from '@mui/icons-material/AutorenewOutlined';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import CtaVerde from '../../components/CtaVerde';
+import { Link } from 'react-router-dom';
+import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
+
 import styles from './index.module.css';
+import bannerImage from '../../assets/banner.jpeg';
+
+const PLATFORM_URL = 'https://boaspraticas.infosfera.inf.br/';
+
+const objetivos = [
+  'Identificar práticas de gestão da informação que contribuam para o aprimoramento e modernização da gestão pública.',
+  'Combater o isolamento de boas ideias, fomentando uma cultura nacional de compartilhamento.',
+  'Fomentar a replicabilidade de boas práticas entre órgãos e instâncias federativas.',
+  'Servir de instrumento de reconhecimento nacional e repositório de memória institucional e técnica.',
+];
+
+const elegibilidade = [
+  { titulo: 'Instituições Esferas e Poderes Públicos', desc: 'Órgãos e entidades dos Poderes Executivo, Legislativo e Judiciário em todos os níveis: Federal, Estadual, Distrital e Municipal.', icon: <AssignmentOutlinedIcon sx={{ fontSize: 28, color: '#2d2e82' }} /> },
+  { titulo: 'Estrutura Administrativa e Controle', desc: 'Administração Direta e Indireta, incluindo autarquias, fundações, empresas públicas, consórcios e sistemas de controle como Tribunais de Contas.', icon: <PolicyOutlinedIcon sx={{ fontSize: 28, color: '#2d2e82' }} /> },
+  { titulo: 'Funções Essenciais à Justiça', desc: 'Instituições fundamentais como o Ministério Público, Advocacia Pública e Defensoria Pública de todo o país.', icon: <GavelOutlinedIcon sx={{ fontSize: 28, color: '#2d2e82' }} /> },
+  { titulo: 'Consórcios e Entidades', desc: 'Consórcios públicos, entidades da administração indireta, fundações e empresas públicas vinculadas.', icon: <GroupsOutlinedIcon sx={{ fontSize: 28, color: '#2d2e82' }} /> },
+];
+
+const temas = [
+  { letra: 'A', titulo: 'Governança Digital e Eficiência', desc: 'Transformação digital, interoperabilidade, modernização da máquina pública e inovação em serviços públicos.', exemplos: 'Governança Eletrônica; Interoperabilidade; Compliance Digital.', icon: <PolicyOutlinedIcon sx={{ fontSize: 32, color: '#2d2e82' }} /> },
+  { letra: 'B', titulo: 'Gestão Estratégica da Informação', desc: 'Estruturação de dados, uso de IA e políticas públicas baseadas em evidências.', exemplos: 'Inteligência de Dados Públicos; Gestão do Conhecimento; IA e Ética no Setor Público.', icon: <BarChartOutlinedIcon sx={{ fontSize: 32, color: '#2d2e82' }} /> },
+  { letra: 'C', titulo: 'Transparência e Integridade', desc: 'Publicidade das ações governamentais, acesso democrático à informação e controle social.', exemplos: 'Transparência Digital; Inclusão Digital; Acessibilidade.', icon: <VisibilityOutlinedIcon sx={{ fontSize: 32, color: '#2d2e82' }} /> },
+  { letra: 'D', titulo: 'Preservação Digital e Memória Institucional', desc: 'Salvaguarda do patrimônio informacional público digital e acesso de longo prazo a registros históricos.', exemplos: 'Preservação da Memória Institucional; Curadoria Digital; Gestão de Documentos Arquivísticos.', icon: <ArchiveOutlinedIcon sx={{ fontSize: 32, color: '#2d2e82' }} /> },
+  { letra: 'E', titulo: 'Segurança e Resiliência', desc: 'Proteção do ecossistema público contra ameaças, integridade e confidencialidade dos dados.', exemplos: 'Segurança Cibernética; Confidencialidade; Gestão de Riscos.', icon: <SecurityOutlinedIcon sx={{ fontSize: 32, color: '#2d2e82' }} /> },
+  { letra: 'F', titulo: 'Outros Temas Correlatos', desc: 'Projetos aderentes aos objetivos do Prêmio que não estejam nas categorias anteriores.', exemplos: 'Cidades Inteligentes; Sustentabilidade Digital; Tecnologias Emergentes.', icon: <DevicesOutlinedIcon sx={{ fontSize: 32, color: '#2d2e82' }} /> },
+];
+
+const criterios = [
+  { num: '1', titulo: 'Relevância e Qualidade Técnica', peso: '3,5', icon: <AssignmentOutlinedIcon sx={{ fontSize: 64, color: '#2d2e82' }} />, desc: 'Pertinência da solução frente aos problemas identificados e robustez metodológica. Avalia alinhamento com os eixos temáticos, coerência entre objetivos e meios, grau de inovação em relação aos processos tradicionais e conformidade técnica com padrões éticos e normativos.' },
+  { num: '2', titulo: 'Impacto e Resultados', peso: '4,0', icon: <TrendingUpOutlinedIcon sx={{ fontSize: 64, color: '#2d2e82' }} />, desc: 'Eficácia da prática e benefícios gerados para a administração e para o cidadão. Com base em comprovação documental, avalia indicadores de desempenho, ganhos de eficiência (redução de tempo, custos ou burocracia) e melhoria na qualidade dos serviços prestados.' },
+  { num: '3', titulo: 'Replicabilidade e Sustentabilidade', peso: '3,0', icon: <AutorenewOutlinedIcon sx={{ fontSize: 64, color: '#2d2e82' }} />, desc: 'Capacidade da prática de ser transferida ou adaptada para outros órgãos ou contextos federativos. Avalia viabilidade financeira, técnica e institucional a longo prazo, e se a iniciativa possui governança que garanta continuidade além do ciclo de seus idealizadores.' },
+];
+
+const categorias = [
+  { icon: <EmojiEventsOutlinedIcon sx={{ fontSize: 40, color: '#fff' }} />, titulo: 'Grande Prêmio Infosfera', desc: 'Distinção máxima concedida à prática com maior pontuação global absoluta no ranking geral, independentemente do eixo temático ou esfera federativa.', highlight: true },
+  { icon: <PlaceOutlinedIcon sx={{ fontSize: 40, color: '#2d2e82' }} />, titulo: 'Destaque Regional (Goiás)', desc: 'Distinção à prática de maior pontuação técnica entre as instituições sediadas no Estado de Goiás, anfitrião do evento.' },
+  { icon: <LocationCityOutlinedIcon sx={{ fontSize: 40, color: '#2d2e82' }} />, titulo: 'Destaque Municipal', desc: 'Distinção exclusiva para iniciativas de Prefeituras, Secretarias Municipais ou autarquias municipais.' },
+  { icon: <WorkspacePremiumOutlinedIcon sx={{ fontSize: 40, color: '#2d2e82' }} />, titulo: 'Menções Honrosas', desc: 'Até 7 práticas finalistas de mérito excepcional em criatividade, baixo custo de implementação ou superação de desafios tecnológicos complexos.' },
+  { icon: <StarsOutlinedIcon sx={{ fontSize: 40, color: '#2d2e82' }} />, titulo: 'Referência em Boa Prática', desc: 'Categoria especial para iniciativas de notório impacto nacional que não tenham ingressado pelo fluxo regular de inscrição. Escolha discricionária da Comissão.' },
+  { icon: <PublicOutlinedIcon sx={{ fontSize: 40, color: '#2d2e82' }} />, titulo: 'Escolha Popular', desc: 'Votação pública digital após a divulgação dos finalistas técnicos. A única categoria acumulável com as demais previstas neste regulamento.' },
+];
+
+const cronograma = [
+  { periodo: '1 abr – 31 jul', atividade: 'Período de submissão e cadastramento na Plataforma Infosfera.', ativo: true },
+  { periodo: '1–15 ago', atividade: 'Análise de Admissibilidade e Validação de Interesse.', ativo: false },
+  { periodo: '1–30 ago', atividade: 'Avaliação de Mérito pela Comissão Julgadora.', ativo: false },
+  { periodo: '10 set', atividade: 'Divulgação dos Resultados Oficiais e comunicação aos finalistas.', ativo: false },
+  { periodo: '25 set', atividade: 'Data limite para confirmação de participação presencial.', ativo: false },
+  { periodo: '5–9 out', atividade: 'Fase de Aclamação Pública em ambiente digital.', ativo: false },
+  { periodo: '5 nov', atividade: 'Sessão de Boas Práticas e Cerimônia de Premiação em Goiânia/GO.', ativo: false },
+];
+
+const faqs = [
+  { p: 'Preciso pagar para participar?', r: 'Não. A participação é gratuita e voluntária. Não há taxa de inscrição, e o Prêmio não concede remuneração, prêmios em espécie ou benefícios financeiros diretos.' },
+  { p: 'Quantas práticas minha instituição pode submeter?', r: 'Ilimitadas na plataforma. Contudo, apenas as 3 práticas com maior pontuação técnica de cada instituição avançam para a fase competitiva do Prêmio.' },
+  { p: 'O que é o Status Ouro?', r: 'É o nível máximo de completude de cadastro na Plataforma de Boas Práticas. Exige o preenchimento completo de todos os campos e a anexação de evidências que comprovem resultados e impacto real da prática. Sem o Status Ouro, a prática não é admissível ao Prêmio.' },
+  { p: 'Práticas em fase de piloto podem participar?', r: 'Sim. São aceitos diferentes níveis de maturidade, de pilotos a iniciativas plenamente estabelecidas, desde que a prática apresente resultados práticos e mensuráveis e possua cadastro com Status Ouro na Plataforma de Boas Práticas.' },
+  { p: 'Uma prática pode ganhar em mais de uma categoria?', r: 'Não, salvo a categoria Escolha Popular. Vigora o princípio da não cumulatividade: uma prática não pode ser premiada em mais de uma categoria regular, prevalecendo a de maior hierarquia.' },
+  { p: 'Uma prática vencedora na edição anterior pode participar?', r: 'Práticas premiadas nas categorias principais na edição imediatamente anterior precisam aguardar um intervalo de uma edição. Quem recebeu Menção Honrosa ou foi mapeado como Referência pode concorrer normalmente.' },
+  { p: 'O que acontece se a prática for finalista, mas a instituição não comparecer à cerimônia?', r: 'A premiação será cancelada para aquela prática. A presença institucional na cerimônia em Goiânia é condição obrigatória para receber o troféu e o certificado. O Comitê pode transferir a honraria para a prática seguinte no ranking.' },
+  { p: 'Como funciona a Escolha Popular?', r: 'Após a divulgação dos finalistas técnicos, abre-se votação pública digital. A Comissão Julgadora homologa o resultado e pode invalidar votações com uso de bots, impulsionamento pago ou condutas antiéticas.' },
+  { p: 'Cabem recursos das decisões da Comissão Julgadora?', r: 'Não. As decisões da Comissão têm natureza estritamente técnica e soberana. Não cabe recurso administrativo quanto ao mérito da avaliação, pontuação ou classificação final.' },
+  { p: 'Quem não pode participar?', r: 'Membros do Comitê Executivo, da Comissão Julgadora e seus parentes até segundo grau são impedidos de submeter práticas ao Prêmio.' },
+];
 
 const Regulamento = () => {
+  const [expanded, setExpanded] = useState(false);
+  const handleAccordion = (panel) => (_, isExpanded) => setExpanded(isExpanded ? panel : false);
+
   return (
-    <Box className={styles.regulamentoPage}>
-      {/* Seção Principal */}
-      <Box className={styles.section}>
-        <Box className={styles.contentContainer}>
+    <Box className={styles.page}>
 
-          {/* Cabeçalho */}
-          <Box className={styles.sectionHeader}>
-            <Typography variant="h2" className={styles.sectionTitle}>
-              Regulamento
-            </Typography>
-            <Typography className={styles.sectionSubtitle}>
-              Prêmio Infosfera de Boas Práticas em Gestão da Informação na Esfera Pública — Edição 2026
-            </Typography>
+      {/* HERO */}
+      <Box className={styles.hero} style={{ backgroundImage: `url(${bannerImage})` }}>
+        <Box className={styles.heroOverlay} />
+        <Box className={styles.heroContent}>
+          <Chip label="Edição 2026 · Inscrições abertas até 31 jul" className={styles.heroBadge} size="small" />
+          <Typography className={styles.heroTitle}>Regulamento do Prêmio</Typography>
+          <Typography className={styles.heroSubtitle}>Tudo o que você precisa saber para participar e concorrer ao reconhecimento nacional em gestão da informação pública.</Typography>
+          <Box className={styles.heroActions}>
+            <Button variant="contained" size="large" href={PLATFORM_URL} target="_blank" rel="noopener noreferrer" className={styles.btnPrimary} endIcon={<ArrowForwardIcon />}>
+              Inscrever minha prática
+            </Button>
+            <Button
+              variant="outlined"
+              size="large"
+              className={styles.btnOutline}
+              onClick={() => document.getElementById('cronograma')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              Ver cronograma
+            </Button>
           </Box>
-
-          {/* Intro institucional */}
-          <Box className={styles.introBox}>
-            <Typography className={styles.introText}>
-              O Núcleo de Pesquisa em Informações, Direito e Sociedade da Universidade Federal do Paraná
-              (Infojus.UFPR) e o Laboratório de Riscos, Privacidade, Segurança e Crises da Universidade de
-              Brasília (LabRisk/UnB), com o apoio de seus parceiros institucionais, por meio da Comissão
-              Executiva do Prêmio Infosfera de Boas Práticas em Gestão da Informação na Esfera Pública,
-              doravante denominado <strong>Prêmio Infosfera</strong>, tornam público o regulamento da edição de 2026.
-            </Typography>
-          </Box>
-
-          {/* ── DISPOSIÇÕES PRELIMINARES ── */}
-          <Box className={styles.regulamentoSection}>
-            <Typography variant="h4" className={styles.sectionHeading}>
-              Disposições Preliminares
-            </Typography>
-
-            <Box className={styles.artigo}>
-              <Typography className={styles.artigoTexto}>
-                <span className={styles.artigoNum}>Art. 1º.</span> O Prêmio Infosfera 2026 terá abrangência em todo o território nacional.
-              </Typography>
-            </Box>
-
-            <Box className={styles.artigo}>
-              <Typography className={styles.artigoTexto}>
-                <span className={styles.artigoNum}>Art. 2º.</span> A cerimônia de premiação da edição de 2026 será realizada na cidade de{' '}
-                <strong>Goiânia, Goiás</strong>, no mês de novembro, durante o Encontro de Administração da
-                Justiça (EnAJUS), em parceria autônoma e independente.
-              </Typography>
-            </Box>
-          </Box>
-
-          {/* ── OBJETIVOS ── */}
-          <Box className={styles.regulamentoSection}>
-            <Typography variant="h4" className={styles.sectionHeading}>
-              Objetivos
-            </Typography>
-
-            <Box className={styles.artigo}>
-              <Typography className={styles.artigoTexto}>
-                <span className={styles.artigoNum}>Art. 3º.</span> O Prêmio Infosfera 2026 é uma iniciativa criada com o propósito de disseminar e
-                reconhecer solenemente servidores, equipes e entidades responsáveis por aplicar boas práticas
-                de gestão da informação, contribuindo para o aprimoramento e modernização da gestão pública.
-              </Typography>
-            </Box>
-
-            <Box className={styles.artigo}>
-              <Typography className={styles.artigoTexto}>
-                <span className={styles.artigoNum}>Art. 4º.</span> São objetivos estratégicos da premiação:
-              </Typography>
-              <ol className={styles.lista}>
-                <li>Identificar práticas em uso de gestão da informação que contribuam para o aprimoramento e modernização da gestão pública;</li>
-                <li>Mitigar o isolamento de boas ideias, fomentando uma cultura nacional de compartilhamento;</li>
-                <li>Fomentar a replicabilidade de boas práticas;</li>
-                <li>Servir de instrumento de reconhecimento nacional e como repositório de memória institucional e técnica de práticas em uso.</li>
-              </ol>
-            </Box>
-          </Box>
-
-          {/* ── ELEGIBILIDADE ── */}
-          <Box className={styles.regulamentoSection}>
-            <Typography variant="h4" className={styles.sectionHeading}>
-              Elegibilidade
-            </Typography>
-
-            <Box className={styles.artigo}>
-              <Typography className={styles.artigoTexto}>
-                <span className={styles.artigoNum}>Art. 5º.</span> Poderão participar do Prêmio Infosfera 2026 órgãos e entidades da Administração
-                Direta e Indireta, dos Poderes Executivo, Legislativo e Judiciário, bem como das funções
-                essenciais à Justiça (Ministério Público, Advocacia Pública e Defensoria Pública), e dos
-                sistemas de controle externo (Tribunais de Contas), em todos os níveis federativos — União,
-                Estados, Distrito Federal e Municípios — compreendendo autarquias, fundações, empresas
-                públicas, sociedades de economia mista e consórcios públicos.
-              </Typography>
-            </Box>
-
-            <Box className={styles.artigo}>
-              <Typography className={styles.artigoTexto}>
-                <span className={styles.artigoNum}>Art. 6º.</span> É vedada a participação de membros do Comitê Executivo ou da Comissão
-                Julgadora, bem como de seus parentes de até segundo grau.
-              </Typography>
-            </Box>
-          </Box>
-
-          {/* ── INSCRIÇÕES ── */}
-          <Box className={styles.regulamentoSection}>
-            <Typography variant="h4" className={styles.sectionHeading}>
-              Inscrições
-            </Typography>
-
-            <Box className={styles.artigo}>
-              <Typography className={styles.artigoTexto}>
-                <span className={styles.artigoNum}>Art. 7º.</span> A inscrição dar-se-á exclusivamente via{' '}
-                <strong>Plataforma Infosfera de Boas Práticas</strong>{' '}
-                (<a href="https://boaspraticas.infosfera.inf.br/" target="_blank" rel="noopener noreferrer" className={styles.link}>boaspraticas.infosfera.inf.br</a>)
-                até a data limite prevista no cronograma oficial do Prêmio (Anexo 2).
-              </Typography>
-              <Box className={styles.paragrafo}>
-                <Typography className={styles.artigoTexto}>
-                  <span className={styles.paragrafoNum}>§ 1º.</span> Todas as práticas cadastradas na Plataforma estarão automaticamente inscritas no Prêmio Infosfera 2026.
-                </Typography>
-              </Box>
-              <Box className={styles.paragrafo}>
-                <Typography className={styles.artigoTexto}>
-                  <span className={styles.paragrafoNum}>§ 2º.</span> Não serão aceitas inscrições fora do prazo ou realizadas por qualquer outro meio que não seja a Plataforma Infosfera de Boas Práticas.
-                </Typography>
-              </Box>
-            </Box>
-
-            <Box className={styles.artigo}>
-              <Typography className={styles.artigoTexto}>
-                <span className={styles.artigoNum}>Art. 8º.</span> Cada órgão ou entidade poderá cadastrar um número ilimitado de práticas na
-                Plataforma Infosfera de Boas Práticas, contudo, apenas as <strong>3 (três) práticas de maior
-                pontuação técnica</strong> da respectiva instituição estarão habilitadas para avançar para a fase
-                competitiva do Prêmio.
-              </Typography>
-            </Box>
-          </Box>
-
-          {/* ── ADMISSIBILIDADE E TEMÁTICAS ── */}
-          <Box className={styles.regulamentoSection}>
-            <Typography variant="h4" className={styles.sectionHeading}>
-              Admissibilidade ao Prêmio e Temáticas
-            </Typography>
-
-            <Box className={styles.artigo}>
-              <Typography className={styles.artigoTexto}>
-                <span className={styles.artigoNum}>Art. 9º.</span> Para concorrer ao Prêmio, as práticas inscritas devem estar obrigatoriamente
-                vinculadas a um ou mais dos eixos temáticos indicados no Anexo I.
-              </Typography>
-              <Box className={styles.paragrafo}>
-                <Typography className={styles.artigoTexto}>
-                  <span className={styles.paragrafoNum}>Parágrafo único.</span> A lista de temas e subtemas do Anexo I não é exaustiva, podendo ser admitidas submissões em assuntos diversos, desde que aderentes ao propósito geral do Prêmio.
-                </Typography>
-              </Box>
-            </Box>
-
-            <Box className={styles.artigo}>
-              <Typography className={styles.artigoTexto}>
-                <span className={styles.artigoNum}>Art. 10.</span> São condições adicionais de admissibilidade de práticas ao Prêmio:
-              </Typography>
-              <ol className={styles.lista}>
-                <li>Apresentar resultados práticos e mensuráveis, sendo admitidos diferentes níveis de maturidade de operação (de piloto a plenamente estabelecidas);</li>
-                <li>Possuir status de <strong>Cadastro Ouro</strong> na Plataforma Infosfera de Boas Práticas até a data limite da inscrição, o que se refere à existência de evidências exaustivas que comprovem resultados e o impacto real da prática.</li>
-              </ol>
-              <Box className={styles.paragrafo}>
-                <Typography className={styles.artigoTexto}>
-                  <span className={styles.paragrafoNum}>Parágrafo único.</span> Práticas consideradas meramente conceituais ou em fase inicial de planejamento não serão admissíveis ao Prêmio, visto que a essência da premiação é o reconhecimento das iniciativas aplicadas e comprovadas.
-                </Typography>
-              </Box>
-            </Box>
-          </Box>
-
-          {/* ── COMISSÃO JULGADORA ── */}
-          <Box className={styles.regulamentoSection}>
-            <Typography variant="h4" className={styles.sectionHeading}>
-              Comissão Julgadora
-            </Typography>
-
-            <Box className={styles.artigo}>
-              <Typography className={styles.artigoTexto}>
-                <span className={styles.artigoNum}>Art. 11.</span> A Comissão Julgadora será composta por profissionais de notório saber,
-                experiência acadêmica ou aplicada nos campos da inovação pública, tecnologia da informação,
-                ciência de dados, administração pública ou áreas correlatas, designados por ato do Comitê
-                Executivo.
-              </Typography>
-              <Box className={styles.paragrafo}>
-                <Typography className={styles.artigoTexto}>
-                  <span className={styles.paragrafoNum}>§ 1º.</span> Para assegurar o equilíbrio e a celeridade nas deliberações, a Comissão terá composição ímpar, variando de 03 (três) a 05 (cinco) membros titulares.
-                </Typography>
-              </Box>
-              <Box className={styles.paragrafo}>
-                <Typography className={styles.artigoTexto}>
-                  <span className={styles.paragrafoNum}>§ 2º.</span> A atuação na Comissão Julgadora é considerada prestação de serviço público relevante, não sendo remunerada a qualquer título.
-                </Typography>
-              </Box>
-            </Box>
-
-            <Box className={styles.artigo}>
-              <Typography className={styles.artigoTexto}>
-                <span className={styles.artigoNum}>Art. 12.</span> As decisões da Comissão Julgadora possuem natureza estritamente técnica e soberana.
-              </Typography>
-              <Box className={styles.paragrafo}>
-                <Typography className={styles.artigoTexto}>
-                  <span className={styles.paragrafoNum}>Parágrafo único.</span> Não caberá recurso administrativo quanto ao mérito da avaliação, pontuação ou classificação final das práticas, dada a natureza discricionária e técnica do julgamento.
-                </Typography>
-              </Box>
-            </Box>
-
-            <Box className={styles.artigo}>
-              <Typography className={styles.artigoTexto}>
-                <span className={styles.artigoNum}>Art. 13.</span> A atuação dos avaliadores será pautada pelos princípios constitucionais da
-                impessoalidade, moralidade e probidade administrativa.
-              </Typography>
-            </Box>
-
-            <Box className={styles.artigo}>
-              <Typography className={styles.artigoTexto}>
-                <span className={styles.artigoNum}>Art. 14.</span> Para garantir a isenção durante o processo de seleção de premiados, é vedada a
-                participação de avaliadores que possuam vínculo funcional ou colaborativo com órgãos que
-                tenham práticas concorrentes nas categorias sob sua avaliação.
-              </Typography>
-              <Box className={styles.paragrafo}>
-                <Typography className={styles.artigoTexto}>
-                  <span className={styles.paragrafoNum}>§ 1º.</span> Caso o avaliador identifique qualquer conflito de interesses, alinhamento prévio ou relação de parentesco com os responsáveis por projeto sob sua análise, deverá declarar-se impedido de imediato.
-                </Typography>
-              </Box>
-              <Box className={styles.paragrafo}>
-                <Typography className={styles.artigoTexto}>
-                  <span className={styles.paragrafoNum}>§ 2º.</span> O impedimento de um avaliador em determinada prática não o inabilita para a avaliação das demais, desde que não haja contaminação da imparcialidade.
-                </Typography>
-              </Box>
-            </Box>
-
-            <Box className={styles.artigo}>
-              <Typography className={styles.artigoTexto}>
-                <span className={styles.artigoNum}>Art. 15.</span> Os membros da Comissão Julgadora obrigam-se a manter o mais estrito sigilo sobre
-                todas as informações e documentos a que tiverem acesso durante o processo de avaliação.
-              </Typography>
-            </Box>
-
-            <Box className={styles.artigo}>
-              <Typography className={styles.artigoTexto}>
-                <span className={styles.artigoNum}>Art. 16.</span> São deveres de cautela e confidencialidade dos avaliadores:
-              </Typography>
-              <ol className={styles.lista}>
-                <li>Salvaguardar a integridade das informações recebidas durante o processo de julgamento, impedindo o acesso de terceiros não autorizados;</li>
-                <li>Não reproduzir, extrair ou divulgar dados presentes na Plataforma Infosfera de Boas Práticas para finalidades alheias ao escopo da avaliação;</li>
-                <li>Abster-se de utilizar informações privilegiadas obtidas durante o certame em benefício próprio ou de outrem;</li>
-                <li>Manter o sigilo sobre as notas parciais e deliberações internas até a publicação oficial dos resultados e cerimônia de premiação.</li>
-              </ol>
-            </Box>
-          </Box>
-
-          {/* ── CATEGORIAS DE PREMIAÇÃO ── */}
-          <Box className={styles.regulamentoSection}>
-            <Typography variant="h4" className={styles.sectionHeading}>
-              Categorias de Premiação
-            </Typography>
-
-            <Box className={styles.artigo}>
-              <Typography className={styles.artigoTexto}>
-                <span className={styles.artigoNum}>Art. 17.</span> O Prêmio Infosfera 2026 será estruturado por meio de um sistema de distinções de
-                mérito, observada a pontuação técnica final e a natureza jurídica do órgão proponente, nas
-                seguintes categorias:
-              </Typography>
-              <ol className={styles.lista}>
-                <li><strong>Grande Prêmio Infosfera:</strong> distinção máxima concedida à prática que obtiver a maior pontuação global absoluta no ranking geral, independentemente do eixo temático ou da esfera federativa, sendo considerada a solução de maior impacto e excelência da edição;</li>
-                <li><strong>Destaque Regional (Goiás):</strong> distinção outorgada à prática de maior pontuação técnica entre as instituições sediadas no Estado de Goiás, com o objetivo de valorizar a inovação no ente federativo anfitrião do evento;</li>
-                <li><strong>Destaque Municipal:</strong> distinção destinada exclusivamente a iniciativas desenvolvidas no âmbito de Prefeituras, Secretarias Municipais ou autarquias municipais, visando reconhecer a capilaridade da inovação no nível local;</li>
-                <li><strong>Menções Honrosas:</strong> distinções de reconhecimento técnico atribuídas a até 07 (sete) práticas finalistas que, embora não tenham atingido o topo do ranking global, demonstram mérito excepcional em critérios específicos, tais como criatividade disruptiva, baixo custo de implementação ou superação de desafios tecnológicos complexos.</li>
-              </ol>
-              <Box className={styles.paragrafo}>
-                <Typography className={styles.artigoTexto}>
-                  <span className={styles.paragrafoNum}>Parágrafo único.</span> Vigora o princípio da não cumulatividade, pelo qual uma única prática não poderá ser premiada em mais de uma categoria, devendo prevalecer, quando for o caso, a premiação de maior hierarquia.
-                </Typography>
-              </Box>
-            </Box>
-          </Box>
-
-          {/* ── RECONHECIMENTOS ESPECIAIS ── */}
-          <Box className={styles.regulamentoSection}>
-            <Typography variant="h4" className={styles.sectionHeading}>
-              Reconhecimentos Especiais
-            </Typography>
-
-            <Box className={styles.artigo}>
-              <Typography className={styles.artigoTexto}>
-                <span className={styles.artigoNum}>Art. 18.</span> A categoria <strong>Referência em Boa Prática</strong> possui natureza excepcional e atua como
-                instrumento de indução estratégica e mapeamento livre pela Comissão Julgadora.
-              </Typography>
-              <Box className={styles.paragrafo}>
-                <Typography className={styles.artigoTexto}>
-                  <span className={styles.paragrafoNum}>§ 1º.</span> Esta categoria destina-se a laurear iniciativas de notório impacto nacional ou colaborativo que, embora exemplares, não tenham ingressado via fluxo regular de inscrição na Plataforma.
-                </Typography>
-              </Box>
-              <Box className={styles.paragrafo}>
-                <Typography className={styles.artigoTexto}>
-                  <span className={styles.paragrafoNum}>§ 2º.</span> A escolha nesta categoria é discricionária da Comissão, baseando-se em mapeamento ativo de mercado, literatura técnica e evidências públicas de sucesso.
-                </Typography>
-              </Box>
-              <Box className={styles.paragrafo}>
-                <Typography className={styles.artigoTexto}>
-                  <span className={styles.paragrafoNum}>§ 3º.</span> As práticas assim reconhecidas serão convidadas a compor o acervo da Plataforma Infosfera, servindo de modelo de replicabilidade para as demais instituições.
-                </Typography>
-              </Box>
-            </Box>
-
-            <Box className={styles.artigo}>
-              <Typography className={styles.artigoTexto}>
-                <span className={styles.artigoNum}>Art. 19.</span> A critério do Comitê Executivo, poderá ser instituída a distinção de{' '}
-                <strong>Escolha Popular (Aclamação Pública)</strong>, realizada em ambiente digital oficial após a
-                divulgação dos finalistas técnicos.
-              </Typography>
-              <Box className={styles.paragrafo}>
-                <Typography className={styles.artigoTexto}>
-                  <span className={styles.paragrafoNum}>§ 1º.</span> A concessão desta distinção é independente das notas técnicas, mas sujeita à homologação da Comissão Julgadora.
-                </Typography>
-              </Box>
-              <Box className={styles.paragrafo}>
-                <Typography className={styles.artigoTexto}>
-                  <span className={styles.paragrafoNum}>§ 2º.</span> A Comissão reserva-se o direito de invalidar a votação popular de determinada prática caso identifique o uso de mecanismos artificiais (bots), impulsionamento pago ou condutas que firam a ética do processo de premiação.
-                </Typography>
-              </Box>
-              <Box className={styles.paragrafo}>
-                <Typography className={styles.artigoTexto}>
-                  <span className={styles.paragrafoNum}>§ 3º.</span> Esta é a única categoria passível de acúmulo com as demais previstas neste Regulamento.
-                </Typography>
-              </Box>
-            </Box>
-          </Box>
-
-          {/* ── CRITÉRIOS DE JULGAMENTO ── */}
-          <Box className={styles.regulamentoSection}>
-            <Typography variant="h4" className={styles.sectionHeading}>
-              Critérios de Julgamento
-            </Typography>
-
-            <Box className={styles.artigo}>
-              <Typography className={styles.artigoTexto}>
-                <span className={styles.artigoNum}>Art. 20.</span> A avaliação será baseada nos seguintes critérios e pesos:
-              </Typography>
-
-              <Box className={styles.tableWrapper}>
-                <table className={styles.table}>
-                  <thead>
-                    <tr>
-                      <th>Critério</th>
-                      <th>Descrição</th>
-                      <th className={styles.pesoCol}>Peso</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td><strong>Relevância e Qualidade Técnica</strong></td>
-                      <td>Avalia a pertinência da solução frente aos problemas identificados e a robustez metodológica da prática. Analisa-se o alinhamento da iniciativa com os eixos temáticos do Prêmio, a coerência entre os objetivos propostos e os meios utilizados, o grau de inovação em relação aos processos tradicionais da gestão pública e a conformidade técnica da solução com padrões éticos e normativos.</td>
-                      <td className={styles.pesoCol}><span className={styles.pesoBadge}>3,5</span></td>
-                    </tr>
-                    <tr>
-                      <td><strong>Impacto e Resultados</strong></td>
-                      <td>Avalia a eficácia da prática e os benefícios gerados para a administração e para o cidadão. Analisa-se, com base em comprovação documental do impacto gerado, a entrega de valor público por meio de indicadores ou evidências de desempenho, ganhos de eficiência (redução de tempo, custos ou burocracia), melhoria na qualidade dos serviços prestados, entre outros.</td>
-                      <td className={styles.pesoCol}><span className={`${styles.pesoBadge} ${styles.pesoBadgeDestaque}`}>4,0</span></td>
-                    </tr>
-                    <tr>
-                      <td><strong>Replicabilidade e Sustentabilidade</strong></td>
-                      <td>Avalia o potencial de escala e a continuidade da iniciativa no tempo. Analisa-se a capacidade de a prática ser transferida ou adaptada para outros órgãos ou contextos federativos, bem como a sua viabilidade financeira, técnica e institucional a longo prazo, observando se a iniciativa possui governança estabelecida que garanta sua manutenção além do ciclo de seus idealizadores.</td>
-                      <td className={styles.pesoCol}><span className={styles.pesoBadge}>3,0</span></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </Box>
-            </Box>
-
-            <Box className={styles.artigo}>
-              <Typography className={styles.artigoTexto}>
-                <span className={styles.artigoNum}>Art. 21.</span> No caso de empate na pontuação final, o desempate será realizado de forma
-                sucessiva, em favor da prática que obtiver a maior nota nos critérios de maior peso.
-              </Typography>
-              <Box className={styles.paragrafo}>
-                <Typography className={styles.artigoTexto}>
-                  <span className={styles.paragrafoNum}>Parágrafo único.</span> Persistindo o empate, a decisão caberá soberanamente ao Comitê Executivo, mediante análise do histórico da prática e do tempo de implementação.
-                </Typography>
-              </Box>
-            </Box>
-          </Box>
-
-          {/* ── ETAPAS ── */}
-          <Box className={styles.regulamentoSection}>
-            <Typography variant="h4" className={styles.sectionHeading}>
-              Etapas
-            </Typography>
-
-            <Box className={styles.artigo}>
-              <Typography className={styles.artigoTexto}>
-                <span className={styles.artigoNum}>Art. 22.</span> O processo de seleção dos premiados observará o seguinte rito procedimental, de
-                caráter sucessivo e eliminatório:
-              </Typography>
-              <ol className={styles.lista}>
-                <li><strong>Fase de Admissibilidade:</strong> Verificação técnica pela equipe de curadoria da Plataforma para confirmar se a prática atingiu o cadastro Status Ouro, mediante o preenchimento de campos e anexação de evidências.</li>
-                <li><strong>Validação de Interesse:</strong> Comunicação oficial para que as práticas com status Ouro confirmem, em prazo definido em cronograma, o interesse em participar da etapa competitiva do Prêmio Infosfera 2026.</li>
-                <li><strong>Avaliação de Mérito:</strong> Avaliação por parte da Comissão Julgadora, atribuição de notas conforme os critérios previstos neste Regulamento e divulgação das práticas finalistas.</li>
-                <li><strong>Aclamação Pública:</strong> Participação em votação pública (conforme o Art. 19).</li>
-                <li><strong>Apresentação e Cerimônia de Premiação:</strong> Participação das práticas finalistas em atividades presenciais de premiação.</li>
-              </ol>
-            </Box>
-          </Box>
-
-          {/* ── RESULTADOS E PREMIAÇÃO ── */}
-          <Box className={styles.regulamentoSection}>
-            <Typography variant="h4" className={styles.sectionHeading}>
-              Resultados e Premiação
-            </Typography>
-
-            <Box className={styles.artigo}>
-              <Typography className={styles.artigoTexto}>
-                <span className={styles.artigoNum}>Art. 23.</span> A lista oficial de finalistas será divulgada nos canais da Plataforma Infosfera até o
-                prazo estabelecido no cronograma oficial.
-              </Typography>
-              <Box className={styles.paragrafo}>
-                <Typography className={styles.artigoTexto}>
-                  <span className={styles.paragrafoNum}>Parágrafo único.</span> A comunicação oficial aos finalistas servirá como convocação formal para a participação nas atividades presenciais de premiação em Goiânia/GO.
-                </Typography>
-              </Box>
-            </Box>
-
-            <Box className={styles.artigo}>
-              <Typography className={styles.artigoTexto}>
-                <span className={styles.artigoNum}>Art. 24.</span> A concessão do prêmio e a entrega das honrarias estão condicionadas ao
-                cumprimento integral das seguintes obrigações por parte do órgão ou entidade finalista:
-              </Typography>
-              <ol className={styles.lista}>
-                <li><strong>Presença Institucional:</strong> Estar presente na cerimônia em Goiânia, na data designada no mês de novembro de 2026, representado por autor(es) da prática ou representante legal formalmente constituído;</li>
-                <li><strong>Difusão de Conhecimento:</strong> Realizar a apresentação técnica da prática (exposição oral ou demonstração) na "Sessão de Boas Práticas" do evento, conforme orientações de tempo e formato a serem enviadas oportunamente;</li>
-                <li><strong>Protocolo Solene:</strong> Participar da cerimônia solene de premiação para o recebimento do troféu e/ou certificado correspondente.</li>
-              </ol>
-              <Box className={styles.paragrafo}>
-                <Typography className={styles.artigoTexto}>
-                  <span className={styles.paragrafoNum}>Parágrafo único.</span> O não cumprimento de quaisquer das obrigações previstas no caput deste artigo resultará na desclassificação da prática para fins de premiação oficial, podendo o Comitê Executivo realizar a sucessão da honraria para a prática subsequente no ranking técnico.
-                </Typography>
-              </Box>
-            </Box>
-
-            <Box className={styles.artigo}>
-              <Typography className={styles.artigoTexto}>
-                <span className={styles.artigoNum}>Art. 25.</span> Uma prática que tenha sido premiada em categorias de fluxo regular (Grande Prêmio,
-                Destaque Regional ou Destaque Municipal) em edição imediatamente anterior do Prêmio Infosfera
-                não poderá ser objeto de nova premiação na edição subsequente.
-              </Typography>
-              <Box className={styles.paragrafo}>
-                <Typography className={styles.artigoTexto}>
-                  <span className={styles.paragrafoNum}>§ 1º.</span> Para fins de nova candidatura à premiação, deverá ser observado um interstício mínimo de 01 (uma) edição de intervalo.
-                </Typography>
-              </Box>
-              <Box className={styles.paragrafo}>
-                <Typography className={styles.artigoTexto}>
-                  <span className={styles.paragrafoNum}>§ 2º.</span> A restrição de que trata o caput não impede que a prática permaneça ativa e disponível na Plataforma Infosfera do Boas Práticas para fins de consulta, disseminação e replicabilidade.
-                </Typography>
-              </Box>
-              <Box className={styles.paragrafo}>
-                <Typography className={styles.artigoTexto}>
-                  <span className={styles.paragrafoNum}>§ 3º.</span> A prática premiada em edição anterior poderá ser submetida novamente ao certame após o período de interstício, desde que o proponente demonstre, de forma inequívoca, que a iniciativa sofreu atualizações substanciais, melhorias incrementais ou expansão de impacto que justifiquem uma nova avaliação técnica.
-                </Typography>
-              </Box>
-              <Box className={styles.paragrafo}>
-                <Typography className={styles.artigoTexto}>
-                  <span className={styles.paragrafoNum}>§ 4º.</span> Casos de práticas que tenham recebido Menção Honrosa ou que tenham sido mapeadas como Referência em Boa Prática não se sujeitam à regra do interstício, podendo concorrer normalmente nas categorias principais na edição seguinte.
-                </Typography>
-              </Box>
-            </Box>
-          </Box>
-
-          {/* ── ÉTICA E PROPRIEDADE ── */}
-          <Box className={styles.regulamentoSection}>
-            <Typography variant="h4" className={styles.sectionHeading}>
-              Ética e Propriedade
-            </Typography>
-
-            <Box className={styles.artigo}>
-              <Typography className={styles.artigoTexto}>
-                <span className={styles.artigoNum}>Art. 26.</span> Os participantes declaram, no ato da confirmação de interesse (Fase II) mencionada
-                no Artigo 22, a originalidade das informações e a inexistência de conflitos de interesse,
-                assumindo total responsabilidade civil e administrativa pelo conteúdo apresentado.
-              </Typography>
-              <Box className={styles.paragrafo}>
-                <Typography className={styles.artigoTexto}>
-                  <span className={styles.paragrafoNum}>§ 1º.</span> A responsabilidade de que trata o caput abrange, de forma integral, a garantia de que a prática não constitui plágio, omissão de autoria intelectual, cópia indevida, falsidade ideológica de informações ou violação de direitos de propriedade intelectual de terceiros.
-                </Typography>
-              </Box>
-              <Box className={styles.paragrafo}>
-                <Typography className={styles.artigoTexto}>
-                  <span className={styles.paragrafoNum}>§ 2º.</span> Caso a prática envolva tecnologias de terceiros ou parcerias público-privadas, o proponente deve possuir as autorizações necessárias para a publicidade e disseminação da solução na Plataforma Infosfera.
-                </Typography>
-              </Box>
-            </Box>
-
-            <Box className={styles.artigo}>
-              <Typography className={styles.artigoTexto}>
-                <span className={styles.artigoNum}>Art. 27.</span> A Comissão Organizadora reserva-se o direito de revogar, a qualquer tempo,
-                premiações e distinções já concedidas, caso sejam descobertas irregularidades tardias que
-                firam este Regulamento.
-              </Typography>
-              <Box className={styles.paragrafo}>
-                <Typography className={styles.artigoTexto}>
-                  <span className={styles.paragrafoNum}>§ 1º.</span> A revogação ocorrerá mediante processo administrativo sumário, garantido o direito de manifestação do órgão envolvido.
-                </Typography>
-              </Box>
-              <Box className={styles.paragrafo}>
-                <Typography className={styles.artigoTexto}>
-                  <span className={styles.paragrafoNum}>§ 2º.</span> Em caso de revogação, o órgão será compelido a devolver o troféu e os certificados físicos, e a menção à prática será excluída do rol de vencedores nos canais oficiais, podendo a Comissão decidir pela ascensão da prática subsequente no ranking técnico.
-                </Typography>
-              </Box>
-            </Box>
-
-            <Box className={styles.artigo}>
-              <Typography className={styles.artigoTexto}>
-                <span className={styles.artigoNum}>Art. 28.</span> Ao se inscrever, o participante cede ao Prêmio Infosfera, de forma gratuita e
-                definitiva, o direito de uso de som, imagem e voz captados durante o evento ou enviados no
-                material de inscrição, para fins de divulgação, publicações técnicas e memória histórica, nos
-                termos da Lei nº 9.610/1998.
-              </Typography>
-            </Box>
-          </Box>
-
-          {/* ── DISPOSIÇÕES FINAIS ── */}
-          <Box className={styles.regulamentoSection}>
-            <Typography variant="h4" className={styles.sectionHeading}>
-              Disposições Finais
-            </Typography>
-
-            <Box className={styles.artigo}>
-              <Typography className={styles.artigoTexto}>
-                <span className={styles.artigoNum}>Art. 29.</span> A inscrição na Plataforma e a subsequente participação no Prêmio Infosfera 2026
-                implicam na concordância integral e irretratável com os termos deste Regulamento e com as
-                normas de uso da Plataforma Infosfera de Boas Práticas.
-              </Typography>
-            </Box>
-
-            <Box className={styles.artigo}>
-              <Typography className={styles.artigoTexto}>
-                <span className={styles.artigoNum}>Art. 30.</span> A participação no certame é de natureza gratuita e voluntária, não gerando qualquer
-                direito a remuneração, prêmios em espécie, gratificações ou benefícios financeiros diretos
-                aos participantes ou às instituições proponentes.
-              </Typography>
-            </Box>
-
-            <Box className={styles.artigo}>
-              <Typography className={styles.artigoTexto}>
-                <span className={styles.artigoNum}>Art. 31.</span> A Comissão Julgadora detém plena autonomia técnica e soberania em suas decisões,
-                podendo, inclusive, não conceder premiações em determinadas categorias (deixando-as desertas)
-                caso as práticas inscritas não atinjam o patamar mínimo de excelência e qualidade exigido
-                para o prestígio do Prêmio.
-              </Typography>
-            </Box>
-
-            <Box className={styles.artigo}>
-              <Typography className={styles.artigoTexto}>
-                <span className={styles.artigoNum}>Art. 32.</span> A organização do Prêmio exime-se de qualquer responsabilidade por inscrições não
-                concluídas dentro do prazo regulamentar, independentemente do motivo, incluindo, mas não se
-                limitando a: falhas técnicas em equipamentos ou conexões de internet por parte do proponente;
-                interrupções no fornecimento de energia elétrica ou instabilidades em serviços de
-                telecomunicações; erros no preenchimento do formulário ou ausência de documentos obrigatórios
-                para o Status Ouro.
-              </Typography>
-            </Box>
-
-            <Box className={styles.artigo}>
-              <Typography className={styles.artigoTexto}>
-                <span className={styles.artigoNum}>Art. 33.</span> O Comitê Executivo reserva-se o direito de alterar o cronograma do Prêmio (datas
-                de inscrição, avaliação e cerimônia), mediante ampla divulgação nos canais oficiais, por
-                motivo de força maior ou conveniência administrativa.
-              </Typography>
-            </Box>
-
-            <Box className={styles.artigo}>
-              <Typography className={styles.artigoTexto}>
-                <span className={styles.artigoNum}>Art. 34.</span> Os casos omissos neste Regulamento, bem como as dúvidas interpretativas surgidas
-                no decorrer do processo, serão resolvidos de forma soberana pelo Comitê Executivo.
-              </Typography>
-              <Box className={styles.paragrafo}>
-                <Typography className={styles.artigoTexto}>
-                  <span className={styles.paragrafoNum}>Parágrafo único.</span> Das decisões de mérito proferidas pela Comissão Julgadora e pelo Comitê Executivo não caberá recurso administrativo, em face da natureza técnica e discricionária do julgamento.
-                </Typography>
-              </Box>
-            </Box>
-          </Box>
-
-          {/* ── ANEXO I – TEMAS ── */}
-          <Box className={styles.regulamentoSection}>
-            <Typography variant="h4" className={styles.sectionHeading}>
-              Anexo I – Temas
-            </Typography>
-
-            <Box className={styles.tableWrapper}>
-              <table className={styles.table}>
-                <thead>
-                  <tr>
-                    <th>Categoria</th>
-                    <th>Descrição do Escopo</th>
-                    <th>Temas Relacionados (Exemplos)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><strong>A. Governança Digital e Eficiência Administrativa</strong></td>
-                    <td>Foco na transformação digital como ferramenta de desburocratização e economia. Inclui a modernização da máquina pública, otimização de processos e melhoria na comunicação interinstitucional.</td>
-                    <td>Governança Eletrônica; Interoperabilidade; Transformação Digital; Inovação em Serviços Públicos.</td>
-                  </tr>
-                  <tr>
-                    <td><strong>B. Gestão Estratégica da Informação</strong></td>
-                    <td>Abrange desde a estruturação de dados até o uso de tecnologias avançadas (IA) para extrair insights, apoiar decisões fundamentadas e criar políticas públicas baseadas em evidências.</td>
-                    <td>Inteligência de Dados Públicos; Observatório de Dados; Gestão do Conhecimento; Inteligência Artificial e Ética no Setor Público.</td>
-                  </tr>
-                  <tr>
-                    <td><strong>C. Transparência e Integridade Governamental</strong></td>
-                    <td>Iniciativas que promovem a publicidade das ações governamentais, o acesso democrático à informação e o fortalecimento do controle social e da participação cidadã.</td>
-                    <td>Transparência Digital; Inclusão Digital e Acessibilidade; Compliance e Integridade Digital.</td>
-                  </tr>
-                  <tr>
-                    <td><strong>D. Preservação Digital e Memória Institucional</strong></td>
-                    <td>Metodologias e sistemas dedicados à salvaguarda do patrimônio informacional público digital, garantindo acesso a longo prazo a registros de valor histórico e probatório.</td>
-                    <td>Preservação da Memória Institucional; Curadoria Digital de Acervos Públicos; Gestão de Documentos Arquivísticos Digitais.</td>
-                  </tr>
-                  <tr>
-                    <td><strong>E. Privacidade, Segurança e Resiliência Informacional</strong></td>
-                    <td>Proteção do ecossistema público contra ameaças e incidentes. Foco na integridade, confidencialidade e disponibilidade dos dados, além de estratégias de mitigação de riscos, incluindo aspectos de privacidade e proteção de dados.</td>
-                    <td>Segurança Cibernética; Confidencialidade e Integridade; Gestão de Documentos Digitais; Segurança, Privacidade e Proteção de dados.</td>
-                  </tr>
-                  <tr>
-                    <td><strong>F. Outros Temas Correlatos</strong></td>
-                    <td>Projetos que apresentem aderência aos objetivos do Prêmio Infosfera 2026, mas que não estejam explicitamente listados nas categorias anteriores.</td>
-                    <td>Inovação em Processos; Transparência Ativa; Tecnologias Emergentes; Cidades Inteligentes; Sustentabilidade Digital; e outras propostas de gestão da informação na esfera pública.</td>
-                  </tr>
-                </tbody>
-              </table>
-            </Box>
-          </Box>
-
-          {/* ── ANEXO II – CRONOGRAMA ── */}
-          <Box className={styles.regulamentoSection}>
-            <Typography variant="h4" className={styles.sectionHeading}>
-              Anexo II – Cronograma
-            </Typography>
-
-            <Box className={styles.tableWrapper}>
-              <table className={styles.table}>
-                <thead>
-                  <tr>
-                    <th>Marco Temporal</th>
-                    <th>Atividade Principal</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><strong>01 de Abril a 31 de Julho</strong></td>
-                    <td>Período de submissão e cadastramento na Plataforma Infosfera.</td>
-                  </tr>
-                  <tr>
-                    <td><strong>01 a 15 de Agosto</strong></td>
-                    <td>Período de Análise de Admissibilidade e Validação de interesse.</td>
-                  </tr>
-                  <tr>
-                    <td><strong>1 a 30 de Agosto</strong></td>
-                    <td>Avaliação de Mérito pela Comissão Julgadora.</td>
-                  </tr>
-                  <tr>
-                    <td><strong>10/09/2026</strong></td>
-                    <td>Data limite para a Divulgação dos Resultados Oficiais e comunicação oficial aos finalistas.</td>
-                  </tr>
-                  <tr>
-                    <td><strong>25/09/2026</strong></td>
-                    <td>Data limite para confirmação de participação presencial.</td>
-                  </tr>
-                  <tr>
-                    <td><strong>05 a 09 de Outubro</strong></td>
-                    <td>Fase de Aclamação Pública em ambiente digital.</td>
-                  </tr>
-                  <tr>
-                    <td><strong>05 de Novembro</strong></td>
-                    <td>Sessão de Apresentação de Boas Práticas e Cerimônia de Premiação em Goiânia/GO.</td>
-                  </tr>
-                </tbody>
-              </table>
-            </Box>
-          </Box>
-
+          <Typography className={styles.heroNote}>Inscrição gratuita. Sem limite de práticas por órgão.</Typography>
         </Box>
       </Box>
+
+      {/* APRESENTAÇÃO */}
+      <Box className={styles.section}>
+        <Box className={styles.container}>
+          <Box className={styles.sectionHeader}>
+            <Typography variant="h2" className={styles.sectionTitle}>Sobre o Regulamento</Typography>
+            <Box className={styles.underline} />
+          </Box>
+          <Box className={styles.presentationBlock}>
+            <Typography className={styles.presentationText}>
+              O <strong>Prêmio Infosfera de Boas Práticas em Gestão da Informação na Esfera Pública</strong> é uma iniciativa do Infojus.UFPR e do LabRisk/UnB, com apoio de parceiros institucionais. O regulamento desta edição foi submetido para aprovação do Comitê Executivo em março de 2026 e rege integralmente o processo seletivo.
+            </Typography>
+            <Typography className={styles.presentationText}>
+              A cerimônia de premiação ocorre em <strong>novembro de 2026</strong>, em Goiânia/GO, durante o Encontro de Administração da Justiça (EnAJUS).
+            </Typography>
+            <Box className={styles.highlightBox}>
+              <InfoOutlinedIcon sx={{ color: '#2d2e82', fontSize: 20, flexShrink: 0, mt: '2px' }} />
+              <Typography variant="body2">
+                A inscrição é feita exclusivamente pela <strong>Plataforma Infosfera de Boas Práticas</strong>. Não são aceitas submissões por outro meio ou fora do prazo.
+              </Typography>
+            </Box>
+            <Box sx={{ textAlign: 'center', mt: 3 }}>
+              <Button
+                component={Link}
+                to="/regulamento-integra"
+                variant="contained"
+                startIcon={<DescriptionOutlinedIcon />}
+                className={styles.btnPrimary}
+              >
+                Ler o regulamento na íntegra
+              </Button>
+            </Box>
+          </Box>
+        </Box>
+      </Box>
+
+      {/* OBJETIVOS */}
+      <Box className={`${styles.section} ${styles.sectionLight}`}>
+        <Box className={styles.container}>
+          <Box className={styles.sectionHeader}>
+            <Typography variant="h2" className={styles.sectionTitle}>Objetivos do Prêmio</Typography>
+            <Box className={styles.underline} />
+            <Typography className={styles.sectionSubtitle}>O Prêmio Infosfera 2026 foi criado para disseminar e reconhecer solenemente servidores, equipes e entidades que aplicam boas práticas de gestão da informação.</Typography>
+          </Box>
+          <Grid container spacing={3} columns={{ xs: 1, md: 2 }}>
+            {objetivos.map((obj, i) => (
+              <Grid size={{ xs: 1, md: 1 }} key={i}>
+                <Box className={styles.objetivoItem}>
+                  <Box className={styles.objetivoNum}>{i + 1}</Box>
+                  <Typography className={styles.objetivoText}>{obj}</Typography>
+                </Box>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+      </Box>
+
+      {/* ELEGIBILIDADE */}
+      <Box className={styles.section}>
+        <Box className={styles.container}>
+          <Box className={styles.sectionHeader}>
+            <Typography variant="h2" className={styles.sectionTitle}>Quem Pode Participar</Typography>
+            <Box className={styles.underline} />
+            <Typography className={styles.sectionSubtitle}>Podem participar órgãos e entidades da Administração Direta e Indireta, de todos os poderes e níveis federativos.</Typography>
+          </Box>
+          <Grid container spacing={3} columns={{ xs: 1, md: 2 }}>
+            {elegibilidade.map((item, i) => (
+              <Grid size={{ xs: 1, md: 1 }} key={i}>
+                <Card className={styles.eligCard}>
+                  <CardContent sx={{ p: '1.75rem !important' }}>
+                    <Box sx={{ display: 'flex', gap: 1.5, alignItems: 'flex-start' }}>
+                      <Box className={styles.eligIcon}>{item.icon}</Box>
+                      <Box>
+                        <Typography className={styles.eligTitle}>{item.titulo}</Typography>
+                        <Typography className={styles.eligDesc}>{item.desc}</Typography>
+                      </Box>
+                    </Box>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+          <Box className={styles.alertBox}>
+            <CheckCircleOutlineIcon sx={{ color: '#2d2e82', fontSize: 20, flexShrink: 0 }} />
+            <Typography variant="body2">
+              <strong>Impedimento:</strong> membros do Comitê Executivo, da Comissão Julgadora e seus parentes até segundo grau não podem submeter práticas ao Prêmio.
+            </Typography>
+          </Box>
+        </Box>
+      </Box>
+
+      {/* COMO SE INSCREVER */}
+      <Box className={`${styles.section} ${styles.sectionLight}`}>
+        <Box className={styles.container}>
+          <Box className={styles.sectionHeader}>
+            <Typography variant="h2" className={styles.sectionTitle}>Como se Inscrever</Typography>
+            <Box className={styles.underline} />
+            <Typography className={styles.sectionSubtitle}>O processo é simples e inteiramente gratuito. Siga os passos abaixo.</Typography>
+          </Box>
+          <Box className={styles.stepsRow}>
+            {[
+              { n: '1', t: 'Acesse a Plataforma', d: 'Entre em boaspraticas.infosfera.inf.br e crie ou acesse sua conta institucional. Todas as práticas cadastradas na plataforma estão automaticamente inscritas no Prêmio.' },
+              { n: '2', t: 'Alcance o Status Ouro', d: 'Preencha todos os campos do cadastro e anexe evidências que comprovem resultados e impacto real da prática. O Status Ouro é condição obrigatória de admissibilidade.' },
+              { n: '3', t: 'Confirme o Interesse', d: 'Entre 1 e 15 de agosto, a equipe de curadoria verifica a admissibilidade. As práticas elegíveis recebem comunicação oficial para confirmar participação na fase competitiva.' },
+              { n: '4', t: 'Concorra e seja reconhecido', d: 'A Comissão Julgadora avalia as práticas finalistas. Em novembro, a cerimônia de premiação acontece presencialmente em Goiânia/GO, durante o EnAJUS.' },
+            ].map((step, i) => (
+              <Box key={i} className={styles.stepItem}>
+                <Box className={styles.stepBadge}>{step.n}</Box>
+                <Box className={styles.stepBody}>
+                  <Typography className={styles.stepTitle}>{step.t}</Typography>
+                  <Typography className={styles.stepDesc}>{step.d}</Typography>
+                </Box>
+              </Box>
+            ))}
+          </Box>
+          <Box className={styles.ctaCenter}>
+            <Button variant="contained" size="large" href={PLATFORM_URL} target="_blank" rel="noopener noreferrer" className={styles.btnPrimary} endIcon={<ArrowForwardIcon />}>
+              Acessar a Plataforma e cadastrar prática
+            </Button>
+          </Box>
+        </Box>
+      </Box>
+
+      {/* ADMISSIBILIDADE */}
+      <Box className={styles.section}>
+        <Box className={styles.container}>
+          <Box className={styles.sectionHeader}>
+            <Typography variant="h2" className={styles.sectionTitle}>Condições de Admissibilidade</Typography>
+            <Box className={styles.underline} />
+            <Typography className={styles.sectionSubtitle}>Para concorrer ao Prêmio, a prática precisa atender a todos os requisitos abaixo.</Typography>
+          </Box>
+          <Grid container spacing={3} columns={{ xs: 1, md: 3 }}>
+            {[
+              { t: 'Eixo Temático', d: 'A prática deve estar vinculada a um ou mais dos eixos temáticos do Prêmio (Anexo I). Propostas aderentes ao propósito geral também são aceitas.' },
+              { t: 'Resultados Mensuráveis', d: 'A prática deve apresentar resultados práticos e mensuráveis. São admitidos diferentes níveis de maturidade, de piloto a plenamente estabelecida.' },
+              { t: 'Status Ouro na Plataforma', d: 'A prática deve ter o cadastro Status Ouro na Plataforma Infosfera de Boas Práticas até a data limite de inscrição. Práticas meramente conceituais ou em fase de planejamento não são admissíveis.' },
+            ].map((item, i) => (
+              <Grid size={{ xs: 1, md: 1 }} key={i}>
+                <Card className={styles.admissCard}>
+                  <CardContent sx={{ p: '1.75rem !important' }}>
+                    <Box className={styles.admissNum}>{i + 1}</Box>
+                    <Typography className={styles.admissTitle}>{item.t}</Typography>
+                    <Typography className={styles.admissDesc}>{item.d}</Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+      </Box>
+
+      {/* EIXOS TEMÁTICOS */}
+      <Box className={`${styles.section} ${styles.sectionLight}`}>
+        <Box className={styles.container}>
+          <Box className={styles.sectionHeader}>
+            <Typography variant="h2" className={styles.sectionTitle}>Eixos Temáticos Elegíveis</Typography>
+            <Box className={styles.underline} />
+            <Typography className={styles.sectionSubtitle}>A lista não é exaustiva. Projetos aderentes ao propósito geral do Prêmio também são aceitos.</Typography>
+          </Box>
+          <Grid container spacing={3} columns={{ xs: 1, md: 3 }}>
+            {temas.map((tema) => (
+              <Grid size={{ xs: 1, md: 1 }} key={tema.letra}>
+                <Card className={styles.temaCard}>
+                  <CardContent sx={{ p: '1.75rem !important' }}>
+                    <Box sx={{ display: 'flex', gap: 1.5, alignItems: 'flex-start', mb: 1.25 }}>
+                      <Box className={styles.temaIconBox}>{tema.icon}</Box>
+                      <Box>
+                        <Chip label={`Eixo ${tema.letra}`} size="small" className={styles.temaChip} />
+                        <Typography className={styles.temaTitle}>{tema.titulo}</Typography>
+                      </Box>
+                    </Box>
+                    <Typography className={styles.temaDesc}>{tema.desc}</Typography>
+                    <Typography className={styles.temaExemplos}><strong>Exemplos:</strong> {tema.exemplos}</Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+      </Box>
+
+      {/* CRITÉRIOS DE JULGAMENTO */}
+      <Box className={styles.section}>
+        <Box className={styles.container}>
+          <Box className={styles.sectionHeader}>
+            <Typography variant="h2" className={styles.sectionTitle}>Critérios de Julgamento</Typography>
+            <Box className={styles.underline} />
+            <Typography className={styles.sectionSubtitle}>A avaliação é conduzida pela Comissão Julgadora com base em três critérios ponderados.</Typography>
+          </Box>
+          <Box className={styles.criteriosRow}>
+            {criterios.map((c) => (
+              <Box key={c.num} className={styles.criterioItem}>
+                <Box className={styles.criterioTop}>
+                  <Box className={styles.criterioBadge}>{c.num}</Box>
+                  <Box className={styles.criterioRing}>{c.icon}</Box>
+                </Box>
+                <Box sx={{ display: 'flex', justifyContent: 'center', mb: 1 }}>
+                  <Chip label={`Peso ${c.peso}`} size="small" className={styles.pesoChip} />
+                </Box>
+                <Typography className={styles.criterioTitle}>{c.titulo}</Typography>
+                <Typography className={styles.criterioDesc}>{c.desc}</Typography>
+              </Box>
+            ))}
+          </Box>
+          <Box className={styles.alertBox} sx={{ mt: 4 }}>
+            <InfoOutlinedIcon sx={{ color: '#2d2e82', fontSize: 20, flexShrink: 0 }} />
+            <Typography variant="body2">
+              Em caso de empate, prevalece a prática com maior nota no critério de maior peso. Se o empate persistir, o Comitê Executivo decide com base no histórico e no tempo de implementação da prática.
+            </Typography>
+          </Box>
+        </Box>
+      </Box>
+
+      {/* CATEGORIAS */}
+      <Box className={`${styles.section} ${styles.sectionLight}`}>
+        <Box className={styles.container}>
+          <Box className={styles.sectionHeader}>
+            <Typography variant="h2" className={styles.sectionTitle}>Categorias de Premiação</Typography>
+            <Box className={styles.underline} />
+            <Typography className={styles.sectionSubtitle}>Uma prática pode ser reconhecida em uma das categorias abaixo. Não há acúmulo entre categorias regulares, exceto a Escolha Popular.</Typography>
+          </Box>
+          <Grid container spacing={3} columns={{ xs: 1, md: 3 }}>
+            {categorias.map((cat, i) => (
+              <Grid size={{ xs: 1, md: 1 }} key={i}>
+                <Card className={`${styles.catCard} ${cat.highlight ? styles.catCardHighlight : ''}`}>
+                  <CardContent sx={{ p: '2rem !important', textAlign: 'center' }}>
+                    <Box className={`${styles.catIconBox} ${cat.highlight ? styles.catIconHighlight : ''}`}>{cat.icon}</Box>
+                    <Typography className={`${styles.catTitle} ${cat.highlight ? styles.catTitleHighlight : ''}`}>{cat.titulo}</Typography>
+                    <Typography className={`${styles.catDesc} ${cat.highlight ? styles.catDescHighlight : ''}`}>{cat.desc}</Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+      </Box>
+
+      {/* CRONOGRAMA */}
+      <Box id="cronograma" className={`${styles.section} ${styles.sectionDark}`}>
+        <Box className={styles.container}>
+          <Box className={styles.sectionHeader}>
+            <Typography variant="h2" className={`${styles.sectionTitle} ${styles.sectionTitleLight}`}>Cronograma 2026</Typography>
+            <Box className={styles.underline} />
+            <Typography className={`${styles.sectionSubtitle} ${styles.sectionSubtitleLight}`}>Fique atento às datas. As inscrições encerram em <strong>31 de julho de 2026</strong>.</Typography>
+          </Box>
+          <Box className={styles.timelineWrapper}>
+            {cronograma.map((item, i) => (
+              <Box key={i} className={`${styles.timelineItem} ${item.ativo ? styles.timelineActive : ''}`}>
+                <Box className={styles.timelineDot}>
+                  <CalendarMonthOutlinedIcon sx={{ fontSize: 20 }} />
+                </Box>
+                <Box className={styles.timelineContent}>
+                  <Typography className={styles.timelinePeriod}>{item.periodo}</Typography>
+                  <Typography className={styles.timelineLabel}>{item.atividade}</Typography>
+                </Box>
+                {i < cronograma.length - 1 && <Box className={styles.timelineConnector} />}
+              </Box>
+            ))}
+          </Box>
+          <Box className={styles.ctaCenter}>
+            <Button variant="outlined" size="large" href={PLATFORM_URL} target="_blank" rel="noopener noreferrer" className={styles.btnOutlineLight} endIcon={<ArrowForwardIcon />}>
+              Garantir minha vaga agora
+            </Button>
+          </Box>
+        </Box>
+      </Box>
+
+      {/* RESULTADOS E CERIMÔNIA */}
+      <Box className={styles.section}>
+        <Box className={styles.container}>
+          <Box className={styles.sectionHeader}>
+            <Typography variant="h2" className={styles.sectionTitle}>Resultados e Cerimônia</Typography>
+            <Box className={styles.underline} />
+          </Box>
+          <Grid container spacing={3} columns={{ xs: 1, md: 3 }}>
+            {[
+              { t: 'Divulgação dos Finalistas', d: 'A lista oficial de finalistas é divulgada nos canais da Plataforma Infosfera até 10 de setembro de 2026. A comunicação serve como convocação formal para a cerimônia.', icon: <VerifiedOutlinedIcon sx={{ fontSize: 32, color: '#2d2e82' }} /> },
+              { t: 'Obrigações dos Finalistas', d: 'Presença institucional na cerimônia; apresentação técnica na Sessão de Boas Práticas; e participação na cerimônia solene de premiação. O não cumprimento implica desclassificação.', icon: <GroupsOutlinedIcon sx={{ fontSize: 32, color: '#2d2e82' }} /> },
+              { t: 'Cerimônia de Premiação', d: '5 de novembro de 2026, em Goiânia/GO, durante o EnAJUS. Os finalistas apresentam suas práticas e recebem troféu e certificado correspondente à categoria vencedora.', icon: <EmojiEventsOutlinedIcon sx={{ fontSize: 32, color: '#2d2e82' }} /> },
+            ].map((item, i) => (
+              <Grid size={{ xs: 1, md: 1 }} key={i}>
+                <Card className={styles.resultCard}>
+                  <CardContent sx={{ p: '1.75rem !important' }}>
+                    <Box className={styles.resultIcon}>{item.icon}</Box>
+                    <Typography className={styles.resultTitle}>{item.t}</Typography>
+                    <Typography className={styles.resultDesc}>{item.d}</Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+      </Box>
+
+      {/* COMISSÃO JULGADORA */}
+      <Box className={`${styles.section} ${styles.sectionLight}`}>
+        <Box className={styles.container}>
+          <Box className={styles.sectionHeader}>
+            <Typography variant="h2" className={styles.sectionTitle}>Comissão Julgadora</Typography>
+            <Box className={styles.underline} />
+            <Typography className={styles.sectionSubtitle}>Composta por profissionais de notório saber com experiência em inovação pública, tecnologia da informação, ciência de dados e administração pública.</Typography>
+          </Box>
+          <Stack direction={{ xs: 'column', md: 'row' }} spacing={3}>
+            {[
+              { t: 'Composição', d: 'De 3 a 5 membros titulares, em número ímpar para assegurar o equilíbrio nas deliberações. A atuação é considerada prestação de serviço público relevante e não é remunerada.' },
+              { t: 'Imparcialidade', d: 'Avaliadores com vínculo funcional ou colaborativo com órgãos que tenham práticas concorrentes estão impedidos. Conflito de interesse deve ser declarado imediatamente.' },
+              { t: 'Sigilo', d: 'Os membros mantêm sigilo sobre todas as informações, notas parciais e deliberações internas até a publicação oficial dos resultados e realização da cerimônia.' },
+            ].map((item, i) => (
+              <Box key={i} sx={{ flex: 1 }}>
+                <Card className={styles.comissaoCard}>
+                  <CardContent sx={{ p: '1.75rem !important' }}>
+                    <Typography className={styles.comissaoTitle}>{item.t}</Typography>
+                    <Typography className={styles.comissaoDesc}>{item.d}</Typography>
+                  </CardContent>
+                </Card>
+              </Box>
+            ))}
+          </Stack>
+        </Box>
+      </Box>
+
+      {/* ÉTICA E PROPRIEDADE */}
+      <Box className={styles.section}>
+        <Box className={styles.container}>
+          <Box className={styles.sectionHeader}>
+            <Typography variant="h2" className={styles.sectionTitle}>Ética e Propriedade</Typography>
+            <Box className={styles.underline} />
+          </Box>
+          <Grid container spacing={3} columns={{ xs: 1, md: 2 }}>
+            {[
+              { t: 'Declaração de Originalidade', d: 'Ao confirmar interesse na fase II, o participante declara a originalidade das informações e a inexistência de conflitos. Plágio, omissão de autoria ou falsidade ideológica implicam desclassificação e revogação de eventuais prêmios.' },
+              { t: 'Tecnologias e Parcerias', d: 'Se a prática envolver tecnologias de terceiros ou parcerias público-privadas, o proponente deve possuir as autorizações necessárias para a publicidade e disseminação da solução na Plataforma Infosfera.' },
+              { t: 'Direito de Imagem e Uso', d: 'Ao se inscrever, o participante cede ao Prêmio Infosfera o direito de uso de som, imagem e voz captados durante o evento, para fins de divulgação, publicações técnicas e memória histórica, conforme a Lei n. 9.610/1998.' },
+              { t: 'Revogação de Premiações', d: 'A Comissão pode revogar premiações já concedidas caso sejam descobertas irregularidades tardias, mediante processo administrativo sumário com direito de manifestação do órgão envolvido.' },
+            ].map((item, i) => (
+              <Grid size={{ xs: 1, md: 1 }} key={i}>
+                <Box className={styles.eticaItem}>
+                  <Box className={styles.eticaBar} />
+                  <Box sx={{ flex: 1 }}>
+                    <Typography className={styles.eticaTitle}>{item.t}</Typography>
+                    <Typography className={styles.eticaDesc}>{item.d}</Typography>
+                  </Box>
+                </Box>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+      </Box>
+
+      {/* FAQ */}
+      <Box className={`${styles.section} ${styles.sectionLight}`}>
+        <Box className={styles.container}>
+          <Box className={styles.sectionHeader}>
+            <Typography variant="h2" className={styles.sectionTitle}>Perguntas Frequentes</Typography>
+            <Box className={styles.underline} />
+            <Typography className={styles.sectionSubtitle}>Dúvidas comuns sobre o regulamento do Prêmio Infosfera 2026.</Typography>
+          </Box>
+          <Box className={styles.faqList}>
+            {faqs.map((faq, i) => (
+              <Accordion
+                key={i}
+                expanded={expanded === `faq-${i}`}
+                onChange={handleAccordion(`faq-${i}`)}
+                className={styles.faqItem}
+                disableGutters
+                elevation={0}
+              >
+                <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: '#2d2e82' }} />} className={styles.faqQuestion}>
+                  <Typography className={styles.faqQuestionText}>{faq.p}</Typography>
+                </AccordionSummary>
+                <AccordionDetails className={styles.faqAnswer}>
+                  <Typography>{faq.r}</Typography>
+                </AccordionDetails>
+              </Accordion>
+            ))}
+          </Box>
+        </Box>
+      </Box>
+
+      
+      {/* Botão regulamento na íntegra — fim da página */}
+      <Box sx={{ background: '#f7f8fc', py: 4, textAlign: 'center', borderTop: '1px solid #e5e7eb' }}>
+        <Button
+          component={Link}
+          to="/regulamento-integra"
+          variant="contained"
+          startIcon={<DescriptionOutlinedIcon />}
+          className={styles.btnPrimary}
+        >
+          Ler o regulamento na íntegra
+        </Button>
+      </Box>
+
+      <CtaVerde />
+
     </Box>
   );
 };
